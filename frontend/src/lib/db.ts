@@ -73,6 +73,17 @@ const INITIAL_USERS: User[] = [
     avatar_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
     status: "active",
     created_at: new Date(Date.now() - 20 * 86400000).toISOString()
+  },
+  {
+    id: "usr-manager-1",
+    agency_id: "agency-001",
+    full_name: "Hamza Farooq",
+    email: "manager@aqarflow.com",
+    phone: "+92 312 8899001",
+    role: "manager",
+    avatar_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
+    status: "active",
+    created_at: new Date(Date.now() - 15 * 86400000).toISOString()
   }
 ];
 

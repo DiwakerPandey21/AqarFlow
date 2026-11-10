@@ -120,8 +120,8 @@ export function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/workspace/rentals" className="hover:text-amber-300 transition-colors">
-                  Tenancy Ledgers & Rent Roll
+                <Link href="/services" className="hover:text-amber-300 transition-colors">
+                  Tenancy & Corporate Leasing
                 </Link>
               </li>
             </ul>
@@ -203,8 +203,8 @@ export function PublicFooter() {
             <Link href="/about" className="hover:text-slate-300 transition-colors">
               Title Escrow Terms
             </Link>
-            <Link href="/workspace" className="hover:text-amber-300 font-semibold transition-colors">
-              Agency Staff Portal
+            <Link href="/login" className="hover:text-amber-300 font-semibold transition-colors">
+              Agency Staff Portal Login
             </Link>
           </div>
         </div>

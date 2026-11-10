@@ -31,7 +31,7 @@ import { AqarFlowLogo } from "@/components/ui/AqarFlowLogo";
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { user, logout, switchUser, isAdmin } = useAuth();
+  const { user, logout, switchUser, isAdmin, isManager } = useAuth();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
@@ -268,12 +268,12 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
             >
               Simulate Role:
             </span>
-            <div className="grid grid-cols-2 gap-1 text-[11px]">
+            <div className="grid grid-cols-3 gap-1 text-[11px]">
               <button
                 type="button"
                 onClick={() => switchUser("agency_admin")}
-                className={`py-1 px-1.5 rounded font-medium text-center transition-all ${
-                  isAdmin
+                className={`py-1 px-1 rounded font-medium text-center transition-all ${
+                  user?.role === "agency_admin"
                     ? "bg-amber-600 text-white font-bold shadow-2xs"
                     : isDark
                     ? "text-slate-400 hover:text-white bg-slate-800/60"
@@ -285,8 +285,8 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
               <button
                 type="button"
                 onClick={() => switchUser("agent")}
-                className={`py-1 px-1.5 rounded font-medium text-center transition-all ${
-                  !isAdmin
+                className={`py-1 px-1 rounded font-medium text-center transition-all ${
+                  user?.role === "agent"
                     ? "bg-amber-600 text-white font-bold shadow-2xs"
                     : isDark
                     ? "text-slate-400 hover:text-white bg-slate-800/60"
@@ -294,6 +294,19 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
                 }`}
               >
                 Agent
+              </button>
+              <button
+                type="button"
+                onClick={() => switchUser("manager")}
+                className={`py-1 px-1 rounded font-medium text-center transition-all ${
+                  user?.role === "manager"
+                    ? "bg-amber-600 text-white font-bold shadow-2xs"
+                    : isDark
+                    ? "text-slate-400 hover:text-white bg-slate-800/60"
+                    : "text-slate-600 hover:text-slate-900 bg-slate-100"
+                }`}
+              >
+                Manager
               </button>
             </div>
           </div>
@@ -380,14 +393,14 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
               }`}
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>{isAdmin ? "Agency Administrator Mode" : "Agent Operational Mode"}</span>
+              <span>{isAdmin ? "Agency Administrator Mode" : isManager ? "Operations Manager Mode" : "Agent Operational Mode"}</span>
               <span className={isDark ? "text-slate-600" : "text-slate-300"}>•</span>
               <span
                 className={`font-mono text-[11px] ${
                   isDark ? "text-amber-400" : "text-amber-800 font-semibold"
                 }`}
               >
-                National Operations Desk
+                {isManager ? "Tenancy & Maintenance Desk" : "National Operations Desk"}
               </span>
             </div>
           </div>
@@ -450,13 +463,17 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
                     ? isDark
                       ? "bg-amber-950/80 text-amber-300 border-amber-500/30"
                       : "bg-amber-100 text-amber-900 border-amber-300/80"
+                    : isManager
+                    ? isDark
+                      ? "bg-blue-950/80 text-blue-300 border-blue-500/30"
+                      : "bg-blue-100 text-blue-900 border-blue-300/80"
                     : isDark
                     ? "bg-emerald-950/80 text-emerald-300 border-emerald-500/30"
                     : "bg-emerald-100 text-emerald-900 border-emerald-300/80"
                 }`}
                 title="Click to switch portal role"
               >
-                {isAdmin ? "Admin" : "Agent"}
+                {isAdmin ? "Admin" : isManager ? "Operations" : "Agent"}
               </Link>
               <Link
                 href="/login"
@@ -520,14 +537,30 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
             </nav>
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
-              <span>Role: {isAdmin ? "Admin (Salman)" : "Agent (Ayesha)"}</span>
-              <button
-                type="button"
-                onClick={() => switchUser(isAdmin ? "agent" : "agency_admin")}
-                className="text-amber-700 dark:text-amber-400 font-bold underline"
-              >
-                Switch Role
-              </button>
+              <span className="truncate mr-2 font-medium">{user?.full_name} ({user?.role?.replace("_", " ")})</span>
+              <div className="flex gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => switchUser("agency_admin")}
+                  className={`text-[11px] px-1.5 py-0.5 rounded ${user?.role === "agency_admin" ? "bg-amber-600 text-white font-bold" : "text-slate-500 hover:text-slate-800"}`}
+                >
+                  Admin
+                </button>
+                <button
+                  type="button"
+                  onClick={() => switchUser("agent")}
+                  className={`text-[11px] px-1.5 py-0.5 rounded ${user?.role === "agent" ? "bg-amber-600 text-white font-bold" : "text-slate-500 hover:text-slate-800"}`}
+                >
+                  Agent
+                </button>
+                <button
+                  type="button"
+                  onClick={() => switchUser("manager")}
+                  className={`text-[11px] px-1.5 py-0.5 rounded ${user?.role === "manager" ? "bg-amber-600 text-white font-bold" : "text-slate-500 hover:text-slate-800"}`}
+                >
+                  Manager
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -535,7 +568,7 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
         {/* Main Routed Page Content */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
           {(() => {
-            const adminOnlyPaths = ["/workspace/agents", "/workspace/audit-logs", "/workspace/settings"];
+            const adminOnlyPaths = ["/workspace/agents", "/workspace/audit-logs"];
             const isRestricted = adminOnlyPaths.some((p) => pathname.startsWith(p)) && !isAdmin;
 
             if (isRestricted) {
@@ -548,7 +581,7 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
                     Access Restricted (403 Forbidden)
                   </h2>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Under the VIRELEO Project 01 RBAC specification, <strong>{user?.full_name} (Licensed Agent)</strong> is strictly restricted to assigned property listings, private client leads, and personal transactions.
+                    Under the VIRELEO Project 01 RBAC specification, <strong>{user?.full_name} ({user?.role?.replace("_", " ")})</strong> is strictly restricted to assigned operational scope.
                   </p>
                   <div className="pt-2 flex justify-center gap-3">
                     <Link

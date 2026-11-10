@@ -28,7 +28,7 @@ import { db } from "@/lib/db";
 import { formatPKR, formatDate, formatDateTime } from "@/lib/formatters";
 
 export default function WorkspaceDashboard() {
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, isManager } = useAuth();
   const defaultAdmin = db.getUsers().find((u) => u.role === "agency_admin") || db.getUsers()[0];
   const currentUser = user || defaultAdmin;
   const [metrics, setMetrics] = useState(() => db.getDashboardMetrics(currentUser));
@@ -76,21 +76,35 @@ export default function WorkspaceDashboard() {
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[10px] font-bold uppercase tracking-widest text-amber-900 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/80 border border-amber-300 dark:border-amber-500/30 px-3 py-1 rounded-full flex items-center gap-1.5">
                 <Sparkles className="w-3 h-3 text-amber-600 dark:text-amber-400" />
-                {isAdmin ? "Institutional Portfolio & Asset Operations" : "Field Agent Operational Desk • Assigned Portfolio Only"}
+                {isAdmin
+                  ? "Institutional Portfolio & Asset Operations"
+                  : isManager
+                  ? "Tenancy & Maintenance Command • Operations Desk"
+                  : "Field Agent Operational Desk • Assigned Portfolio Only"}
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 hidden sm:inline-block" />
               <span className="text-xs font-mono text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                {isAdmin ? "Live Sync • 100% CDA/LDA Verified Titles" : "Strict Record Isolation • Assigned Portfolio"}
+                {isAdmin
+                  ? "Live Sync • 100% CDA/LDA Verified Titles"
+                  : isManager
+                  ? "Rent Roll & Maintenance Triage Active"
+                  : "Strict Record Isolation • Assigned Portfolio"}
               </span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl font-serif font-bold text-slate-950 dark:text-white tracking-tight mt-3">
-              {isAdmin ? `Executive Command Center, ${user?.full_name}` : `Agent Personal Desk, ${user?.full_name}`}
+              {isAdmin
+                ? `Executive Command Center, ${user?.full_name}`
+                : isManager
+                ? `Property Operations Desk, ${user?.full_name}`
+                : `Agent Personal Desk, ${user?.full_name}`}
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl font-light">
               {isAdmin
                 ? "Full institutional command across luxury inventory, overseas buyer pipeline, rent roll ledgers, and contractor maintenance dispatches."
+                : isManager
+                ? "Oversee active residential lease agreements, rent payment schedules, tenant ledger balances, and contractor maintenance work orders."
                 : "Manage your assigned high-net-worth client leads, upcoming architectural showings, and personal deal closing pipeline."}
             </p>
           </div>

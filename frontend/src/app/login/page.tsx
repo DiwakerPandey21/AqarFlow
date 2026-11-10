@@ -9,45 +9,84 @@ import {
   Users2,
   KeyRound,
   ArrowRight,
-  CheckCircle2,
   Lock,
   Mail,
   Eye,
   EyeOff,
   Sparkles,
-  ArrowLeft
+  ArrowLeft,
+  CheckCircle2
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { AqarFlowLogo } from "@/components/ui/AqarFlowLogo";
 
+type RoleKey = "admin" | "agent" | "manager";
+
+const ROLE_PROFILES: Record<
+  RoleKey,
+  {
+    name: string;
+    title: string;
+    email: string;
+    description: string;
+    scope: string;
+    buttonLabel: string;
+    icon: React.ElementType;
+    badgeColor: string;
+  }
+> = {
+  admin: {
+    name: "Salman Tariq",
+    title: "Agency Principal & Managing Partner",
+    email: "admin@aqarflow.com",
+    description: "Complete agency-wide oversight across Pakistan portfolios, transaction ledgers, agent commissions, and system governance.",
+    scope: "Full Executive Access • All Enclaves & Portfolios",
+    buttonLabel: "Enter Executive Command Center",
+    icon: Building2,
+    badgeColor: "text-amber-800 bg-amber-50 border-amber-200"
+  },
+  agent: {
+    name: "Ayesha Khan",
+    title: "Senior Associate & Licensed Realtor",
+    email: "ayesha@aqarflow.com",
+    description: "Personalized agent workstation with strict isolation to assigned high-value residences, active buyer inquiries, and private viewings.",
+    scope: "Isolated Field Access • Assigned Inventory Only",
+    buttonLabel: "Enter Agent Field Desk",
+    icon: Users2,
+    badgeColor: "text-emerald-800 bg-emerald-50 border-emerald-200"
+  },
+  manager: {
+    name: "Hamza Farooq",
+    title: "Property Operations & Facility Manager",
+    email: "manager@aqarflow.com",
+    description: "Operations command for residential tenancy agreements, monthly rental collection roll, security deposits, and contractor maintenance triage.",
+    scope: "Operations Scope • Tenancy, Leases & Maintenance",
+    buttonLabel: "Enter Property Operations Hub",
+    icon: KeyRound,
+    badgeColor: "text-blue-800 bg-blue-50 border-blue-200"
+  }
+};
+
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialRole = searchParams.get("role") || "admin";
+  const roleParam = (searchParams.get("role") || "admin").toLowerCase();
+  const initialRole: RoleKey =
+    roleParam === "agent" ? "agent" : roleParam === "manager" ? "manager" : "admin";
   const redirectPath = searchParams.get("redirect") || "/workspace";
 
-  const { login, switchUser, user } = useAuth();
-  const [selectedRole, setSelectedRole] = useState<"admin" | "agent" | "manager">(
-    initialRole === "agent" ? "agent" : "admin"
-  );
-  const [email, setEmail] = useState(
-    initialRole === "agent" ? "ayesha@aqarflow.com" : "admin@aqarflow.com"
-  );
+  const { login, switchUser } = useAuth();
+  const [selectedRole, setSelectedRole] = useState<RoleKey>(initialRole);
+  const [email, setEmail] = useState(ROLE_PROFILES[initialRole].email);
   const [password, setPassword] = useState("Password123!");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleRoleSelect = (role: "admin" | "agent" | "manager") => {
+  const handleRoleChange = (role: RoleKey) => {
     setSelectedRole(role);
+    setEmail(ROLE_PROFILES[role].email);
     setError(null);
-    if (role === "admin") {
-      setEmail("admin@aqarflow.com");
-    } else if (role === "agent") {
-      setEmail("ayesha@aqarflow.com");
-    } else {
-      setEmail("manager@aqarflow.com");
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -58,296 +97,252 @@ function LoginForm() {
     try {
       const ok = await login(email, password);
       if (ok) {
-        if (selectedRole === "agent") {
+        if (selectedRole === "manager" || email.toLowerCase().includes("manager")) {
+          switchUser("manager");
+        } else if (selectedRole === "agent" || email.toLowerCase().includes("ayesha") || email.toLowerCase().includes("agent")) {
           switchUser("agent");
         } else {
           switchUser("agency_admin");
         }
         router.push(redirectPath);
       } else {
-        setError("Invalid email or password. Please try demo credentials.");
+        setError("Invalid credentials. Please verify your email or use 1-click demo access below.");
       }
     } catch {
-      setError("Authentication failed. Please try again.");
+      setError("Unable to authenticate. Please select an instant demo profile.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleInstantDemoLogin = (role: "admin" | "agent") => {
+  const handleInstantDemoLogin = (role: RoleKey) => {
     setLoading(true);
-    if (role === "agent") {
+    if (role === "manager") {
+      switchUser("manager");
+    } else if (role === "agent") {
       switchUser("agent");
     } else {
       switchUser("agency_admin");
     }
     setTimeout(() => {
       router.push("/workspace");
-    }, 150);
+    }, 120);
   };
 
+  const activeProfile = ROLE_PROFILES[selectedRole];
+  const ActiveIcon = activeProfile.icon;
+
   return (
-    <div className="w-full max-w-4xl bg-white rounded-3xl border border-[#E8E4DC] shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
-      {/* Left Panel: Role Scope Explanation */}
-      <div className="lg:col-span-5 bg-gradient-to-br from-slate-950 to-slate-900 text-white p-8 flex flex-col justify-between relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="w-full max-w-xl mx-auto">
+      {/* Refined Luxury Editorial Card */}
+      <div className="bg-white rounded-3xl border border-[#E8E4DC] shadow-[0_20px_60px_-15px_rgba(15,23,42,0.06)] p-6 sm:p-10 transition-all">
+        {/* Header Block */}
+        <div className="text-center space-y-2 mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/20 bg-amber-50/70 text-[10px] font-bold uppercase tracking-widest text-amber-900">
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
+            <span>Restricted Access • Institutional ERP</span>
+          </div>
 
-        <div>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-950/80 border border-amber-500/30 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-            Multi-Tenant RBAC System
-          </span>
-
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight mt-4 text-white">
-            Role-Isolated Operations Portal
-          </h2>
-          <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-            AqarFlow enforces strict data isolation as specified in the VIRELEO Project 01 architecture. Each login type provides dedicated scope boundaries.
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-950 tracking-tight">
+            Estate Operations Portal
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-500 font-light max-w-sm mx-auto leading-relaxed">
+            Role-isolated access for licensed personnel, real estate partners, and property operations desks.
           </p>
+        </div>
 
-          {/* Roles Breakdown */}
-          <div className="space-y-3.5 mt-6">
-            <div
-              onClick={() => handleRoleSelect("admin")}
-              className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
-                selectedRole === "admin"
-                  ? "bg-amber-500/15 border-amber-400/60 shadow-inner"
-                  : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
-              }`}
-            >
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center">
-                  <Building2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
-                    Agency Owner / Principal
-                    {selectedRole === "admin" && <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />}
-                  </h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
-                    Full agency overview, all leads, complete sales pipeline, team management, and audit trail.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              onClick={() => handleRoleSelect("agent")}
-              className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
-                selectedRole === "agent"
-                  ? "bg-emerald-500/15 border-emerald-400/60 shadow-inner"
-                  : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
-              }`}
-            >
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center">
-                  <Users2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
-                    Real Estate Agent
-                    {selectedRole === "agent" && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
-                  </h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
-                    Strictly isolated: view ONLY your assigned leads, assigned properties, and personal deal pipeline.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              onClick={() => handleRoleSelect("manager")}
-              className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
-                selectedRole === "manager"
-                  ? "bg-blue-500/15 border-blue-400/60 shadow-inner"
-                  : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
-              }`}
-            >
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-blue-400/20 text-blue-300 flex items-center justify-center">
-                  <KeyRound className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
-                    Property Operations Manager
-                    {selectedRole === "manager" && <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />}
-                  </h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">
-                    Rental leases, tenant ledgers, work orders, and contractor maintenance triage.
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* 3-Role Interactive Tab Selector */}
+        <div className="mb-6">
+          <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">
+            Select Operational Clearance
+          </label>
+          <div className="grid grid-cols-3 p-1 rounded-2xl bg-[#F4F1EA] border border-[#E8E4DC] gap-1">
+            {(["admin", "agent", "manager"] as RoleKey[]).map((roleKey) => {
+              const item = ROLE_PROFILES[roleKey];
+              const isSelected = selectedRole === roleKey;
+              const Icon = item.icon;
+              return (
+                <button
+                  key={roleKey}
+                  type="button"
+                  onClick={() => handleRoleChange(roleKey)}
+                  className={`flex flex-col items-center justify-center py-2.5 px-2 rounded-xl text-xs font-semibold transition-all ${
+                    isSelected
+                      ? "bg-white text-slate-950 shadow-xs border border-[#E0DBD0] font-bold"
+                      : "text-slate-600 hover:text-slate-950 hover:bg-white/50"
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-amber-600" : "text-slate-400"}`} />
+                    <span className="capitalize">{roleKey === "admin" ? "Principal" : roleKey === "agent" ? "Agent" : "Operations"}</span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        <div className="pt-6 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
-          <span>VIRELEO Project 01</span>
-          <span>100% Pakistan Localized</span>
-        </div>
-      </div>
-
-      {/* Right Panel: Login Form */}
-      <div className="lg:col-span-7 p-8 sm:p-10 flex flex-col justify-between">
-        <div>
-          {/* Role Indicator Banner */}
-          <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                Signing in as:
+        {/* Selected Role Context Banner */}
+        <div className="mb-6 p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] flex items-start gap-3.5">
+          <div className="w-9 h-9 rounded-xl bg-white border border-[#E2DDD3] flex items-center justify-center shrink-0 shadow-2xs">
+            <ActiveIcon className="w-4 h-4 text-amber-700" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <h3 className="text-xs font-bold text-slate-950">{activeProfile.name}</h3>
+              <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${activeProfile.badgeColor}`}>
+                {activeProfile.title}
               </span>
-              <h3 className="text-lg font-serif font-bold text-slate-950 mt-0.5">
-                {selectedRole === "admin"
-                  ? "Agency Principal / Administrator"
-                  : selectedRole === "agent"
-                  ? "Licensed Real Estate Agent"
-                  : "Property Operations Desk"}
-              </h3>
             </div>
-            <div className="flex gap-1.5 bg-slate-100 p-1 rounded-xl">
-              <button
-                type="button"
-                onClick={() => handleRoleSelect("admin")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  selectedRole === "admin"
-                    ? "bg-white text-slate-950 shadow-xs"
-                    : "text-slate-600 hover:text-slate-950"
-                }`}
-              >
-                Admin
-              </button>
-              <button
-                type="button"
-                onClick={() => handleRoleSelect("agent")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  selectedRole === "agent"
-                    ? "bg-white text-emerald-800 shadow-xs"
-                    : "text-slate-600 hover:text-slate-950"
-                }`}
-              >
-                Agent
-              </button>
+            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed font-light">
+              {activeProfile.description}
+            </p>
+            <div className="mt-2 text-[10px] font-mono text-slate-600 flex items-center gap-1">
+              <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+              <span>{activeProfile.scope}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Error Notice */}
+        {error && (
+          <div className="mb-6 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-medium">
+            {error}
+          </div>
+        )}
+
+        {/* Credentials Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              Authorized Email
+            </label>
+            <div className="relative">
+              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="name@aqarflow.com"
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#DCD6CA] bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 text-xs font-medium text-slate-900 transition-all"
+              />
             </div>
           </div>
 
-          {/* Error Notice */}
-          {error && (
-            <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-medium">
-              {error}
-            </div>
-          )}
-
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">
-                Email Address
-              </label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="e.g. name@aqarflow.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-xs font-medium text-slate-900 transition-all"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-1.5">
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
                 Security Password
               </label>
-              <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
-                  className="w-full pl-10 pr-10 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-xs font-medium text-slate-900 transition-all"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
+              <span className="text-[10px] text-slate-600 font-mono">Demo: Password123!</span>
             </div>
-
-            <div className="flex items-center justify-between text-xs pt-1">
-              <label className="flex items-center gap-2 cursor-pointer text-slate-600">
-                <input type="checkbox" defaultChecked className="rounded border-slate-300 text-amber-600 focus:ring-amber-500" />
-                <span>Remember my credentials</span>
-              </label>
-              <span className="text-amber-800 font-medium">Demo Password: Password123!</span>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full mt-4 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-slate-950/10 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
-            >
-              {loading ? (
-                <span>Authenticating Credentials...</span>
-              ) : (
-                <>
-                  <span>Enter {selectedRole === "admin" ? "Agency Command" : "Agent Desk"}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
-          </form>
-
-          {/* Instant 1-Click Demo Credentials */}
-          <div className="mt-8 pt-6 border-t border-slate-100">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-2.5">
-              1-Click Role Demonstrations:
-            </span>
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="relative">
+              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••••••"
+                className="w-full pl-10 pr-10 py-3 rounded-xl border border-[#DCD6CA] bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 text-xs font-medium text-slate-900 transition-all font-mono"
+              />
               <button
                 type="button"
-                onClick={() => handleInstantDemoLogin("admin")}
-                className="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-50/60 hover:border-amber-300 text-left transition-all group"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                aria-label="Toggle password view"
               >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-bold text-slate-900 group-hover:text-amber-900">
-                    Admin Demo
-                  </span>
-                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                </div>
-                <p className="text-[10px] text-slate-500">
-                  Salman Tariq • Full Agency Access
-                </p>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleInstantDemoLogin("agent")}
-                className="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-emerald-50/60 hover:border-emerald-300 text-left transition-all group"
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-bold text-slate-900 group-hover:text-emerald-900">
-                    Agent Demo
-                  </span>
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                </div>
-                <p className="text-[10px] text-slate-500">
-                  Ayesha Khan • Isolated Portfolio
-                </p>
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
           </div>
+
+          {/* Primary Action Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full mt-2 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-slate-950/10 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+          >
+            {loading ? (
+              <span>Authenticating Session...</span>
+            ) : (
+              <>
+                <span>{activeProfile.buttonLabel}</span>
+                <ArrowRight className="w-4 h-4 text-amber-400" />
+              </>
+            )}
+          </button>
+        </form>
+
+        {/* 1-Click Fast Pass Demo Access */}
+        <div className="mt-8 pt-6 border-t border-[#E8E4DC]">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+              1-Click Fast Access (Verified Demos)
+            </span>
+            <span className="text-[10px] text-amber-900 font-semibold bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+              Pre-authorized
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <button
+              type="button"
+              onClick={() => handleInstantDemoLogin("admin")}
+              className="p-3 rounded-xl border border-[#E0DBD0] bg-white hover:bg-amber-50/60 hover:border-amber-300 text-left transition-all group shadow-2xs"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-bold text-slate-900 group-hover:text-amber-950">
+                  Principal
+                </span>
+                <Sparkles className="w-3 h-3 text-amber-600" />
+              </div>
+              <p className="text-[10px] text-slate-500">
+                Salman Tariq • Full Access
+              </p>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleInstantDemoLogin("agent")}
+              className="p-3 rounded-xl border border-[#E0DBD0] bg-white hover:bg-emerald-50/60 hover:border-emerald-300 text-left transition-all group shadow-2xs"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-bold text-slate-900 group-hover:text-emerald-950">
+                  Field Agent
+                </span>
+                <Sparkles className="w-3 h-3 text-emerald-600" />
+              </div>
+              <p className="text-[10px] text-slate-500">
+                Ayesha Khan • My Portfolio
+              </p>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleInstantDemoLogin("manager")}
+              className="p-3 rounded-xl border border-[#E0DBD0] bg-white hover:bg-blue-50/60 hover:border-blue-300 text-left transition-all group shadow-2xs"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-bold text-slate-900 group-hover:text-blue-950">
+                  Operations
+                </span>
+                <Sparkles className="w-3 h-3 text-blue-600" />
+              </div>
+              <p className="text-[10px] text-slate-500">
+                Hamza Farooq • Rent & Leases
+              </p>
+            </button>
+          </div>
         </div>
 
-        <p className="text-[11px] text-slate-400 text-center mt-6">
-          Official VIRELEO Project 01 Submission • <a href="https://www.vireleo.me/" target="_blank" rel="noreferrer" className="underline hover:text-slate-600">vireleo.me</a>
-        </p>
+        {/* Security & Compliance Footer */}
+        <div className="mt-6 pt-4 border-t border-[#F0ECE1] text-center">
+          <p className="text-[11px] text-slate-500 font-light">
+            Authorized for registered brokers and tenancy administrators under Pakistani real estate escrow standards.
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -364,22 +359,21 @@ export default function LoginPage() {
           className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-950 transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to Public Portal</span>
+          <span>Back to Curated Residences</span>
         </Link>
       </header>
 
       {/* Main Container with Suspense */}
       <main className="flex-1 flex items-center justify-center p-4 sm:p-8">
-        <Suspense fallback={<div className="text-xs text-slate-500">Loading Login Portal...</div>}>
+        <Suspense fallback={<div className="text-xs text-slate-500">Loading Operations Gateway...</div>}>
           <LoginForm />
         </Suspense>
       </main>
 
       {/* Footer */}
-      <footer className="py-4 text-center text-xs text-slate-400 border-t border-[#E8E4DC] bg-white">
-        © 2026 AqarFlow Pakistan. Enterprise Real Estate ERP & CRM.
+      <footer className="py-4 text-center text-xs text-slate-600 border-t border-[#E8E4DC] bg-white">
+        © 2026 AqarFlow Real Estate & Asset Advisors • Islamabad • Lahore • Karachi
       </footer>
     </div>
   );
 }
-

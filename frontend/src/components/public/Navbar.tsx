@@ -6,52 +6,43 @@ import { usePathname } from "next/navigation";
 import {
   Menu,
   X,
-  ShieldCheck,
-  ChevronRight,
   Search,
-  Sparkles,
-  ArrowUpRight,
-  PhoneCall,
-  SlidersHorizontal,
-  Building2,
-  User
+  Lock,
+  ArrowRight
 } from "lucide-react";
-import { useAuth } from "@/context/AuthContext";
 import { AqarFlowLogo } from "@/components/ui/AqarFlowLogo";
 
 export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { user, isAdmin } = useAuth();
 
   const navLinks = [
-    { name: "Curated Portfolio", href: "/properties" },
+    { name: "Residences", href: "/properties" },
     { name: "Prime Enclaves", href: "/#enclaves" },
-    { name: "The Standard", href: "/#standard" },
-    { name: "Yield Simulator", href: "/#calculator" },
+    { name: "Services", href: "/services" },
     { name: "About", href: "/about" },
     { name: "Private Office", href: "/contact" }
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#FAF8F5]/90 backdrop-blur-xl border-b border-[#E8E4DC] transition-all">
+    <header className="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-xl border-b border-[#E8E4DC]/80 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Bespoke AqarFlow Brandmark & Wordmark */}
+          {/* AqarFlow Brandmark */}
           <AqarFlowLogo variant="default" size="md" showTagline={true} />
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+          {/* Desktop Navigation Links — Minimalist & Architectural */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`px-3.5 py-2 rounded-xl text-xs xl:text-sm font-medium tracking-tight transition-all duration-200 ${
+                  className={`px-3.5 py-2 rounded-xl text-xs lg:text-[13px] tracking-tight transition-all duration-200 ${
                     active
-                      ? "text-slate-900 bg-white font-bold shadow-2xs border border-slate-200/80"
-                      : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                      ? "text-slate-950 font-bold bg-white shadow-2xs border border-slate-200/90"
+                      : "text-slate-600 hover:text-slate-950 hover:bg-white/60 font-medium"
                   }`}
                 >
                   {link.name}
@@ -60,61 +51,54 @@ export function PublicNavbar() {
             })}
           </nav>
 
-          {/* Right Controls & Workspace Action */}
+          {/* Right Action Elements */}
           <div className="hidden sm:flex items-center gap-3">
-            {/* Command Palette Trigger */}
+            {/* Minimal Command Palette Trigger */}
             <button
               type="button"
               onClick={() => {
                 window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
               }}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200/90 bg-white/70 hover:bg-white text-xs text-slate-500 font-sans transition-all shadow-2xs hover:border-slate-300"
-              title="Global Command Palette (Cmd+K)"
+              className="flex items-center gap-2 px-3 py-2 rounded-xl border border-[#E2DDD3] bg-white/80 hover:bg-white text-xs text-slate-500 font-sans transition-all shadow-2xs hover:border-slate-300"
+              title="Global Search (Cmd+K)"
             >
               <Search className="w-3.5 h-3.5 text-slate-400" />
-              <span className="hidden xl:inline">Search Portfolio</span>
+              <span className="hidden xl:inline text-[11px] font-medium">Search</span>
               <kbd className="text-[10px] font-mono bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5 text-slate-600 font-bold">
                 ⌘K
               </kbd>
             </button>
 
-            {/* Currency / Market Indicator */}
-            <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-amber-500/20 bg-amber-50/50 text-[11px] font-semibold text-amber-900">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>PKR • Pakistan</span>
+            {/* Currency Pill */}
+            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-amber-500/20 bg-amber-50/60 text-[11px] font-semibold text-amber-900">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>PKR</span>
             </div>
 
-            {/* Portal Login Link */}
+            {/* Dedicated Portal Login CTA — Clean, Professional, Secure */}
             <Link
               href="/login"
-              className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-950 hover:bg-white/80 transition-colors border border-transparent hover:border-slate-200"
+              className="px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-semibold tracking-wide flex items-center gap-2 shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98] border border-slate-900"
             >
-              <User className="w-3.5 h-3.5 text-slate-500" />
+              <Lock className="w-3.5 h-3.5 text-amber-400" />
               <span>Portal Login</span>
-            </Link>
-
-            {/* Workspace Portal CTA */}
-            <Link
-              href="/workspace"
-              className="px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-bold tracking-wide flex items-center gap-1.5 shadow-md shadow-slate-950/20 transition-all hover:scale-[1.02] active:scale-[0.98] border border-slate-800"
-            >
-              <span>Agency Workspace</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-amber-400" />
+              <ArrowRight className="w-3 h-3 text-slate-400" />
             </Link>
           </div>
 
-          {/* Mobile Menu Hamburger */}
+          {/* Mobile Actions */}
           <div className="flex sm:hidden items-center gap-2">
             <Link
-              href="/workspace"
-              className="px-2.5 py-1.5 rounded-lg bg-slate-950 text-white text-xs font-bold"
+              href="/login"
+              className="px-3 py-1.5 rounded-xl bg-slate-950 text-white text-xs font-semibold flex items-center gap-1"
             >
-              Workspace
+              <Lock className="w-3 h-3 text-amber-400" />
+              <span>Login</span>
             </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-white/80 transition-colors"
+              className="p-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-white/80 transition-colors"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -125,7 +109,7 @@ export function PublicNavbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#FAF8F5] border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 animate-in fade-in duration-200 shadow-xl">
+        <div className="sm:hidden bg-[#FAF8F5] border-b border-[#E8E4DC] px-4 pt-3 pb-6 space-y-3 animate-in fade-in duration-200 shadow-xl">
           <nav className="space-y-1">
             {navLinks.map((link) => (
               <Link
@@ -139,29 +123,30 @@ export function PublicNavbar() {
             ))}
           </nav>
 
-          <div className="pt-3 border-t border-slate-200 flex flex-col gap-2">
+          <div className="pt-3 border-t border-[#E8E4DC] flex flex-col gap-2.5">
             <button
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
                 window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
               }}
-              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700"
+              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white border border-[#E2DDD3] text-xs font-medium text-slate-700"
             >
               <span className="flex items-center gap-2">
                 <Search className="w-4 h-4 text-slate-400" />
-                <span>Search listings & commands</span>
+                <span>Search portfolio & enclaves</span>
               </span>
               <kbd className="text-[10px] font-mono bg-slate-100 px-1.5 py-0.5 rounded">⌘K</kbd>
             </button>
 
             <Link
-              href="/workspace"
+              href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-2.5 rounded-xl bg-slate-950 text-white text-xs font-bold text-center flex items-center justify-center gap-1.5"
+              className="w-full py-2.5 rounded-xl bg-slate-950 text-white text-xs font-semibold text-center flex items-center justify-center gap-2"
             >
-              <span>Open Agency Operations Workspace</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-amber-400" />
+              <Lock className="w-3.5 h-3.5 text-amber-400" />
+              <span>Sign In to Agency Portal</span>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
             </Link>
           </div>
         </div>
