@@ -32,7 +32,7 @@ import { formatPKR, formatDate, formatDateTime } from "@/lib/formatters";
 
 export default function WorkspaceLeadsPage() {
   const { user, isAdmin } = useAuth();
-  const [leads, setLeads] = useState<Lead[]>(() => db.getLeads({ id: "usr-admin", role: "agency_admin" } as User));
+  const [leads, setLeads] = useState<Lead[]>(() => (user ? db.getLeads(user) : []));
   const [agents, setAgents] = useState<User[]>(() => db.getUsers().filter((u) => u.status === "active"));
   const [viewMode, setViewMode] = useState<"kanban" | "table">("kanban");
   const [searchQuery, setSearchQuery] = useState("");

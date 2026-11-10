@@ -1128,7 +1128,8 @@ export const db = {
     const database = loadDB();
     return database.leads
       .filter((lead) => {
-        if (user.role === "agent" && lead.assigned_agent_id && lead.assigned_agent_id !== user.id) {
+        // Strict Agent Isolation: Agents ONLY see leads explicitly assigned to them
+        if (user.role === "agent" && lead.assigned_agent_id !== user.id) {
           return false;
         }
         if (filters?.stage && lead.stage !== filters.stage) return false;
@@ -1544,10 +1545,13 @@ export const db = {
 
   getDashboardMetrics: (user: User): DashboardMetrics => {
     const database = loadDB();
-    const props = database.properties;
-    const leads = database.leads;
-    const visits = database.visits;
-    const deals = database.deals;
+    const isAgent = user?.role === "agent";
+
+    // Strict Scope: Agents ONLY see their assigned portfolio, leads, visits, deals
+    const props = isAgent ? database.properties.filter((p) => p.assigned_agent_id === user.id) : database.properties;
+    const leads = isAgent ? database.leads.filter((l) => l.assigned_agent_id === user.id) : database.leads;
+    const visits = isAgent ? database.visits.filter((v) => v.agent_id === user.id) : database.visits;
+    const deals = isAgent ? database.deals.filter((d) => d.agent_id === user.id) : database.deals;
 
     const availableProps = props.filter((p) => p.status === "Available").length;
     const newLeads = leads.filter((l) => l.stage === "New").length;
@@ -1577,8 +1581,14 @@ export const db = {
       cityDist[c] = props.filter((p) => p.city.toLowerCase() === c.toLowerCase()).length;
     }
 
-    const leases = database.leases || [];
-    const maintenance = database.maintenanceRequests || [];
+    const agentPropIds = new Set(props.map((p) => p.id));
+    const leases = isAgent
+      ? (database.leases || []).filter((l) => agentPropIds.has(l.property_id))
+      : database.leases || [];
+    const maintenance = isAgent
+      ? (database.maintenanceRequests || []).filter((m) => agentPropIds.has(m.property_id))
+      : database.maintenanceRequests || [];
+
     const totalRentRoll = leases
       .filter((l) => l.status === "Active")
       .reduce((sum, l) => sum + (l.rent_amount_pkr || 0), 0);
@@ -1623,8 +1633,12 @@ export const db = {
     filters?: { status?: string; search?: string }
   ): Lease[] => {
     const database = loadDB();
+    const isAgent = user?.role === "agent";
+    const agentPropIds = isAgent && user ? new Set(database.properties.filter((p) => p.assigned_agent_id === user.id).map((p) => p.id)) : null;
+
     return (database.leases || [])
       .filter((lease) => {
+        if (isAgent && agentPropIds && !agentPropIds.has(lease.property_id)) return false;
         if (filters?.status && lease.status !== filters.status) return false;
         if (filters?.search) {
           const s = filters.search.toLowerCase();
@@ -1773,8 +1787,12 @@ export const db = {
     filters?: { status?: string; priority?: string; category?: string; search?: string }
   ): MaintenanceRequest[] => {
     const database = loadDB();
+    const isAgent = user?.role === "agent";
+    const agentPropIds = isAgent && user ? new Set(database.properties.filter((p) => p.assigned_agent_id === user.id).map((p) => p.id)) : null;
+
     return (database.maintenanceRequests || [])
       .filter((req) => {
+        if (isAgent && agentPropIds && !agentPropIds.has(req.property_id)) return false;
         if (filters?.status && req.status !== filters.status) return false;
         if (filters?.priority && req.priority !== filters.priority) return false;
         if (filters?.category && req.category !== filters.category) return false;
@@ -1874,7 +1892,10 @@ export const db = {
     return updated;
   },
 
-  getAuditLogs: (): AuditLog[] => {
+  getAuditLogs: (user?: User): AuditLog[] => {
+    if (user && user.role === "agent") {
+      return []; // Strictly restricted: Agents cannot view institutional audit logs
+    }
     return loadDB().auditLogs.slice(0, 50);
   }
 };

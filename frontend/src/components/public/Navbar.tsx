@@ -13,7 +13,8 @@ import {
   ArrowUpRight,
   PhoneCall,
   SlidersHorizontal,
-  Building2
+  Building2,
+  User
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { AqarFlowLogo } from "@/components/ui/AqarFlowLogo";
@@ -82,6 +83,15 @@ export function PublicNavbar() {
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>PKR • Pakistan</span>
             </div>
+
+            {/* Portal Login Link */}
+            <Link
+              href="/login"
+              className="hidden lg:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:text-slate-950 hover:bg-white/80 transition-colors border border-transparent hover:border-slate-200"
+            >
+              <User className="w-3.5 h-3.5 text-slate-500" />
+              <span>Portal Login</span>
+            </Link>
 
             {/* Workspace Portal CTA */}
             <Link

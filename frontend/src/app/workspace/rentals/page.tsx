@@ -35,7 +35,7 @@ import { formatPKR, formatDate } from "@/lib/formatters";
 
 export default function WorkspaceRentalsPage() {
   const { user, isAdmin } = useAuth();
-  const [leases, setLeases] = useState<Lease[]>(() => db.getLeases());
+  const [leases, setLeases] = useState<Lease[]>(() => (user ? db.getLeases(user) : []));
   const [properties, setProperties] = useState<Property[]>(() => db.getProperties({ publicOnly: false }));
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("All");

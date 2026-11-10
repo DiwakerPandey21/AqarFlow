@@ -39,7 +39,7 @@ import { formatPKR, formatDate, formatDateTime } from "@/lib/formatters";
 
 export default function WorkspaceMaintenancePage() {
   const { user, isAdmin } = useAuth();
-  const [requests, setRequests] = useState<MaintenanceRequest[]>(() => db.getMaintenanceRequests());
+  const [requests, setRequests] = useState<MaintenanceRequest[]>(() => (user ? db.getMaintenanceRequests(user) : []));
   const [properties, setProperties] = useState<Property[]>(() => db.getProperties({ publicOnly: false }));
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("All");
