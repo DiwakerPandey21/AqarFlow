@@ -255,62 +255,6 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
             </button>
           </div>
 
-          {/* Quick Demo Switcher */}
-          <div
-            className={`p-2.5 rounded-xl border space-y-1.5 ${
-              isDark ? "bg-[#0D121F] border-slate-800/80" : "bg-white border-slate-200 shadow-2xs"
-            }`}
-          >
-            <span
-              className={`text-[10px] font-bold uppercase tracking-wider block ${
-                isDark ? "text-amber-400/80" : "text-amber-800"
-              }`}
-            >
-              Simulate Role:
-            </span>
-            <div className="grid grid-cols-3 gap-1 text-[11px]">
-              <button
-                type="button"
-                onClick={() => switchUser("agency_admin")}
-                className={`py-1 px-1 rounded font-medium text-center transition-all ${
-                  user?.role === "agency_admin"
-                    ? "bg-amber-600 text-white font-bold shadow-2xs"
-                    : isDark
-                    ? "text-slate-400 hover:text-white bg-slate-800/60"
-                    : "text-slate-600 hover:text-slate-900 bg-slate-100"
-                }`}
-              >
-                Admin
-              </button>
-              <button
-                type="button"
-                onClick={() => switchUser("agent")}
-                className={`py-1 px-1 rounded font-medium text-center transition-all ${
-                  user?.role === "agent"
-                    ? "bg-amber-600 text-white font-bold shadow-2xs"
-                    : isDark
-                    ? "text-slate-400 hover:text-white bg-slate-800/60"
-                    : "text-slate-600 hover:text-slate-900 bg-slate-100"
-                }`}
-              >
-                Agent
-              </button>
-              <button
-                type="button"
-                onClick={() => switchUser("manager")}
-                className={`py-1 px-1 rounded font-medium text-center transition-all ${
-                  user?.role === "manager"
-                    ? "bg-amber-600 text-white font-bold shadow-2xs"
-                    : isDark
-                    ? "text-slate-400 hover:text-white bg-slate-800/60"
-                    : "text-slate-600 hover:text-slate-900 bg-slate-100"
-                }`}
-              >
-                Manager
-              </button>
-            </div>
-          </div>
-
           {/* Current Profile */}
           <div className="flex items-center justify-between gap-2 pt-1">
             <div className="flex items-center gap-2.5 truncate">
@@ -445,20 +389,17 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
               <ArrowUpRight className={`w-3.5 h-3.5 ${isDark ? "text-amber-400" : "text-slate-600"}`} />
             </Link>
 
-            {/* Role indicator pill & switch */}
+            {/* Authenticated user pill & logout */}
             <div className="flex items-center gap-2 pl-1 sm:pl-2">
-              <Link
-                href="/login"
-                title="Open Role-Based Login Portal"
-                className={`text-xs font-bold hidden sm:inline hover:underline ${
+              <span
+                className={`text-xs font-bold hidden sm:inline ${
                   isDark ? "text-slate-200" : "text-slate-800"
                 }`}
               >
                 {user?.full_name}
-              </Link>
-              <Link
-                href="/login"
-                className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border transition-transform hover:scale-105 ${
+              </span>
+              <span
+                className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border ${
                   isAdmin
                     ? isDark
                       ? "bg-amber-950/80 text-amber-300 border-amber-500/30"
@@ -471,17 +412,17 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
                     ? "bg-emerald-950/80 text-emerald-300 border-emerald-500/30"
                     : "bg-emerald-100 text-emerald-900 border-emerald-300/80"
                 }`}
-                title="Click to switch portal role"
               >
                 {isAdmin ? "Admin" : isManager ? "Operations" : "Agent"}
-              </Link>
-              <Link
-                href="/login"
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                title="Switch Portal Account"
+              </span>
+              <button
+                type="button"
+                onClick={logout}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                title="Sign Out"
               >
                 <LogOut className="w-3.5 h-3.5" />
-              </Link>
+              </button>
             </div>
           </div>
         </header>
@@ -538,29 +479,14 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
               <span className="truncate mr-2 font-medium">{user?.full_name} ({user?.role?.replace("_", " ")})</span>
-              <div className="flex gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => switchUser("agency_admin")}
-                  className={`text-[11px] px-1.5 py-0.5 rounded ${user?.role === "agency_admin" ? "bg-amber-600 text-white font-bold" : "text-slate-500 hover:text-slate-800"}`}
-                >
-                  Admin
-                </button>
-                <button
-                  type="button"
-                  onClick={() => switchUser("agent")}
-                  className={`text-[11px] px-1.5 py-0.5 rounded ${user?.role === "agent" ? "bg-amber-600 text-white font-bold" : "text-slate-500 hover:text-slate-800"}`}
-                >
-                  Agent
-                </button>
-                <button
-                  type="button"
-                  onClick={() => switchUser("manager")}
-                  className={`text-[11px] px-1.5 py-0.5 rounded ${user?.role === "manager" ? "bg-amber-600 text-white font-bold" : "text-slate-500 hover:text-slate-800"}`}
-                >
-                  Manager
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={logout}
+                className="text-xs text-rose-600 font-semibold hover:underline flex items-center gap-1"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Sign Out</span>
+              </button>
             </div>
           </div>
         )}
@@ -588,14 +514,15 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
                       href="/workspace"
                       className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-all"
                     >
-                      Return to Agent Desk
+                      Return to Workspace
                     </Link>
                     <button
                       type="button"
-                      onClick={() => switchUser("agency_admin")}
-                      className="px-4 py-2 rounded-xl bg-amber-100 text-amber-900 text-xs font-semibold hover:bg-amber-200 transition-all"
+                      onClick={logout}
+                      className="px-4 py-2 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold hover:bg-rose-100 transition-all flex items-center gap-1.5"
                     >
-                      Simulate Admin Clearance
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span>Sign Out</span>
                     </button>
                   </div>
                 </div>

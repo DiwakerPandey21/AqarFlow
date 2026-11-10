@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -26,6 +26,7 @@ import {
   Globe2,
   MessageCircle,
   ChevronRight,
+  ChevronLeft,
   Lock,
   ArrowUpRight,
   SlidersHorizontal,
@@ -40,12 +41,104 @@ import { PropertyCard } from "@/components/public/PropertyCard";
 import { db } from "@/lib/db";
 import { formatPKR, formatUSD, formatNumberFixed } from "@/lib/formatters";
 
+const ENCLAVES = [
+  {
+    id: "islamabad",
+    city: "Islamabad",
+    title: "Islamabad Sectors F-6, F-7 & E-7",
+    subtitle: "Capital Foothills & Diplomatic Quarters",
+    authority: "CDA Approved",
+    units: 18,
+    priceRange: "PKR 14 Cr – 45 Cr",
+    image: "https://images.unsplash.com/photo-1541971875076-8f970d573be6?auto=format&fit=crop&w=1000&q=80",
+    description: "Margalla Hills vistas, diplomatic zone residences, and custom 1 to 4 Kanal architectural villas.",
+    yield: "+18.4% YoY",
+    tag: "Capital Foothills"
+  },
+  {
+    id: "lahore-dha",
+    city: "Lahore",
+    title: "DHA Phase 6 & Raya Golf Living, Lahore",
+    subtitle: "Championship Fairways & Heritage Luxury",
+    authority: "LDA Approved",
+    units: 24,
+    priceRange: "PKR 8 Cr – 35 Cr",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80",
+    description: "Signature golf course residences, luxury club villas, and contemporary minimalist estates.",
+    yield: "+14.2% YoY",
+    tag: "Heritage & Golf Living"
+  },
+  {
+    id: "karachi-clifton",
+    city: "Karachi",
+    title: "Clifton & DHA Creek Vistas, Karachi",
+    subtitle: "Arabian Sea Coastal Penthouses",
+    authority: "CBC / KDA Approved",
+    units: 16,
+    priceRange: "PKR 12 Cr – 40 Cr",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80",
+    description: "Panoramic oceanfront penthouses, Emaar Crescent Bay luxury, and executive commercial towers.",
+    yield: "+12.8% YoY",
+    tag: "Waterfront & Marina"
+  },
+  {
+    id: "rawalpindi-bahria",
+    city: "Rawalpindi",
+    title: "Bahria Safari & Golf City, Rawalpindi",
+    subtitle: "Private Gated Valley Living",
+    authority: "RDA Approved",
+    units: 14,
+    priceRange: "PKR 3.4 Cr – 18 Cr",
+    image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=80",
+    description: "Multi-tier security, championship club access, and modern designer residences.",
+    yield: "+16.1% YoY",
+    tag: "Gated Sanctuary"
+  },
+  {
+    id: "lahore-gulberg",
+    city: "Lahore",
+    title: "Gulberg III & Main Boulevard, Lahore",
+    subtitle: "Cosmopolitan High-Rise Living",
+    authority: "LDA Approved",
+    units: 19,
+    priceRange: "PKR 4.5 Cr – 28 Cr",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1000&q=80",
+    description: "Luxury serviced apartments, corporate penthouses, and walking access to Lahore's culinary strip.",
+    yield: "+15.5% YoY",
+    tag: "Metropolitan Central"
+  }
+];
+
 export default function HomePage() {
   const router = useRouter();
   const [purpose, setPurpose] = useState<"sale" | "rent">("sale");
   const [city, setCity] = useState("");
   const [propertyType, setPropertyType] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedResidenceCity, setSelectedResidenceCity] = useState<string>("all");
+
+  const enclavesScrollRef = useRef<HTMLDivElement>(null);
+  const residencesScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollEnclaves = (direction: "left" | "right") => {
+    if (enclavesScrollRef.current) {
+      const scrollAmount = direction === "left" ? -420 : 420;
+      enclavesScrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  const scrollResidences = (direction: "left" | "right") => {
+    if (residencesScrollRef.current) {
+      const scrollAmount = direction === "left" ? -390 : 390;
+      residencesScrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  const allPublicProperties = db.getProperties({ publicOnly: true });
+  const displayedProperties =
+    selectedResidenceCity === "all"
+      ? allPublicProperties
+      : allPublicProperties.filter((p) => p.city.toLowerCase() === selectedResidenceCity.toLowerCase());
 
   // Investment Simulator State
   const [calcCurrency, setCalcCurrency] = useState<"PKR" | "USD" | "AED">("PKR");
@@ -183,47 +276,70 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: Hero Visual Arch Frame with Clean Floating Clearance */}
+            {/* Right Column: Hero Visual Architectural Viewport */}
             <div className="lg:col-span-6 relative">
-              {/* Architectural Arched Frame */}
-              <div className="relative mx-auto max-w-lg lg:max-w-none arch-frame-top overflow-hidden shadow-2xl border-4 border-white bg-slate-200">
+              {/* Architectural Frame with Soft Editorial Shadow */}
+              <div className="relative mx-auto max-w-lg lg:max-w-none rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white bg-slate-900 group">
                 <img
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
                   alt="Villa Margalla Luxury Residence in Islamabad F-7"
-                  className="w-full h-[480px] sm:h-[600px] object-cover scale-[1.02] hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-[480px] sm:h-[600px] object-cover scale-[1.01] group-hover:scale-105 transition-transform duration-1000 ease-out"
                 />
 
-                {/* Subtle Image Vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/30 pointer-events-none" />
+                {/* Subtle Cinematic Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-black/20 pointer-events-none" />
 
-                {/* Floating Luxury Glass Card (Vero Estate & Architectural Style) */}
-                <div className="absolute bottom-6 left-6 right-6 z-10 bg-slate-950/92 backdrop-blur-xl p-5 sm:p-6 rounded-3xl border border-white/20 text-white shadow-2xl flex items-center justify-between gap-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase font-bold tracking-widest text-amber-400">
-                        Curated Masterpiece
-                      </span>
-                      <span className="text-slate-500">•</span>
-                      <span className="text-[10px] font-mono text-emerald-400 font-bold">
-                        +18.4% YoY Appreciation
-                      </span>
-                    </div>
-                    <h3 className="font-serif font-bold text-lg sm:text-xl text-white">
-                      Villa Margalla Residence
-                    </h3>
-                    <p className="text-xs text-slate-300 font-sans">
-                      1 Kanal Smart Architecture • Sector F-7, Islamabad • PKR 14.5 Crore
-                    </p>
+                {/* Top Location Badge */}
+                <div className="absolute top-5 left-5 z-10 bg-slate-950/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-white flex items-center gap-2 shadow-lg">
+                  <MapPin className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="text-[11px] font-medium tracking-wide">Sector F-7 • Islamabad</span>
+                </div>
+
+                {/* Top Verification Pill */}
+                <div className="absolute top-5 right-5 z-10 bg-emerald-950/70 backdrop-blur-md px-3 py-1 rounded-full border border-emerald-400/30 text-emerald-300 flex items-center gap-1.5 shadow-lg text-[10px] font-mono font-bold">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>CDA Title Verified</span>
+                </div>
+
+                {/* Bottom Floating Minimalist Editorial Showcase (Vero Estate Masterpiece) */}
+                <Link
+                  href="/properties/prop-1001-1-kanal-villa-dha-phase-6-lahore"
+                  className="absolute bottom-6 right-6 left-6 sm:left-auto sm:max-w-sm z-10 bg-[#0B0F17]/85 hover:bg-[#0B0F17]/95 backdrop-blur-xl p-5 sm:p-6 rounded-3xl border border-white/15 text-white shadow-2xl transition-all duration-300 hover:scale-[1.02] group/card block text-left"
+                >
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[9px] uppercase tracking-[0.24em] text-amber-300 font-mono font-bold">
+                      Curated Masterpiece
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                      +18.4% YoY Yield
+                    </span>
                   </div>
 
-                  <Link
-                    href="/properties/prop-1001-1-kanal-villa-dha-phase-6-lahore"
-                    className="p-3 sm:px-5 sm:py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md shrink-0"
-                  >
-                    <span>Inspect</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
+                  <h3 className="font-serif text-xl sm:text-2xl text-white font-normal group-hover/card:text-amber-200 transition-colors">
+                    Villa Margalla
+                  </h3>
+                  <p className="text-xs text-slate-400 font-sans mt-0.5">
+                    1 Kanal Smart Architecture • Foothills Enclave
+                  </p>
+
+                  <div className="mt-3.5 pt-3.5 border-t border-white/10 flex items-center justify-between">
+                    <div>
+                      <span className="text-white font-serif font-bold text-base sm:text-lg">
+                        PKR 14.5 Crore
+                      </span>
+                      <span className="block text-[10px] text-slate-400 font-mono">
+                        ≈ $521,500 USD
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs font-semibold text-amber-300 group-hover/card:text-amber-200 transition-colors">
+                      <span className="text-[11px] uppercase tracking-wider font-mono">Explore</span>
+                      <div className="w-8 h-8 rounded-full bg-white/10 group-hover/card:bg-amber-500 group-hover/card:text-slate-950 text-white flex items-center justify-center transition-all border border-white/20 shrink-0">
+                        <ArrowRight className="w-3.5 h-3.5 group-hover/card:translate-x-0.5 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -366,11 +482,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Prime Pakistani Enclaves Section - Architectural Monograph */}
+      {/* Prime Pakistani Enclaves Section - Interactive Smooth Scroll Carousel */}
       <section id="enclaves" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-800 block mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-amber-800 block mb-1 font-mono">
               Geographic Exclusivity
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-950 tracking-tight">
@@ -381,123 +497,95 @@ export default function HomePage() {
             </p>
           </div>
 
-          <Link
-            href="/properties"
-            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-900 hover:text-amber-800 transition-colors group"
-          >
-            <span>Explore All Enclaves</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex items-center gap-3 self-end sm:self-auto">
+            {/* Scroll Navigation Controls */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => scrollEnclaves("left")}
+                className="w-10 h-10 rounded-full border border-[#DCD6CA] bg-white hover:bg-slate-950 hover:text-white hover:border-slate-950 text-slate-700 flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95"
+                title="Previous Enclave"
+                aria-label="Previous Enclave"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollEnclaves("right")}
+                className="w-10 h-10 rounded-full border border-[#DCD6CA] bg-white hover:bg-slate-950 hover:text-white hover:border-slate-950 text-slate-700 flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95"
+                title="Next Enclave"
+                aria-label="Next Enclave"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <Link
+              href="/properties"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-900 hover:text-amber-800 transition-colors ml-2 group"
+            >
+              <span>Explore All</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
 
-        {/* 3 Major City Enclave Architectural Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Islamabad */}
-          <Link
-            href="/properties?city=Islamabad"
-            className="group relative rounded-3xl overflow-hidden shadow-xl border border-[#E8E4DC] bg-slate-900 h-[440px] flex flex-col justify-end p-7 transition-all duration-500 hover:shadow-2xl hover:border-amber-400/40"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1541971875076-8f970d573be6?auto=format&fit=crop&w=800&q=80"
-              alt="Islamabad Margalla Hills Luxury Enclaves"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-75"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
-            <div className="relative z-10 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-black/40 px-2.5 py-0.5 rounded-full border border-amber-400/20">
-                  Capital Foothills
-                </span>
-                <span className="text-[11px] font-mono text-emerald-400 font-bold">18 Verified Units</span>
-              </div>
-              <h3 className="text-2xl font-serif font-bold text-white group-hover:text-amber-200 transition-colors">
-                Islamabad Sectors F-6, F-7 & E-7
-              </h3>
-              <p className="text-xs text-slate-300 font-light line-clamp-2">
-                Margalla Hills vistas, high-commission diplomatic residences, and CDA approved 1 to 4 Kanal custom estates.
-              </p>
-              <div className="pt-3 flex items-center justify-between text-[11px] text-amber-300/90 font-mono border-t border-white/15">
-                <span>PKR 14 Cr – 45 Cr</span>
-                <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                  Explore Enclave &rarr;
-                </span>
-              </div>
-            </div>
-          </Link>
+        {/* Smooth Horizontal Carousel Track */}
+        <div
+          ref={enclavesScrollRef}
+          className="flex gap-6 overflow-x-auto pb-6 pt-2 scroll-smooth snap-x snap-mandatory scrollbar-none"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {ENCLAVES.map((enclave) => (
+            <Link
+              key={enclave.id}
+              href={`/properties?city=${enclave.city}`}
+              className="group relative rounded-3xl overflow-hidden shadow-xl border border-[#E8E4DC] bg-slate-900 w-[320px] sm:w-[390px] h-[450px] shrink-0 snap-start flex flex-col justify-end p-7 transition-all duration-500 hover:shadow-2xl hover:border-amber-400/50 hover:-translate-y-1 block text-left"
+            >
+              <img
+                src={enclave.image}
+                alt={enclave.title}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-75"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent pointer-events-none" />
 
-          {/* Lahore */}
-          <Link
-            href="/properties?city=Lahore"
-            className="group relative rounded-3xl overflow-hidden shadow-xl border border-[#E8E4DC] bg-slate-900 h-[440px] flex flex-col justify-end p-7 transition-all duration-500 hover:shadow-2xl hover:border-amber-400/40"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"
-              alt="Lahore DHA Raya and Gulberg Luxury Architecture"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-75"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
-            <div className="relative z-10 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-black/40 px-2.5 py-0.5 rounded-full border border-amber-400/20">
-                  Heritage & Golf Living
-                </span>
-                <span className="text-[11px] font-mono text-emerald-400 font-bold">24 Luxury Estates</span>
-              </div>
-              <h3 className="text-2xl font-serif font-bold text-white group-hover:text-amber-200 transition-colors">
-                DHA Phase 6 & Raya Golf Club, Lahore
-              </h3>
-              <p className="text-xs text-slate-300 font-light line-clamp-2">
-                Championship golf course residences, Gulberg III high-rise penthouses, and signature contemporary architecture.
-              </p>
-              <div className="pt-3 flex items-center justify-between text-[11px] text-amber-300/90 font-mono border-t border-white/15">
-                <span>PKR 8 Cr – 35 Cr</span>
-                <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                  Explore Enclave &rarr;
-                </span>
-              </div>
-            </div>
-          </Link>
+              <div className="relative z-10 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-amber-400/20 font-mono">
+                    {enclave.tag}
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                    {enclave.authority}
+                  </span>
+                </div>
 
-          {/* Karachi */}
-          <Link
-            href="/properties?city=Karachi"
-            className="group relative rounded-3xl overflow-hidden shadow-xl border border-[#E8E4DC] bg-slate-900 h-[440px] flex flex-col justify-end p-7 transition-all duration-500 hover:shadow-2xl hover:border-amber-400/40"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
-              alt="Karachi Clifton and DHA Phase 8 Waterfront"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-75"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
-            <div className="relative z-10 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-black/40 px-2.5 py-0.5 rounded-full border border-amber-400/20">
-                  Waterfront & Marina
-                </span>
-                <span className="text-[11px] font-mono text-emerald-400 font-bold">16 Marine Penthouses</span>
+                <h3 className="text-xl sm:text-2xl font-serif font-bold text-white group-hover:text-amber-200 transition-colors">
+                  {enclave.title}
+                </h3>
+                <p className="text-xs text-slate-300 font-light line-clamp-2 leading-relaxed">
+                  {enclave.description}
+                </p>
+
+                <div className="pt-3 flex items-center justify-between text-xs text-amber-300/95 font-mono border-t border-white/15">
+                  <div>
+                    <span className="block text-white font-bold">{enclave.priceRange}</span>
+                    <span className="text-[10px] text-slate-400 font-sans">{enclave.units} Active Listings</span>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold group-hover:translate-x-1 transition-transform">
+                    Inspect &rarr;
+                  </span>
+                </div>
               </div>
-              <h3 className="text-2xl font-serif font-bold text-white group-hover:text-amber-200 transition-colors">
-                Clifton & DHA Creek Vistas, Karachi
-              </h3>
-              <p className="text-xs text-slate-300 font-light line-clamp-2">
-                Panoramic Arabian Sea penthouses, Ocean Tower executive corporate spaces, and Emaar Crescent Bay waterfront luxury.
-              </p>
-              <div className="pt-3 flex items-center justify-between text-[11px] text-amber-300/90 font-mono border-t border-white/15">
-                <span>PKR 12 Cr – 40 Cr</span>
-                <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                  Explore Enclave &rarr;
-                </span>
-              </div>
-            </div>
-          </Link>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Featured Curated Properties */}
+      {/* Featured Curated Properties - Interactive Carousel with City Filtering */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-t border-[#EAE6DE]">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-800 block mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-amber-800 block mb-1 font-mono">
               Curated Portfolio
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-950 tracking-tight">
@@ -508,20 +596,76 @@ export default function HomePage() {
             </p>
           </div>
 
-          <Link
-            href="/properties"
-            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-900 hover:text-amber-800 transition-colors group"
-          >
-            <span>Explore All {db.getProperties({ publicOnly: true }).length} Properties</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            {/* Filter Pills */}
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#F0ECE1] border border-[#E0DBD0] overflow-x-auto">
+              {[
+                { id: "all", label: "All Residences" },
+                { id: "Islamabad", label: "Islamabad" },
+                { id: "Lahore", label: "Lahore" },
+                { id: "Karachi", label: "Karachi" }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setSelectedResidenceCity(tab.id)}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                    selectedResidenceCity === tab.id
+                      ? "bg-white text-slate-950 shadow-2xs font-bold"
+                      : "text-slate-600 hover:text-slate-950 hover:bg-white/50"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Carousel Arrow Controls */}
+            <div className="flex items-center gap-2 self-end sm:self-auto">
+              <button
+                type="button"
+                onClick={() => scrollResidences("left")}
+                className="w-10 h-10 rounded-full border border-[#DCD6CA] bg-white hover:bg-slate-950 hover:text-white hover:border-slate-950 text-slate-700 flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95"
+                title="Scroll Left"
+                aria-label="Previous Properties"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollResidences("right")}
+                className="w-10 h-10 rounded-full border border-[#DCD6CA] bg-white hover:bg-slate-950 hover:text-white hover:border-slate-950 text-slate-700 flex items-center justify-center transition-all shadow-2xs cursor-pointer active:scale-95"
+                title="Scroll Right"
+                aria-label="Next Properties"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* 3-Column Luxury Property Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProperties.map((property) => (
-            <PropertyCard key={property.id} property={property} />
+        {/* Smooth Horizontal Carousel Track */}
+        <div
+          ref={residencesScrollRef}
+          className="flex gap-6 overflow-x-auto pb-8 pt-2 scroll-smooth snap-x snap-mandatory scrollbar-none"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {displayedProperties.map((property) => (
+            <div key={property.id} className="w-[310px] sm:w-[380px] shrink-0 snap-start">
+              <PropertyCard property={property} />
+            </div>
           ))}
+        </div>
+
+        {/* Bottom Portfolio Link */}
+        <div className="mt-4 text-center">
+          <Link
+            href="/properties"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-[#DCD6CA] hover:border-slate-950 text-slate-800 hover:text-slate-950 text-xs font-bold uppercase tracking-wider transition-all shadow-2xs hover:shadow-md"
+          >
+            <span>View Full Portfolio ({allPublicProperties.length} Properties)</span>
+            <ArrowRight className="w-4 h-4 text-amber-600" />
+          </Link>
         </div>
       </section>
 

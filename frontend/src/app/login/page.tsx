@@ -15,7 +15,11 @@ import {
   EyeOff,
   Sparkles,
   ArrowLeft,
-  CheckCircle2
+  CheckCircle2,
+  MapPin,
+  TrendingUp,
+  FileCheck2,
+  Compass
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { AqarFlowLogo } from "@/components/ui/AqarFlowLogo";
@@ -39,7 +43,7 @@ const ROLE_PROFILES: Record<
     name: "Salman Tariq",
     title: "Agency Principal & Managing Partner",
     email: "admin@aqarflow.com",
-    description: "Complete agency-wide oversight across Pakistan portfolios, transaction ledgers, agent commissions, and system governance.",
+    description: "Complete agency-wide oversight across Islamabad, Lahore, and Karachi portfolios, CDA/LDA escrow ledgers, and team governance.",
     scope: "Full Executive Access • All Enclaves & Portfolios",
     buttonLabel: "Enter Executive Command Center",
     icon: Building2,
@@ -133,214 +137,305 @@ function LoginForm() {
   const ActiveIcon = activeProfile.icon;
 
   return (
-    <div className="w-full max-w-xl mx-auto">
-      {/* Refined Luxury Editorial Card */}
-      <div className="bg-white rounded-3xl border border-[#E8E4DC] shadow-[0_20px_60px_-15px_rgba(15,23,42,0.06)] p-6 sm:p-10 transition-all">
-        {/* Header Block */}
-        <div className="text-center space-y-2 mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/20 bg-amber-50/70 text-[10px] font-bold uppercase tracking-widest text-amber-900">
-            <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
-            <span>Restricted Access • Institutional ERP</span>
-          </div>
-
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-950 tracking-tight">
-            Estate Operations Portal
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-light max-w-sm mx-auto leading-relaxed">
-            Role-isolated access for licensed personnel, real estate partners, and property operations desks.
-          </p>
+    <div className="w-full max-w-6xl mx-auto bg-white rounded-[2.5rem] border border-[#E8E4DC] shadow-[0_25px_70px_-15px_rgba(15,23,42,0.08)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+      {/* LEFT COLUMN: Real Estate Architectural Showcase & Monograph */}
+      <div className="lg:col-span-5 bg-[#0B0F17] text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+        {/* Subtle Architectural Grid Vector Overlay */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <defs>
+              <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FFFFFF" strokeWidth="0.8" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#archGrid)" />
+          </svg>
         </div>
 
-        {/* 3-Role Interactive Tab Selector */}
-        <div className="mb-6">
-          <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">
-            Select Operational Clearance
-          </label>
-          <div className="grid grid-cols-3 p-1 rounded-2xl bg-[#F4F1EA] border border-[#E8E4DC] gap-1">
-            {(["admin", "agent", "manager"] as RoleKey[]).map((roleKey) => {
-              const item = ROLE_PROFILES[roleKey];
-              const isSelected = selectedRole === roleKey;
-              const Icon = item.icon;
-              return (
+        {/* Ambient Warm Architectural Lighting */}
+        <div className="absolute -top-20 -left-20 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 space-y-6">
+          {/* Logo & Operational Status */}
+          <div className="flex items-center justify-between">
+            <AqarFlowLogo variant="gold" size="sm" showTagline={false} href="/" />
+            <span className="text-[10px] font-mono tracking-widest text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-2.5 py-1 rounded-full flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              PORTAL SECURE
+            </span>
+          </div>
+
+          {/* Architectural Headline */}
+          <div className="pt-4">
+            <span className="text-[10px] uppercase font-bold tracking-[0.24em] text-amber-400 block mb-2 font-mono">
+              Institutional Asset Gateway
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight leading-snug">
+              Architecture of Distinction. <br />
+              <span className="text-slate-400 font-light italic">Operations with Integrity.</span>
+            </h2>
+            <p className="text-xs text-slate-300 font-light mt-3 leading-relaxed">
+              Serving registered real estate advisors, institutional funds, and property operations desks across Islamabad, Lahore, and Karachi.
+            </p>
+          </div>
+
+          {/* Architectural Showcase Card (depicts actual real estate) */}
+          <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md p-4 relative overflow-hidden group">
+            <div className="relative h-44 rounded-xl overflow-hidden mb-3.5">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                alt="Villa Margalla Luxury Real Estate Islamabad"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] font-mono text-amber-300">
+                <MapPin className="w-2.5 h-2.5" />
+                <span>Sector F-7 • Islamabad</span>
+              </div>
+              <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white">
+                <div>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-300 block">Featured Listing</span>
+                  <h4 className="font-serif font-bold text-sm text-white">Villa Margalla Residence</h4>
+                </div>
+                <span className="text-xs font-serif font-bold text-amber-300">PKR 14.5 Cr</span>
+              </div>
+            </div>
+
+            {/* Real Estate Micro Specs */}
+            <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-300 pt-1 border-t border-white/10">
+              <div>
+                <span className="block font-bold text-white text-xs">1 Kanal</span>
+                <span className="text-[9px] text-slate-400">Smart Villa</span>
+              </div>
+              <div>
+                <span className="block font-bold text-emerald-400 text-xs">100%</span>
+                <span className="text-[9px] text-slate-400">CDA Verified</span>
+              </div>
+              <div>
+                <span className="block font-bold text-amber-400 text-xs">18.4%</span>
+                <span className="text-[9px] text-slate-400">YoY Yield</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Real Estate Institutional Footer Marks */}
+        <div className="pt-6 border-t border-white/10 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+          <span>PKR 4.5B+ Escrowed</span>
+          <span>CDA • LDA • CBC Compliant</span>
+        </div>
+      </div>
+
+      {/* RIGHT COLUMN: Operations Clearance Gateway */}
+      <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between">
+        <div>
+          {/* Header Block */}
+          <div className="mb-6">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-amber-500/20 bg-amber-50/70 text-[10px] font-bold uppercase tracking-widest text-amber-900 mb-2">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
+              <span>Multi-Role Access Control</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-950 tracking-tight">
+              Estate Operations Portal
+            </h1>
+            <p className="text-xs text-slate-500 font-light mt-1">
+              Select your clearance boundary to access verified portfolios, ledgers, and client pipelines.
+            </p>
+          </div>
+
+          {/* 3-Role Interactive Clearance Selector */}
+          <div className="mb-5">
+            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">
+              Operational Clearance Level
+            </label>
+            <div className="grid grid-cols-3 p-1 rounded-2xl bg-[#F4F1EA] border border-[#E8E4DC] gap-1">
+              {(["admin", "agent", "manager"] as RoleKey[]).map((roleKey) => {
+                const item = ROLE_PROFILES[roleKey];
+                const isSelected = selectedRole === roleKey;
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={roleKey}
+                    type="button"
+                    onClick={() => handleRoleChange(roleKey)}
+                    className={`flex flex-col items-center justify-center py-2 px-2 rounded-xl text-xs font-semibold transition-all ${
+                      isSelected
+                        ? "bg-white text-slate-950 shadow-xs border border-[#E0DBD0] font-bold"
+                        : "text-slate-600 hover:text-slate-950 hover:bg-white/50"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-amber-600" : "text-slate-400"}`} />
+                      <span className="capitalize">{roleKey === "admin" ? "Principal" : roleKey === "agent" ? "Agent" : "Operations"}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Active Role Brief Banner */}
+          <div className="mb-5 p-3.5 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] flex items-start gap-3">
+            <div className="w-8 h-8 rounded-xl bg-white border border-[#E2DDD3] flex items-center justify-center shrink-0 shadow-2xs">
+              <ActiveIcon className="w-4 h-4 text-amber-700" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <h3 className="text-xs font-bold text-slate-950">{activeProfile.name}</h3>
+                <span className={`text-[9px] font-semibold px-2 py-0.5 rounded-full border ${activeProfile.badgeColor}`}>
+                  {activeProfile.title}
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-500 mt-1 leading-relaxed font-light">
+                {activeProfile.description}
+              </p>
+              <div className="mt-1.5 text-[10px] font-mono text-slate-600 flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+                <span>{activeProfile.scope}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Error Notice */}
+          {error && (
+            <div className="mb-5 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-medium">
+              {error}
+            </div>
+          )}
+
+          {/* Credentials Form */}
+          <form onSubmit={handleSubmit} className="space-y-3.5">
+            <div>
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Authorized Email
+              </label>
+              <div className="relative">
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="name@aqarflow.com"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#DCD6CA] bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 text-xs font-medium text-slate-900 transition-all"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                  Security Password
+                </label>
+                <span className="text-[10px] text-slate-500 font-mono">Demo: Password123!</span>
+              </div>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••••••"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-[#DCD6CA] bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 text-xs font-medium text-slate-900 transition-all font-mono"
+                />
                 <button
-                  key={roleKey}
                   type="button"
-                  onClick={() => handleRoleChange(roleKey)}
-                  className={`flex flex-col items-center justify-center py-2.5 px-2 rounded-xl text-xs font-semibold transition-all ${
-                    isSelected
-                      ? "bg-white text-slate-950 shadow-xs border border-[#E0DBD0] font-bold"
-                      : "text-slate-600 hover:text-slate-950 hover:bg-white/50"
-                  }`}
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                  aria-label="Toggle password view"
                 >
-                  <div className="flex items-center gap-1.5">
-                    <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-amber-600" : "text-slate-400"}`} />
-                    <span className="capitalize">{roleKey === "admin" ? "Principal" : roleKey === "agent" ? "Agent" : "Operations"}</span>
-                  </div>
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
-              );
-            })}
-          </div>
-        </div>
+              </div>
+            </div>
 
-        {/* Selected Role Context Banner */}
-        <div className="mb-6 p-4 rounded-2xl bg-[#FAF8F5] border border-[#E8E4DC] flex items-start gap-3.5">
-          <div className="w-9 h-9 rounded-xl bg-white border border-[#E2DDD3] flex items-center justify-center shrink-0 shadow-2xs">
-            <ActiveIcon className="w-4 h-4 text-amber-700" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between gap-2 flex-wrap">
-              <h3 className="text-xs font-bold text-slate-950">{activeProfile.name}</h3>
-              <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${activeProfile.badgeColor}`}>
-                {activeProfile.title}
+            {/* Primary Action Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-2 py-3 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-slate-950/10 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+            >
+              {loading ? (
+                <span>Authenticating Session...</span>
+              ) : (
+                <>
+                  <span>{activeProfile.buttonLabel}</span>
+                  <ArrowRight className="w-4 h-4 text-amber-400" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* 1-Click Fast Pass Demo Access */}
+          <div className="mt-6 pt-5 border-t border-[#E8E4DC]">
+            <div className="flex items-center justify-between mb-2.5">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                1-Click Fast Access (Pre-Authorized)
+              </span>
+              <span className="text-[9px] text-amber-900 font-semibold bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                Direct Entry
               </span>
             </div>
-            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed font-light">
-              {activeProfile.description}
-            </p>
-            <div className="mt-2 text-[10px] font-mono text-slate-600 flex items-center gap-1">
-              <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
-              <span>{activeProfile.scope}</span>
-            </div>
-          </div>
-        </div>
 
-        {/* Error Notice */}
-        {error && (
-          <div className="mb-6 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-medium">
-            {error}
-          </div>
-        )}
-
-        {/* Credentials Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Authorized Email
-            </label>
-            <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@aqarflow.com"
-                className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#DCD6CA] bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 text-xs font-medium text-slate-900 transition-all"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
-                Security Password
-              </label>
-              <span className="text-[10px] text-slate-600 font-mono">Demo: Password123!</span>
-            </div>
-            <div className="relative">
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type={showPassword ? "text" : "password"}
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••••••"
-                className="w-full pl-10 pr-10 py-3 rounded-xl border border-[#DCD6CA] bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 text-xs font-medium text-slate-900 transition-all font-mono"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
-                aria-label="Toggle password view"
+                onClick={() => handleInstantDemoLogin("admin")}
+                className="p-2.5 rounded-xl border border-[#E0DBD0] bg-white hover:bg-amber-50/60 hover:border-amber-300 text-left transition-all group shadow-2xs"
               >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs font-bold text-slate-900 group-hover:text-amber-950">
+                    Principal
+                  </span>
+                  <Sparkles className="w-3 h-3 text-amber-600" />
+                </div>
+                <p className="text-[10px] text-slate-500">
+                  Salman • Full Agency
+                </p>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleInstantDemoLogin("agent")}
+                className="p-2.5 rounded-xl border border-[#E0DBD0] bg-white hover:bg-emerald-50/60 hover:border-emerald-300 text-left transition-all group shadow-2xs"
+              >
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs font-bold text-slate-900 group-hover:text-emerald-950">
+                    Field Agent
+                  </span>
+                  <Sparkles className="w-3 h-3 text-emerald-600" />
+                </div>
+                <p className="text-[10px] text-slate-500">
+                  Ayesha • My Leads
+                </p>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleInstantDemoLogin("manager")}
+                className="p-2.5 rounded-xl border border-[#E0DBD0] bg-white hover:bg-blue-50/60 hover:border-blue-300 text-left transition-all group shadow-2xs"
+              >
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-xs font-bold text-slate-900 group-hover:text-blue-950">
+                    Operations
+                  </span>
+                  <Sparkles className="w-3 h-3 text-blue-600" />
+                </div>
+                <p className="text-[10px] text-slate-500">
+                  Hamza • Rent & Leases
+                </p>
               </button>
             </div>
-          </div>
-
-          {/* Primary Action Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full mt-2 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-slate-950/10 transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 cursor-pointer"
-          >
-            {loading ? (
-              <span>Authenticating Session...</span>
-            ) : (
-              <>
-                <span>{activeProfile.buttonLabel}</span>
-                <ArrowRight className="w-4 h-4 text-amber-400" />
-              </>
-            )}
-          </button>
-        </form>
-
-        {/* 1-Click Fast Pass Demo Access */}
-        <div className="mt-8 pt-6 border-t border-[#E8E4DC]">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-              1-Click Fast Access (Verified Demos)
-            </span>
-            <span className="text-[10px] text-amber-900 font-semibold bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-              Pre-authorized
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-            <button
-              type="button"
-              onClick={() => handleInstantDemoLogin("admin")}
-              className="p-3 rounded-xl border border-[#E0DBD0] bg-white hover:bg-amber-50/60 hover:border-amber-300 text-left transition-all group shadow-2xs"
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-bold text-slate-900 group-hover:text-amber-950">
-                  Principal
-                </span>
-                <Sparkles className="w-3 h-3 text-amber-600" />
-              </div>
-              <p className="text-[10px] text-slate-500">
-                Salman Tariq • Full Access
-              </p>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleInstantDemoLogin("agent")}
-              className="p-3 rounded-xl border border-[#E0DBD0] bg-white hover:bg-emerald-50/60 hover:border-emerald-300 text-left transition-all group shadow-2xs"
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-bold text-slate-900 group-hover:text-emerald-950">
-                  Field Agent
-                </span>
-                <Sparkles className="w-3 h-3 text-emerald-600" />
-              </div>
-              <p className="text-[10px] text-slate-500">
-                Ayesha Khan • My Portfolio
-              </p>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleInstantDemoLogin("manager")}
-              className="p-3 rounded-xl border border-[#E0DBD0] bg-white hover:bg-blue-50/60 hover:border-blue-300 text-left transition-all group shadow-2xs"
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-bold text-slate-900 group-hover:text-blue-950">
-                  Operations
-                </span>
-                <Sparkles className="w-3 h-3 text-blue-600" />
-              </div>
-              <p className="text-[10px] text-slate-500">
-                Hamza Farooq • Rent & Leases
-              </p>
-            </button>
           </div>
         </div>
 
         {/* Security & Compliance Footer */}
-        <div className="mt-6 pt-4 border-t border-[#F0ECE1] text-center">
-          <p className="text-[11px] text-slate-500 font-light">
-            Authorized for registered brokers and tenancy administrators under Pakistani real estate escrow standards.
+        <div className="mt-5 pt-3 border-t border-[#F0ECE1] text-center">
+          <p className="text-[10px] text-slate-500 font-light">
+            Authorized personnel only. Data access is audited under Pakistani escrow regulations.
           </p>
         </div>
       </div>
@@ -352,7 +447,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#FAF8F5] flex flex-col justify-between selection:bg-amber-100 selection:text-amber-900 font-sans">
       {/* Top Header */}
-      <header className="px-6 py-5 border-b border-[#E8E4DC] bg-white/80 backdrop-blur-md flex items-center justify-between">
+      <header className="px-6 py-4 border-b border-[#E8E4DC] bg-white/80 backdrop-blur-md flex items-center justify-between">
         <AqarFlowLogo variant="default" size="md" showTagline={true} href="/" />
         <Link
           href="/"
@@ -371,7 +466,7 @@ export default function LoginPage() {
       </main>
 
       {/* Footer */}
-      <footer className="py-4 text-center text-xs text-slate-600 border-t border-[#E8E4DC] bg-white">
+      <footer className="py-4 text-center text-xs text-slate-500 border-t border-[#E8E4DC] bg-white">
         © 2026 AqarFlow Real Estate & Asset Advisors • Islamabad • Lahore • Karachi
       </footer>
     </div>
