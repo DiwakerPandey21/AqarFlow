@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Building2,
   LayoutDashboard,
@@ -31,9 +31,17 @@ import { AqarFlowLogo } from "@/components/ui/AqarFlowLogo";
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { user, logout, switchUser, isAdmin, isManager } = useAuth();
+  const router = useRouter();
+  const { user, logout, isAdmin, isManager, isLoading } = useAuth();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  // Redirect to login if user is not authenticated
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.replace("/login");
+    }
+  }, [user, isLoading, router]);
 
   // Load saved theme preference (default to light)
   useEffect(() => {
@@ -127,6 +135,32 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
   ];
 
   const isDark = theme === "dark";
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#FAF8F5] flex flex-col items-center justify-center p-6 text-center font-sans">
+        <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-3">
+          <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
+        </div>
+        <p className="text-xs text-slate-500 font-sans tracking-wide">Verifying clearance credentials...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-[#FAF8F5] flex flex-col items-center justify-center p-6 text-center font-sans">
+        <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-4">
+          <ShieldCheck className="w-6 h-6 text-amber-600 animate-pulse" />
+        </div>
+        <h2 className="text-xl font-serif font-bold text-slate-950 mb-1">Session Concluded</h2>
+        <p className="text-xs text-slate-500 mb-4">Redirecting to operations login portal...</p>
+        <Link href="/login" className="text-xs font-semibold text-amber-700 underline">
+          Click here if not redirected automatically &rarr;
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div

@@ -54,9 +54,9 @@ const DEFAULT_MANAGER: User = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(DEFAULT_ADMIN);
-  const [token, setToken] = useState<string | null>("usr-admin");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     try {
@@ -67,12 +67,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else if (savedUserId === "usr-manager-1") {
         setUser(DEFAULT_MANAGER);
         setToken("usr-manager-1");
-      } else {
+      } else if (savedUserId === "usr-admin") {
         setUser(DEFAULT_ADMIN);
         setToken("usr-admin");
+      } else {
+        // Unauthenticated session by default
+        setUser(null);
+        setToken(null);
       }
     } catch {
-      // LocalStorage access fallback
+      setUser(null);
+      setToken(null);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -133,6 +140,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.removeItem("aqarflow_user_id");
     } catch {
       // ignore
+    }
+    if (typeof window !== "undefined") {
+      window.location.href = "/login";
     }
   };
 

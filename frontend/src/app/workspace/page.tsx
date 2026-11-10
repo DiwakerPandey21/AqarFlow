@@ -95,10 +95,10 @@ export default function WorkspaceDashboard() {
 
             <h1 className="text-2xl sm:text-4xl font-serif font-bold text-slate-950 dark:text-white tracking-tight mt-3">
               {isAdmin
-                ? `Executive Command Center, ${user?.full_name}`
+                ? `Executive Command Center, ${currentUser.full_name}`
                 : isManager
-                ? `Property Operations Desk, ${user?.full_name}`
-                : `Agent Personal Desk, ${user?.full_name}`}
+                ? `Property Operations Desk, ${currentUser.full_name}`
+                : `Agent Personal Desk, ${currentUser.full_name}`}
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl font-light">
               {isAdmin
