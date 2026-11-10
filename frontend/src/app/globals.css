@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Cinzel:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #faf8f5;
+  --foreground: #090a0c;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Plus Jakarta Sans', var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
+}
+
+/* Luxury Editorial & Architectural Typography */
+.font-serif-luxury {
+  font-family: 'Playfair Display', Georgia, Cambria, serif;
+}
+
+.font-brand {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+}
+
+/* Glassmorphism & Surface Systems */
+.glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 228, 220, 0.9);
+}
+
+.glass-card-dark {
+  background: rgba(12, 15, 22, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  color: #f8fafc;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(220, 215, 205, 0.9);
+}
+
+.editorial-display {
+  font-family: 'Playfair Display', Georgia, Cambria, serif;
+  letter-spacing: -0.02em;
+}
+
+/* Architectural Framing & Arches */
+.arch-frame-top {
+  border-radius: 200px 200px 32px 32px;
+}
+
+.arch-frame-sm {
+  border-radius: 90px 90px 24px 24px;
+}
+
+/* Metallic & Champagne Gold Accents */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #F9E79F 0%, #D4AF37 40%, #AA8022 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.gold-glow {
+  box-shadow: 0 12px 36px -8px rgba(212, 175, 55, 0.28);
+}
+
+.gold-glow-subtle {
+  box-shadow: 0 4px 20px -2px rgba(212, 175, 55, 0.15);
+}
+
+/* Luxury Range Slider Styling */
+input[type="range"] {
+  accent-color: #d4af37;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d4af37;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  border: 2px solid #ffffff;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d4af37;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  border: 2px solid #ffffff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f7f5f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aa8022;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+}

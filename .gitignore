@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+*/.next/
+out/
+build/
+dist/
+
+# Python
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Testing
+coverage/
+*/coverage/
+
+# Environment files
+.env*.local
+
+# Vercel
+.vercel/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+*.pem
+*.tsbuildinfo
+.idea/
+.vscode/
+
+# Temporary / Large local screenshots (keep docs/screenshots)
+*.log
