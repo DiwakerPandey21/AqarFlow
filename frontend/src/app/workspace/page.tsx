@@ -31,6 +31,10 @@ export default function WorkspaceDashboard() {
   const { user, isAdmin, isManager } = useAuth();
   const defaultAdmin = db.getUsers().find((u) => u.role === "agency_admin") || db.getUsers()[0];
   const currentUser = user || defaultAdmin;
+  const userDisplayName =
+    currentUser?.full_name ||
+    (currentUser as unknown as { name?: string })?.name ||
+    (isAdmin ? "Salman Tariq" : isManager ? "Hamza Farooq" : "Ayesha Khan");
   const [metrics, setMetrics] = useState(() => db.getDashboardMetrics(currentUser));
   const [deals, setDeals] = useState(() => db.getDeals(currentUser));
   const [activeTab, setActiveTab] = useState<"2026" | "2025">("2026");
@@ -95,10 +99,10 @@ export default function WorkspaceDashboard() {
 
             <h1 className="text-2xl sm:text-4xl font-serif font-bold text-slate-950 dark:text-white tracking-tight mt-3">
               {isAdmin
-                ? `Executive Command Center, ${currentUser.full_name}`
+                ? `Executive Command Center, ${userDisplayName}`
                 : isManager
-                ? `Property Operations Desk, ${currentUser.full_name}`
-                : `Agent Personal Desk, ${currentUser.full_name}`}
+                ? `Property Operations Desk, ${userDisplayName}`
+                : `Agent Personal Desk, ${userDisplayName}`}
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl font-light">
               {isAdmin

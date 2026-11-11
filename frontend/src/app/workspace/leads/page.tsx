@@ -437,18 +437,18 @@ export default function WorkspaceLeadsPage() {
 
       {/* Lead Detail Drawer */}
       {selectedLead && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white w-full max-w-lg h-full shadow-2xl flex flex-col border-l border-slate-200 animate-in slide-in-from-right duration-300">
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] w-full max-w-lg h-full shadow-2xl flex flex-col border-l border-slate-200 dark:border-slate-800 animate-in slide-in-from-right duration-300 text-slate-900 dark:text-white">
             {/* Drawer Header */}
-            <div className="p-6 border-b border-slate-200 flex items-start justify-between">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex items-start justify-between">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 block">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 block mb-1">
                   Lead Details & Activity History
                 </span>
-                <h3 className="text-xl font-bold text-slate-900 mt-0.5">
+                <h3 className="text-xl font-serif font-bold text-slate-950 dark:text-white mt-0.5">
                   {selectedLead.client_name}
                 </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-light">
                   Created {formatDate(selectedLead.created_at)} • Source: {selectedLead.source}
                 </p>
               </div>
@@ -456,7 +456,7 @@ export default function WorkspaceLeadsPage() {
               <button
                 type="button"
                 onClick={() => setSelectedLead(null)}
-                className="p-1.5 rounded-full text-slate-400 hover:bg-slate-100"
+                className="p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -465,15 +465,15 @@ export default function WorkspaceLeadsPage() {
             {/* Drawer Body (Scrollable) */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6 text-xs">
               {/* Stage & Agent Controls */}
-              <div className="grid grid-cols-2 gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+              <div className="grid grid-cols-2 gap-3 p-4 bg-slate-50 dark:bg-slate-900/60 rounded-2xl border border-slate-200/80 dark:border-slate-800">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">
+                  <label className="block text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                     Current Stage
                   </label>
                   <select
                     value={selectedLead.stage}
                     onChange={(e) => handleStageChange(selectedLead.id, e.target.value as LeadStage)}
-                    className="w-full px-2.5 py-1.5 rounded-xl border border-slate-300 font-bold text-xs bg-white"
+                    className="w-full px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none"
                   >
                     {stages.map((st) => (
                       <option key={st} value={st}>
@@ -484,14 +484,14 @@ export default function WorkspaceLeadsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">
+                  <label className="block text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                     Assigned Agent
                   </label>
                   {isAdmin ? (
                     <select
                       value={selectedLead.assigned_agent_id || ""}
                       onChange={(e) => handleAssignAgent(selectedLead.id, e.target.value)}
-                      className="w-full px-2.5 py-1.5 rounded-xl border border-slate-300 font-medium text-xs bg-white"
+                      className="w-full px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 font-medium text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none"
                     >
                       <option value="">Unassigned</option>
                       {agents.map((ag) => (
@@ -501,7 +501,7 @@ export default function WorkspaceLeadsPage() {
                       ))}
                     </select>
                   ) : (
-                    <span className="font-semibold text-slate-800">
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">
                       {selectedLead.assigned_agent?.full_name || "Unassigned"}
                     </span>
                   )}
@@ -514,14 +514,14 @@ export default function WorkspaceLeadsPage() {
                   href={`https://wa.me/${selectedLead.phone.replace(/[^0-9]/g, "")}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center justify-center gap-1.5 shadow-xs"
+                  className="py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center justify-center gap-1.5 shadow-xs transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>WhatsApp Client</span>
                 </a>
                 <a
                   href={`tel:${selectedLead.phone}`}
-                  className="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold flex items-center justify-center gap-1.5 shadow-xs"
+                  className="py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white dark:bg-slate-800 dark:hover:bg-slate-700 font-bold flex items-center justify-center gap-1.5 shadow-xs transition-colors"
                 >
                   <Phone className="w-4 h-4" />
                   <span>Call {selectedLead.phone}</span>
@@ -529,28 +529,28 @@ export default function WorkspaceLeadsPage() {
               </div>
 
               {/* Specifications */}
-              <div className="space-y-2 p-4 bg-white border border-slate-200 rounded-2xl">
-                <h4 className="font-bold text-slate-900 text-sm">Lead Requirements</h4>
-                <div className="grid grid-cols-2 gap-2 pt-2 text-slate-600">
+              <div className="space-y-2 p-4 bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 rounded-2xl">
+                <h4 className="font-bold text-slate-950 dark:text-white text-sm">Lead Requirements</h4>
+                <div className="grid grid-cols-2 gap-2 pt-2 text-slate-600 dark:text-slate-400">
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Purpose:</span>
-                    <span className="font-semibold text-slate-800">{selectedLead.purpose}</span>
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Purpose:</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">{selectedLead.purpose}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Property Type:</span>
-                    <span className="font-semibold text-slate-800">
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Property Type:</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">
                       {selectedLead.property_type || "Any"}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Budget Range:</span>
-                    <span className="font-semibold text-slate-800">
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Budget Range:</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">
                       {selectedLead.budget_max ? formatPKR(selectedLead.budget_max) : "Not specified"}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Preferred Area:</span>
-                    <span className="font-semibold text-slate-800">
+                    <span className="text-slate-400 dark:text-slate-500 block text-[11px]">Preferred Area:</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">
                       {selectedLead.preferred_location || "Open"}
                     </span>
                   </div>
@@ -559,14 +559,14 @@ export default function WorkspaceLeadsPage() {
 
               {/* Linked Property (if inquiry from website) */}
               {selectedLead.property && (
-                <div className="p-4 bg-blue-50 border border-blue-200 rounded-2xl space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">
+                <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 block">
                     Inquired Property
                   </span>
-                  <span className="font-bold text-slate-900 text-sm block">
+                  <span className="font-bold text-slate-900 dark:text-white text-sm block">
                     {selectedLead.property.title}
                   </span>
-                  <p className="text-slate-600">
+                  <p className="text-slate-600 dark:text-slate-300">
                     Ref: {selectedLead.property.reference_code} • {formatPKR(selectedLead.property.price)}
                   </p>
                 </div>
@@ -574,21 +574,21 @@ export default function WorkspaceLeadsPage() {
 
               {/* Communication Timeline */}
               <div className="space-y-3">
-                <h4 className="font-bold text-slate-900 text-sm">Communication & Activity Trail</h4>
+                <h4 className="font-bold text-slate-950 dark:text-white text-sm">Communication & Activity Trail</h4>
                 <div className="space-y-2.5">
                   {selectedLead.activities?.length === 0 ? (
-                    <p className="text-slate-400 text-center py-4">No activities logged yet.</p>
+                    <p className="text-slate-400 dark:text-slate-500 text-center py-4">No activities logged yet.</p>
                   ) : (
                     selectedLead.activities?.map((act) => (
                       <div
                         key={act.id}
-                        className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1"
+                        className="p-3 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl space-y-1"
                       >
                         <div className="flex items-center justify-between text-[11px]">
-                          <span className="font-bold text-blue-700 uppercase">{act.activity_type}</span>
-                          <span className="text-slate-400">{formatDateTime(act.occurred_at)}</span>
+                          <span className="font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">{act.activity_type}</span>
+                          <span className="text-slate-400 dark:text-slate-500 font-mono">{formatDateTime(act.occurred_at)}</span>
                         </div>
-                        <p className="text-slate-700 leading-relaxed">{act.body}</p>
+                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{act.body}</p>
                       </div>
                     ))
                   )}
@@ -596,8 +596,8 @@ export default function WorkspaceLeadsPage() {
               </div>
 
               {/* Add Activity Form */}
-              <form onSubmit={handleAddActivity} className="space-y-2 p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                <h5 className="font-bold text-slate-900 text-xs">Log Call, Note or Meeting</h5>
+              <form onSubmit={handleAddActivity} className="space-y-2 p-4 bg-slate-50 dark:bg-slate-900/60 rounded-2xl border border-slate-200/80 dark:border-slate-800">
+                <h5 className="font-bold text-slate-900 dark:text-white text-xs">Log Call, Note or Meeting</h5>
                 <div className="flex gap-2">
                   <select
                     value={newActivity.activity_type}
@@ -607,7 +607,7 @@ export default function WorkspaceLeadsPage() {
                         activity_type: e.target.value as Activity["activity_type"]
                       })
                     }
-                    className="px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs bg-white"
+                    className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none"
                   >
                     <option value="call">Phone Call</option>
                     <option value="whatsapp">WhatsApp</option>
@@ -621,12 +621,12 @@ export default function WorkspaceLeadsPage() {
                     value={newActivity.body}
                     onChange={(e) => setNewActivity({ ...newActivity, body: e.target.value })}
                     placeholder="Enter activity summary..."
-                    className="flex-1 px-3 py-1.5 rounded-xl border border-slate-300 text-xs bg-white"
+                    className="flex-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none"
                   />
 
                   <button
                     type="submit"
-                    className="px-3 py-1.5 rounded-xl bg-blue-600 text-white font-bold text-xs"
+                    className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-sm transition-all"
                   >
                     <Send className="w-3.5 h-3.5" />
                   </button>
@@ -637,7 +637,7 @@ export default function WorkspaceLeadsPage() {
               <div className="pt-2">
                 <Link
                   href="/workspace/deals"
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/20 transition-all"
                 >
                   <Briefcase className="w-4 h-4" />
                   <span>Advance to Deal & Sales Pipeline &rarr;</span>
@@ -650,54 +650,57 @@ export default function WorkspaceLeadsPage() {
 
       {/* Add Lead Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white">
             <button
               type="button"
               onClick={() => setIsAddModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-slate-900 mb-1">Create New CRM Lead</h3>
-            <p className="text-xs text-slate-500 mb-6">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
+              Client Acquisition
+            </span>
+            <h3 className="text-xl font-serif font-bold text-slate-950 dark:text-white mb-1">Create New CRM Lead</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 font-light">
               Manually log a walk-in, phone call, or referral client inquiry.
             </p>
 
             <form onSubmit={handleCreateLead} className="space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Client Name *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Client Name *</label>
                   <input
                     type="text"
                     required
                     value={formData.client_name}
                     onChange={(e) => setFormData({ ...formData, client_name: e.target.value })}
                     placeholder="e.g. Asad Mehmood"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Phone Number *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Phone Number *</label>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+92 300 1234567"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Purpose</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Purpose</label>
                   <select
                     value={formData.purpose}
                     onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   >
                     <option value="Buy">Buy</option>
                     <option value="Rent">Rent</option>
@@ -705,11 +708,11 @@ export default function WorkspaceLeadsPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Lead Source</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Lead Source</label>
                   <select
                     value={formData.source}
                     onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   >
                     <option value="Walk-in">Walk-in</option>
                     <option value="WhatsApp">WhatsApp</option>
@@ -722,32 +725,32 @@ export default function WorkspaceLeadsPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Max Budget (PKR)</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Max Budget (PKR)</label>
                   <input
                     type="number"
                     value={formData.budget_max}
                     onChange={(e) => setFormData({ ...formData, budget_max: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Preferred Location</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Location</label>
                   <input
                     type="text"
                     value={formData.preferred_location}
                     onChange={(e) => setFormData({ ...formData, preferred_location: e.target.value })}
                     placeholder="e.g. DHA Phase 6, Lahore"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Assigned Agent</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Assigned Agent</label>
                 <select
                   value={formData.assigned_agent_id}
                   onChange={(e) => setFormData({ ...formData, assigned_agent_id: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                 >
                   {agents.map((ag) => (
                     <option key={ag.id} value={ag.id}>
@@ -758,21 +761,30 @@ export default function WorkspaceLeadsPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Inquiry Notes</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Inquiry Notes</label>
                 <textarea
                   rows={2}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md"
-              >
-                Save Lead to CRM
-              </button>
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsAddModalOpen(false)}
+                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all text-center"
+                >
+                  Save Lead to CRM
+                </button>
+              </div>
             </form>
           </div>
         </div>

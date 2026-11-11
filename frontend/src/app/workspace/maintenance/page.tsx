@@ -599,23 +599,23 @@ export default function WorkspaceMaintenancePage() {
 
       {/* Work Order Details Drawer */}
       {selectedRequest && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white w-full max-w-xl h-full shadow-2xl flex flex-col border-l border-slate-200 animate-in slide-in-from-right duration-300">
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] w-full max-w-xl h-full shadow-2xl flex flex-col border-l border-slate-200 dark:border-slate-800 animate-in slide-in-from-right duration-300 text-slate-900 dark:text-white">
             {/* Header */}
-            <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/60">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">
+                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30">
                     {selectedRequest.ticket_number}
                   </span>
-                  <span className="text-xs font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700">
                     {selectedRequest.category}
                   </span>
                 </div>
-                <h2 className="text-lg font-bold text-slate-900 mt-1">
+                <h2 className="text-lg font-serif font-bold text-slate-950 dark:text-white mt-1">
                   {selectedRequest.property_title}
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   Reported by: {selectedRequest.reported_by} ({selectedRequest.reporter_phone})
                 </p>
               </div>
@@ -623,7 +623,7 @@ export default function WorkspaceMaintenancePage() {
               <button
                 type="button"
                 onClick={() => setSelectedRequest(null)}
-                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -632,8 +632,8 @@ export default function WorkspaceMaintenancePage() {
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6 text-xs">
               {/* Status Update Strip */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                <span className="font-bold text-slate-700 uppercase tracking-wider text-[10px] block">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 space-y-3">
+                <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[10px] block">
                   Workflow Status
                 </span>
                 <div className="grid grid-cols-4 gap-1.5">
@@ -657,8 +657,8 @@ export default function WorkspaceMaintenancePage() {
                           }}
                           className={`py-2 px-1 rounded-xl text-center font-bold text-[11px] transition-all ${
                             isActive
-                              ? "bg-blue-600 text-white shadow-sm"
-                              : "bg-white text-slate-600 hover:bg-slate-200 border border-slate-200"
+                              ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm"
+                              : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700"
                           }`}
                         >
                           {st}
@@ -671,30 +671,30 @@ export default function WorkspaceMaintenancePage() {
 
               {/* Description */}
               <div className="space-y-1">
-                <label className="font-bold text-slate-700 uppercase tracking-wider text-[10px] block">
+                <label className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[10px] block">
                   Issue Description
                 </label>
-                <div className="p-4 rounded-2xl bg-white border border-slate-200 text-slate-800 leading-relaxed font-sans">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
                   {selectedRequest.description}
                 </div>
               </div>
 
               {/* Contractor & Cost Particulars */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl border border-slate-200 bg-white space-y-2">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                <div className="p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 space-y-2">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
                     Assigned Contractor
                   </span>
-                  <p className="font-bold text-slate-900 text-sm">
+                  <p className="font-bold text-slate-900 dark:text-white text-sm">
                     {selectedRequest.contractor_name || "Unassigned"}
                   </p>
-                  <p className="text-slate-500">{selectedRequest.contractor_phone || "No phone"}</p>
+                  <p className="text-slate-500 dark:text-slate-400">{selectedRequest.contractor_phone || "No phone"}</p>
                   {selectedRequest.contractor_phone && (
                     <a
                       href={`https://wa.me/${selectedRequest.contractor_phone.replace(/[^0-9]/g, "")}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-emerald-600 hover:underline font-bold text-[11px] pt-1"
+                      className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 hover:underline font-bold text-[11px] pt-1"
                     >
                       <MessageCircle className="w-3.5 h-3.5" />
                       <span>Chat on WhatsApp</span>
@@ -702,20 +702,20 @@ export default function WorkspaceMaintenancePage() {
                   )}
                 </div>
 
-                <div className="p-4 rounded-2xl border border-slate-200 bg-white space-y-2">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                <div className="p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 space-y-2">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
                     Financials & Spend
                   </span>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">Estimate:</span>
-                    <span className="font-bold text-slate-800 text-sm">
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500 block">Estimate:</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200 text-sm font-mono">
                       {selectedRequest.estimated_cost_pkr ? formatPKR(selectedRequest.estimated_cost_pkr) : "TBD"}
                     </span>
                   </div>
                   {selectedRequest.actual_cost_pkr && (
                     <div>
-                      <span className="text-[10px] text-slate-400 block">Actual Cost:</span>
-                      <span className="font-bold text-emerald-600 text-sm">
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 block">Actual Cost:</span>
+                      <span className="font-bold text-emerald-600 dark:text-emerald-400 text-sm font-mono">
                         {formatPKR(selectedRequest.actual_cost_pkr)}
                       </span>
                     </div>
@@ -724,32 +724,31 @@ export default function WorkspaceMaintenancePage() {
               </div>
 
               {/* Service Dates */}
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] text-slate-400 uppercase font-bold block">
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold block">
                     Scheduled Visit
                   </span>
-                  <span className="font-bold text-slate-800">
+                  <span className="font-bold text-slate-800 dark:text-slate-200">
                     {selectedRequest.scheduled_date ? formatDate(selectedRequest.scheduled_date) : "Pending Schedule"}
                   </span>
                 </div>
                 {selectedRequest.resolved_at && (
                   <div className="text-right">
-                    <span className="text-[10px] text-slate-400 uppercase font-bold block">
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold block">
                       Resolved Date
                     </span>
-                    <span className="font-bold text-emerald-600">
+                    <span className="font-bold text-emerald-600 dark:text-emerald-400">
                       {formatDate(selectedRequest.resolved_at)}
                     </span>
                   </div>
                 )}
               </div>
 
-              {/* Technician Notes */}
               {selectedRequest.notes && (
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                  <span className="font-bold text-slate-700 block">Technician & Agency Notes</span>
-                  <p className="text-slate-500 leading-relaxed">{selectedRequest.notes}</p>
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 space-y-1">
+                  <span className="font-bold text-slate-700 dark:text-slate-300 block">Technician & Agency Notes</span>
+                  <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{selectedRequest.notes}</p>
                 </div>
               )}
             </div>
@@ -759,19 +758,22 @@ export default function WorkspaceMaintenancePage() {
 
       {/* Add New Work Order Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 animate-in fade-in overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 my-8 space-y-6 animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 dark:bg-black/75 backdrop-blur-sm p-4 animate-in fade-in overflow-y-auto">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 my-8 space-y-6 animate-in zoom-in-95 text-slate-900 dark:text-white">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
               <div>
-                <h3 className="font-bold text-slate-900 text-lg">Dispatch Maintenance Work Order</h3>
-                <p className="text-xs text-slate-500">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
+                  Asset Operations
+                </span>
+                <h3 className="font-serif font-bold text-slate-950 dark:text-white text-lg">Dispatch Maintenance Work Order</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-light">
                   Assign contractor and schedule repair visit for tenant or building.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -780,12 +782,12 @@ export default function WorkspaceMaintenancePage() {
             <form onSubmit={handleCreateRequest} className="space-y-4 text-xs">
               {/* Select Property */}
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Target Property</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Target Property</label>
                 <select
                   required
                   value={formData.property_id}
                   onChange={(e) => setFormData({ ...formData, property_id: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 bg-white font-semibold text-slate-800"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 font-semibold text-slate-800 dark:text-white font-sans transition-all"
                 >
                   <option value="">Select property unit...</option>
                   {properties.map((p) => (
@@ -799,11 +801,11 @@ export default function WorkspaceMaintenancePage() {
               {/* Category & Priority */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Issue Category</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Issue Category</label>
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 bg-white"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   >
                     <option value="Plumbing">Plumbing</option>
                     <option value="Electrical">Electrical</option>
@@ -814,11 +816,11 @@ export default function WorkspaceMaintenancePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Urgency Priority</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Urgency Priority</label>
                   <select
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 bg-white font-bold"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-bold font-sans transition-all"
                   >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -830,37 +832,37 @@ export default function WorkspaceMaintenancePage() {
 
               {/* Description */}
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Issue Details & Scope</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Issue Details & Scope</label>
                 <textarea
                   required
                   rows={3}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe repair required, symptoms, or requested replacement..."
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-sans transition-all"
                 />
               </div>
 
               {/* Reported By */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Reported By</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Reported By</label>
                   <input
                     type="text"
                     required
                     value={formData.reported_by}
                     onChange={(e) => setFormData({ ...formData, reported_by: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Reporter Mobile</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Reporter Mobile</label>
                   <input
                     type="text"
                     required
                     value={formData.reporter_phone}
                     onChange={(e) => setFormData({ ...formData, reporter_phone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono transition-all"
                   />
                 </div>
               </div>
@@ -868,58 +870,58 @@ export default function WorkspaceMaintenancePage() {
               {/* Contractor & Cost */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Assigned Contractor</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Assigned Contractor</label>
                   <input
                     type="text"
                     value={formData.contractor_name}
                     onChange={(e) => setFormData({ ...formData, contractor_name: e.target.value })}
                     placeholder="e.g. Tariq Electrician"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Contractor Phone</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Contractor Phone</label>
                   <input
                     type="text"
                     value={formData.contractor_phone}
                     onChange={(e) => setFormData({ ...formData, contractor_phone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Estimated Cost (PKR)</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Estimated Cost (PKR)</label>
                   <input
                     type="number"
                     value={formData.estimated_cost_pkr}
                     onChange={(e) => setFormData({ ...formData, estimated_cost_pkr: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-bold"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Scheduled Date</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Scheduled Date</label>
                   <input
                     type="date"
                     value={formData.scheduled_date}
                     onChange={(e) => setFormData({ ...formData, scheduled_date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"
+                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-md shadow-blue-600/20"
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all text-center"
                 >
                   Dispatch Work Order
                 </button>

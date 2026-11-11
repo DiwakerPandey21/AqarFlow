@@ -93,13 +93,13 @@ export default function WorkspaceAgentsPage() {
         {agents.map((agent) => (
           <div
             key={agent.id}
-            className="bg-[#0D121F] rounded-3xl p-6 border border-slate-800/80 shadow-xl space-y-5 flex flex-col justify-between hover:border-amber-500/30 transition-all text-white"
+            className="bg-white dark:bg-[#0D121F] rounded-3xl p-6 border border-slate-200 dark:border-slate-800/80 shadow-xs dark:shadow-xl space-y-5 flex flex-col justify-between hover:border-amber-500/40 transition-all text-slate-900 dark:text-white"
           >
             <div>
               {/* Avatar & Role Header */}
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-800 overflow-hidden border border-slate-700 ring-1 ring-amber-400/40 shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700 ring-1 ring-amber-400/40 shrink-0">
                     <img
                       src={
                         agent.avatar_url ||
@@ -110,12 +110,12 @@ export default function WorkspaceAgentsPage() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-serif font-bold text-white text-base">{agent.full_name}</h3>
+                    <h3 className="font-serif font-bold text-slate-950 dark:text-white text-base">{agent.full_name}</h3>
                     <span
                       className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider mt-1 border ${
                         agent.role === "agency_admin"
-                          ? "bg-amber-950/80 text-amber-300 border-amber-500/30"
-                          : "bg-slate-800 text-slate-300 border-slate-700"
+                          ? "bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-500/30"
+                          : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700"
                       }`}
                     >
                       {agent.role.replace("_", " ")}
@@ -123,41 +123,41 @@ export default function WorkspaceAgentsPage() {
                   </div>
                 </div>
 
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" title="Active Account" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 dark:bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" title="Active Account" />
               </div>
 
               {/* Contact info */}
-              <div className="mt-4 pt-4 border-t border-slate-800 space-y-2 text-xs text-slate-400">
+              <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2 text-xs text-slate-500 dark:text-slate-400">
                 <div className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-slate-500" />
+                  <Mail className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
                   <span>{agent.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="font-mono text-slate-300">{agent.phone || "+92 300 0000000"}</span>
+                  <Phone className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                  <span className="font-mono text-slate-700 dark:text-slate-300">{agent.phone || "+92 300 0000000"}</span>
                 </div>
               </div>
             </div>
 
             {/* Performance Metrics Strip */}
-            <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-800 text-center text-xs">
-              <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="font-mono font-bold text-white block text-sm">
+            <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 dark:border-slate-800 text-center text-xs">
+              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <span className="font-mono font-bold text-slate-900 dark:text-white block text-sm">
                   {agent.active_properties_count}
                 </span>
-                <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Listings</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Listings</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="font-mono font-bold text-amber-300 block text-sm">
+              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <span className="font-mono font-bold text-amber-600 dark:text-amber-300 block text-sm">
                   {agent.active_leads_count}
                 </span>
-                <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Leads</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Leads</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                <span className="font-mono font-bold text-emerald-400 block text-sm">
+              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 block text-sm">
                   {agent.closed_deals_count}
                 </span>
-                <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Closed</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">Closed</span>
               </div>
             </div>
           </div>
@@ -166,78 +166,90 @@ export default function WorkspaceAgentsPage() {
 
       {/* Add Agent Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-slate-900 mb-1">Add Agency Team Member</h3>
-            <p className="text-xs text-slate-500 mb-5">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
+              Personnel Clearance
+            </span>
+            <h3 className="text-xl font-serif font-bold text-slate-950 dark:text-white mb-1">Add Agency Team Member</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-light">
               Grant workspace access and assign role permissions.
             </p>
 
             <form onSubmit={handleInviteAgent} className="space-y-4 text-xs">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Full Name *</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
                 <input
                   type="text"
                   required
                   value={formData.full_name}
                   onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                   placeholder="e.g. Kashif Munir"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Email Address *</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address *</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="kashif@aqarflow.com"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Mobile / WhatsApp *</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Mobile / WhatsApp *</label>
                 <input
                   type="tel"
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+92 300 1234567"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Role *</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Role *</label>
                 <select
                   value={formData.role}
                   onChange={(e) =>
                     setFormData({ ...formData, role: e.target.value as "agent" | "agency_admin" })
                   }
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                 >
                   <option value="agent">Real Estate Agent (Assigned leads & properties only)</option>
                   <option value="agency_admin">Agency Administrator (Full permissions)</option>
                 </select>
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md"
-              >
-                Add Member to Team
-              </button>
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all text-center"
+                >
+                  Add Member to Team
+                </button>
+              </div>
             </form>
           </div>
         </div>

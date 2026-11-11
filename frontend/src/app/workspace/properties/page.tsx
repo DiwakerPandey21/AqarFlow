@@ -368,44 +368,44 @@ export default function WorkspacePropertiesPage() {
 
       {/* Add Property Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
           <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white max-h-[90vh] overflow-y-auto">
             <button
               type="button"
               onClick={() => setIsAddModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 block mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
               Private Portfolio Onboarding
             </span>
-            <h3 className="text-xl font-serif font-bold text-white mb-1">Create New Property Listing</h3>
-            <p className="text-xs text-slate-400 mb-6 font-light">
+            <h3 className="text-xl font-serif font-bold text-slate-950 dark:text-white mb-1">Create New Property Listing</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-6 font-light">
               Enter comprehensive architectural specifications with Pakistan-first currency and area units.
             </p>
 
             <form onSubmit={handleCreateProperty} className="space-y-4 text-xs">
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Property Title *</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Property Title *</label>
                 <input
                   type="text"
                   required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="e.g. 1 Kanal Modern Spanish Bungalow"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                 />
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Purpose</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Purpose</label>
                   <select
                     value={formData.purpose}
                     onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   >
                     <option value="sale">For Sale</option>
                     <option value="rent">For Rent</option>
@@ -413,11 +413,11 @@ export default function WorkspacePropertiesPage() {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Type</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Type</label>
                   <select
                     value={formData.property_type}
                     onChange={(e) => setFormData({ ...formData, property_type: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   >
                     <option value="House">House</option>
                     <option value="Apartment">Apartment</option>
@@ -429,22 +429,22 @@ export default function WorkspacePropertiesPage() {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Price (PKR) *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Price (PKR) *</label>
                   <input
                     type="number"
                     required
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Area Unit</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Area Unit</label>
                   <select
                     value={formData.area_unit}
                     onChange={(e) => setFormData({ ...formData, area_unit: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   >
                     <option value="Marla">Marla</option>
                     <option value="Kanal">Kanal</option>
@@ -456,42 +456,42 @@ export default function WorkspacePropertiesPage() {
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Area Value</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Area Value</label>
                   <input
                     type="number"
                     required
                     value={formData.area_value}
                     onChange={(e) => setFormData({ ...formData, area_value: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Bedrooms</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Bedrooms</label>
                   <input
                     type="number"
                     value={formData.bedrooms}
                     onChange={(e) => setFormData({ ...formData, bedrooms: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Bathrooms</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Bathrooms</label>
                   <input
                     type="number"
                     value={formData.bathrooms}
                     onChange={(e) => setFormData({ ...formData, bathrooms: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">City *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">City *</label>
                   <select
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   >
                     <option value="Islamabad">Islamabad</option>
                     <option value="Lahore">Lahore</option>
@@ -500,24 +500,24 @@ export default function WorkspacePropertiesPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Locality / Sector *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Locality / Sector *</label>
                   <input
                     type="text"
                     required
                     value={formData.locality}
                     onChange={(e) => setFormData({ ...formData, locality: e.target.value })}
                     placeholder="e.g. DHA Phase 6"
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Assigned Agent</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Assigned Agent</label>
                 <select
                   value={formData.assigned_agent_id}
                   onChange={(e) => setFormData({ ...formData, assigned_agent_id: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                  className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                 >
                   {agents.map((ag) => (
                     <option key={ag.id} value={ag.id}>
@@ -528,30 +528,37 @@ export default function WorkspacePropertiesPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Cover Image URL</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Cover Image URL</label>
                 <input
                   type="url"
                   value={formData.cover_image}
                   onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-xs"
+                  className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Description</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Description</label>
                 <textarea
                   rows={3}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Highlight key design attributes, title clearance, and fittings..."
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                  className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                 />
               </div>
 
-              <div className="pt-2">
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsAddModalOpen(false)}
+                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
+                >
+                  Cancel
+                </button>
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all"
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all text-center"
                 >
                   Publish Property to Inventory
                 </button>

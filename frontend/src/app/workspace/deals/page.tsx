@@ -188,33 +188,33 @@ export default function WorkspaceDealsPage() {
           return (
             <div
               key={deal.id}
-              className="bg-[#0D121F] rounded-3xl p-6 border border-slate-800/80 shadow-xl space-y-4 hover:border-amber-500/30 transition-all text-white"
+              className="bg-white dark:bg-[#0D121F] rounded-3xl p-6 border border-slate-200 dark:border-slate-800/80 shadow-xs dark:shadow-xl space-y-4 hover:border-amber-500/40 transition-all text-slate-900 dark:text-white"
             >
               {/* Row 1: Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold bg-slate-900 border border-slate-700 text-amber-300 px-2 py-0.5 rounded">
+                    <span className="text-xs font-mono font-bold bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded">
                       DEAL-{deal.id.substring(deal.id.length - 4)}
                     </span>
                     <span
                       className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
                         isWon
-                          ? "bg-emerald-950/80 text-emerald-300 border-emerald-500/30"
+                          ? "bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-500/30"
                           : isBooking
-                          ? "bg-amber-950/80 text-amber-300 border-amber-500/30"
-                          : "bg-blue-950/80 text-blue-300 border-blue-500/30"
+                          ? "bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-500/30"
+                          : "bg-blue-50 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border-blue-300 dark:border-blue-500/30"
                       }`}
                     >
                       {deal.stage}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-serif font-bold text-white mt-1">
+                  <h3 className="text-lg font-serif font-bold text-slate-950 dark:text-white mt-1">
                     {deal.property?.title}
                   </h3>
-                  <p className="text-xs text-slate-400">
-                    Buyer / Client: <strong className="text-slate-200">{deal.client_name}</strong> ({deal.client_phone})
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Buyer / Client: <strong className="text-slate-800 dark:text-slate-200 font-semibold">{deal.client_name}</strong> ({deal.client_phone})
                   </p>
                 </div>
 
@@ -224,10 +224,10 @@ export default function WorkspaceDealsPage() {
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                       Agreed Amount
                     </span>
-                    <span className="text-xl font-mono font-extrabold text-amber-300 block">
+                    <span className="text-xl font-mono font-extrabold text-amber-600 dark:text-amber-300 block">
                       {formatPKR(deal.agreed_amount || deal.offer_amount)}
                     </span>
-                    <span className="text-[11px] text-emerald-400 font-semibold font-mono">
+                    <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold font-mono">
                       Comm: {formatPKR(deal.commission_amount)} ({deal.commission_rate}%)
                     </span>
                   </div>
@@ -235,22 +235,22 @@ export default function WorkspaceDealsPage() {
                   <button
                     type="button"
                     onClick={() => setSelectedDealForReceipt(deal)}
-                    className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition-colors border border-slate-700"
+                    className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-slate-700"
                     title="Generate Deal Summary Statement"
                   >
-                    <FileText className="w-4 h-4 text-amber-400" />
+                    <FileText className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                     <span className="hidden sm:inline">Receipt</span>
                   </button>
                 </div>
               </div>
 
               {/* Row 2: Milestone Progress Bar */}
-              <div className="space-y-1.5 bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
+              <div className="space-y-1.5 bg-slate-50 dark:bg-slate-900/60 p-3 rounded-2xl border border-slate-200/80 dark:border-slate-800">
+                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-400">
                   <span>Transaction Progress ({deal.stage})</span>
                   <span>Target Close: {deal.expected_close_date || "Pending"}</span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
+                <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
                       isWon ? "bg-emerald-500" : "bg-blue-600"
@@ -263,11 +263,11 @@ export default function WorkspaceDealsPage() {
               {/* Row 3: Advance Stage & Notes */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs pt-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-500 font-semibold">Advance Stage:</span>
+                  <span className="text-slate-600 dark:text-slate-400 font-semibold">Advance Stage:</span>
                   <select
                     value={deal.stage}
                     onChange={(e) => handleStageChange(deal.id, e.target.value as DealStage)}
-                    className="px-2.5 py-1.5 rounded-xl border border-slate-300 font-bold bg-white focus:outline-none"
+                    className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none"
                   >
                     {dealStages.map((st) => (
                       <option key={st} value={st}>
@@ -277,10 +277,10 @@ export default function WorkspaceDealsPage() {
                   </select>
                 </div>
 
-                <div className="text-slate-500">
-                  Responsible Broker: <strong className="text-slate-800">{deal.agent?.full_name}</strong>
+                <div className="text-slate-600 dark:text-slate-400">
+                  Responsible Broker: <strong className="text-slate-800 dark:text-slate-200">{deal.agent?.full_name}</strong>
                   {deal.token_amount && deal.token_amount > 0 ? (
-                    <span className="ml-3 font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                    <span className="ml-3 font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-500/30 px-2 py-0.5 rounded">
                       Token Paid: {formatPKR(deal.token_amount)}
                     </span>
                   ) : null}
@@ -288,8 +288,8 @@ export default function WorkspaceDealsPage() {
               </div>
 
               {deal.notes && (
-                <p className="text-xs text-slate-600 bg-white p-3 rounded-xl border border-slate-200/80">
-                  <strong className="text-slate-800">Transaction Notes:</strong> {deal.notes}
+                <p className="text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/40 p-3 rounded-xl border border-slate-200/80 dark:border-slate-800">
+                  <strong className="text-slate-900 dark:text-white">Transaction Notes:</strong> {deal.notes}
                 </p>
               )}
             </div>
@@ -299,29 +299,32 @@ export default function WorkspaceDealsPage() {
 
       {/* Create Deal Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white">
             <button
               type="button"
               onClick={() => setIsAddModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-slate-900 mb-1">Create Deal Record</h3>
-            <p className="text-xs text-slate-500 mb-5">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
+              Transaction Sentry
+            </span>
+            <h3 className="text-xl font-serif font-bold text-slate-950 dark:text-white mb-1">Create Deal Record</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-light">
               Link property, buyer, agreed financials, and broker commission.
             </p>
 
             <form onSubmit={handleCreateDeal} className="space-y-4 text-xs">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Property *</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Property *</label>
                 <select
                   required
                   value={formData.property_id}
                   onChange={(e) => setFormData({ ...formData, property_id: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 font-medium"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans font-medium"
                 >
                   {properties.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -333,80 +336,80 @@ export default function WorkspaceDealsPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Buyer / Client Name *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Buyer / Client Name *</label>
                   <input
                     type="text"
                     required
                     value={formData.client_name}
                     onChange={(e) => setFormData({ ...formData, client_name: e.target.value })}
                     placeholder="e.g. Hamza Sheikh"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Client Mobile *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Client Mobile *</label>
                   <input
                     type="tel"
                     required
                     value={formData.client_phone}
                     onChange={(e) => setFormData({ ...formData, client_phone: e.target.value })}
                     placeholder="+92 300 7766550"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Agreed Amount (PKR) *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Agreed Amount (PKR) *</label>
                   <input
                     type="number"
                     required
                     value={formData.agreed_amount}
                     onChange={(e) => setFormData({ ...formData, agreed_amount: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Token Advance (PKR)</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Token Advance (PKR)</label>
                   <input
                     type="number"
                     value={formData.token_amount}
                     onChange={(e) => setFormData({ ...formData, token_amount: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Commission Rate (%)</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Commission Rate (%)</label>
                   <input
                     type="number"
                     step="0.1"
                     value={formData.commission_rate}
                     onChange={(e) => setFormData({ ...formData, commission_rate: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Target Close Date</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Close Date</label>
                   <input
                     type="date"
                     value={formData.expected_close_date}
                     onChange={(e) => setFormData({ ...formData, expected_close_date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Initial Stage</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Initial Stage</label>
                   <select
                     value={formData.stage}
                     onChange={(e) => setFormData({ ...formData, stage: e.target.value as DealStage })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   >
                     {dealStages.map((st) => (
                       <option key={st} value={st}>
@@ -416,11 +419,11 @@ export default function WorkspaceDealsPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Responsible Broker</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Responsible Broker</label>
                   <select
                     value={formData.agent_id}
                     onChange={(e) => setFormData({ ...formData, agent_id: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                   >
                     {agents.map((ag) => (
                       <option key={ag.id} value={ag.id}>
@@ -432,21 +435,30 @@ export default function WorkspaceDealsPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Transaction Notes</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Transaction Notes</label>
                 <textarea
                   rows={2}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition-all font-sans"
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md"
-              >
-                Create Deal Record
-              </button>
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsAddModalOpen(false)}
+                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all text-center"
+                >
+                  Create Deal Record
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -454,36 +466,36 @@ export default function WorkspaceDealsPage() {
 
       {/* Transaction Statement / Receipt Modal */}
       {selectedDealForReceipt && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl relative border border-slate-200 print:m-0 print:p-4 print:shadow-none">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-xl w-full p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white print:m-0 print:p-4 print:shadow-none">
             <button
               type="button"
               onClick={() => setSelectedDealForReceipt(null)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100 print:hidden"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors print:hidden"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* Official Header */}
-            <div className="border-b-2 border-slate-900 pb-5 mb-6 flex justify-between items-start">
+            <div className="border-b-2 border-slate-900 dark:border-slate-700 pb-5 mb-6 flex justify-between items-start">
               <div>
                 <div className="flex items-center gap-2">
-                  <Building2 className="w-6 h-6 text-blue-700" />
-                  <span className="text-xl font-extrabold text-slate-900 font-heading">
+                  <Building2 className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+                  <span className="text-xl font-extrabold text-slate-950 dark:text-white font-serif">
                     AqarFlow Real Estate
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                   Executive Heights, Blue Area, Islamabad • Pakistan
                 </p>
-                <p className="text-[11px] text-slate-400">NTN / STRN Verified Brokerage</p>
+                <p className="text-[11px] text-slate-400 dark:text-slate-500">NTN / STRN Verified Brokerage</p>
               </div>
 
               <div className="text-right">
-                <span className="text-xs font-mono font-bold bg-slate-900 text-white px-2 py-1 rounded block">
+                <span className="text-xs font-mono font-bold bg-slate-100 dark:bg-slate-900 text-amber-700 dark:text-amber-300 border border-slate-200 dark:border-slate-700 px-2 py-1 rounded block">
                   STATEMENT #{selectedDealForReceipt.id.substring(selectedDealForReceipt.id.length - 6).toUpperCase()}
                 </span>
-                <span className="text-[11px] text-slate-500 mt-1 block">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">
                   Date: {formatDate(selectedDealForReceipt.created_at)}
                 </span>
               </div>
@@ -491,61 +503,61 @@ export default function WorkspaceDealsPage() {
 
             {/* Statement Body */}
             <div className="space-y-4 text-xs">
-              <div className="grid grid-cols-2 gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+              <div className="grid grid-cols-2 gap-4 p-4 bg-slate-50 dark:bg-slate-900/60 rounded-2xl border border-slate-200/80 dark:border-slate-800">
                 <div>
-                  <span className="text-slate-400 font-semibold block text-[10px] uppercase">
+                  <span className="text-slate-400 dark:text-slate-500 font-semibold block text-[10px] uppercase">
                     Client / Purchaser
                   </span>
-                  <span className="font-bold text-slate-900 text-sm block">
+                  <span className="font-bold text-slate-900 dark:text-white text-sm block">
                     {selectedDealForReceipt.client_name}
                   </span>
-                  <span className="text-slate-500">{selectedDealForReceipt.client_phone}</span>
+                  <span className="text-slate-500 dark:text-slate-400">{selectedDealForReceipt.client_phone}</span>
                 </div>
 
                 <div>
-                  <span className="text-slate-400 font-semibold block text-[10px] uppercase">
+                  <span className="text-slate-400 dark:text-slate-500 font-semibold block text-[10px] uppercase">
                     Property Reference
                   </span>
-                  <span className="font-bold text-slate-900 text-sm block">
+                  <span className="font-bold text-slate-900 dark:text-white text-sm block">
                     {selectedDealForReceipt.property?.reference_code}
                   </span>
-                  <span className="text-slate-600 line-clamp-1">
+                  <span className="text-slate-600 dark:text-slate-300 line-clamp-1">
                     {selectedDealForReceipt.property?.title}
                   </span>
                 </div>
               </div>
 
               {/* Financial Breakdown Table */}
-              <div className="border border-slate-200 rounded-2xl overflow-hidden">
+              <div className="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden">
                 <table className="w-full text-left">
-                  <thead className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                  <thead className="bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-slate-800">
                     <tr>
                       <th className="py-2.5 px-4">Financial Item</th>
                       <th className="py-2.5 px-4 text-right">Amount (PKR)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     <tr>
-                      <td className="py-2.5 px-4 font-medium text-slate-800">
+                      <td className="py-2.5 px-4 font-medium text-slate-800 dark:text-slate-200">
                         Agreed Purchase Consideration
                       </td>
-                      <td className="py-2.5 px-4 text-right font-bold text-slate-900">
+                      <td className="py-2.5 px-4 text-right font-bold text-slate-900 dark:text-white">
                         {formatPKR(selectedDealForReceipt.agreed_amount)}
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2.5 px-4 text-slate-600">
+                      <td className="py-2.5 px-4 text-slate-600 dark:text-slate-400">
                         Token / Advance Deposit Paid
                       </td>
-                      <td className="py-2.5 px-4 text-right font-semibold text-emerald-700">
+                      <td className="py-2.5 px-4 text-right font-semibold text-emerald-600 dark:text-emerald-400">
                         - {formatPKR(selectedDealForReceipt.token_amount)}
                       </td>
                     </tr>
-                    <tr className="bg-blue-50/50 font-bold">
-                      <td className="py-2.5 px-4 text-blue-900">
+                    <tr className="bg-amber-50/50 dark:bg-amber-500/10 font-bold">
+                      <td className="py-2.5 px-4 text-amber-900 dark:text-amber-200">
                         Remaining Consideration on Registry Transfer
                       </td>
-                      <td className="py-2.5 px-4 text-right text-blue-900">
+                      <td className="py-2.5 px-4 text-right text-amber-900 dark:text-amber-200 font-mono">
                         {formatPKR(
                           (selectedDealForReceipt.agreed_amount || 0) -
                             (selectedDealForReceipt.token_amount || 0)
@@ -553,10 +565,10 @@ export default function WorkspaceDealsPage() {
                       </td>
                     </tr>
                     <tr>
-                      <td className="py-2.5 px-4 text-slate-500">
+                      <td className="py-2.5 px-4 text-slate-500 dark:text-slate-400">
                         Agency Brokerage Fee ({selectedDealForReceipt.commission_rate}%)
                       </td>
-                      <td className="py-2.5 px-4 text-right font-medium text-slate-700">
+                      <td className="py-2.5 px-4 text-right font-medium text-slate-700 dark:text-slate-300">
                         {formatPKR(selectedDealForReceipt.commission_amount)}
                       </td>
                     </tr>
@@ -564,7 +576,7 @@ export default function WorkspaceDealsPage() {
                 </table>
               </div>
 
-              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 text-[11px] leading-relaxed">
+              <div className="p-3 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-[11px] leading-relaxed">
                 <strong>Legal Note:</strong> This statement documents commercial terms agreed through
                 AqarFlow. Property title mutation and final possession remain subject to physical
                 verification and execution before the respective registrar or development authority.
@@ -572,14 +584,14 @@ export default function WorkspaceDealsPage() {
             </div>
 
             {/* Print Button */}
-            <div className="pt-6 mt-6 border-t border-slate-200 flex justify-between items-center print:hidden">
-              <span className="text-xs text-slate-400">
+            <div className="pt-6 mt-6 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center print:hidden">
+              <span className="text-xs text-slate-400 dark:text-slate-500">
                 Printed via AqarFlow Platform • Pakistan
               </span>
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-2 shadow-md"
+                className="px-5 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white dark:bg-gradient-to-r dark:from-amber-500 dark:to-amber-600 dark:hover:from-amber-400 dark:hover:to-amber-500 dark:text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md transition-all"
               >
                 <Printer className="w-4 h-4" />
                 <span>Print Transaction Statement</span>

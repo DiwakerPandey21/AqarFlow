@@ -302,28 +302,31 @@ function WorkspaceVisitsContent() {
 
       {/* Schedule Visit Modal with Double-Booking Conflict Warning */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-slate-900 mb-1">Schedule Property Showing</h3>
-            <p className="text-xs text-slate-500 mb-5">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
+              Field Appointment Protocol
+            </span>
+            <h3 className="text-xl font-serif font-bold text-slate-950 dark:text-white mb-1">Schedule Property Showing</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-light">
               Select property, assigned broker, and time slot.
             </p>
 
             {conflictWarning && (
-              <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl mb-4 space-y-2 text-xs">
-                <div className="flex items-center gap-2 text-amber-800 font-bold">
-                  <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+              <div className="p-4 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-500/30 rounded-2xl mb-4 space-y-2 text-xs">
+                <div className="flex items-center gap-2 text-amber-800 dark:text-amber-300 font-bold">
+                  <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
                   <span>Agent Double-Booking Warning:</span>
                 </div>
-                <p className="text-amber-700 pl-6 leading-relaxed">{conflictWarning}</p>
+                <p className="text-amber-700 dark:text-amber-200 pl-6 leading-relaxed">{conflictWarning}</p>
                 <div className="pl-6 pt-1 flex gap-2">
                   <button
                     type="button"
@@ -335,7 +338,7 @@ function WorkspaceVisitsContent() {
                   <button
                     type="button"
                     onClick={() => setConflictWarning(null)}
-                    className="px-3 py-1.5 rounded-lg bg-white border border-amber-300 text-amber-800 font-semibold"
+                    className="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-amber-300 dark:border-slate-700 text-amber-800 dark:text-amber-300 font-semibold"
                   >
                     Adjust Time
                   </button>
@@ -345,12 +348,12 @@ function WorkspaceVisitsContent() {
 
             <form onSubmit={(e) => handleCreateVisit(e, false)} className="space-y-4 text-xs">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Select Property *</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Select Property *</label>
                 <select
                   required
                   value={formData.property_id}
                   onChange={(e) => setFormData({ ...formData, property_id: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 font-medium"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-medium font-sans transition-all"
                 >
                   {properties.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -361,12 +364,12 @@ function WorkspaceVisitsContent() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Assigned Agent *</label>
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Assigned Agent *</label>
                 <select
                   required
                   value={formData.agent_id}
                   onChange={(e) => setFormData({ ...formData, agent_id: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 font-medium"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-medium font-sans transition-all"
                 >
                   {agents.map((ag) => (
                     <option key={ag.id} value={ag.id}>
@@ -378,61 +381,61 @@ function WorkspaceVisitsContent() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Client Name *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Client Name *</label>
                   <input
                     type="text"
                     required
                     value={formData.client_name}
                     onChange={(e) => setFormData({ ...formData, client_name: e.target.value })}
                     placeholder="e.g. Farhan Malik"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-sans transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Client Mobile *</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Client Mobile *</label>
                   <input
                     type="tel"
                     required
                     value={formData.client_phone}
                     onChange={(e) => setFormData({ ...formData, client_phone: e.target.value })}
                     placeholder="+92 300 1234567"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-sans transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Date</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Date</label>
                   <input
                     type="date"
                     required
                     value={formData.date}
                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Time</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Time</label>
                   <input
                     type="time"
                     required
                     value={formData.time}
                     onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Duration</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Duration</label>
                   <select
                     value={formData.duration_minutes}
                     onChange={(e) =>
                       setFormData({ ...formData, duration_minutes: Number(e.target.value) })
                     }
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   >
                     <option value={30}>30 Minutes</option>
                     <option value={45}>45 Minutes</option>
@@ -441,22 +444,32 @@ function WorkspaceVisitsContent() {
                   </select>
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Meeting Point</label>
+                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Meeting Point</label>
                   <input
                     type="text"
                     value={formData.meeting_point}
                     onChange={(e) => setFormData({ ...formData, meeting_point: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                    placeholder="e.g. Main Gate, Sector F-7"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-sans transition-all"
                   />
                 </div>
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md"
-              >
-                Schedule Appointment
-              </button>
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all text-center"
+                >
+                  Schedule Appointment
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -464,24 +477,27 @@ function WorkspaceVisitsContent() {
 
       {/* Outcome Modal */}
       {selectedVisitForOutcome && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-slate-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white">
             <button
               type="button"
               onClick={() => setSelectedVisitForOutcome(null)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:bg-slate-100"
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-900 mb-1">Log Showing Outcome</h3>
-            <p className="text-xs text-slate-500 mb-4">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 block mb-1">
+              Field Intelligence
+            </span>
+            <h3 className="text-lg font-serif font-bold text-slate-950 dark:text-white mb-1">Log Showing Outcome</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 font-light">
               Visit with {selectedVisitForOutcome.client_name} ({selectedVisitForOutcome.property?.title})
             </p>
 
             <form onSubmit={handleSaveOutcome} className="space-y-4 text-xs">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">
+                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
                   Client Feedback & Next Action *
                 </label>
                 <textarea
@@ -490,16 +506,25 @@ function WorkspaceVisitsContent() {
                   value={outcomeText}
                   onChange={(e) => setOutcomeText(e.target.value)}
                   placeholder="e.g. Client liked master bedroom and kitchen. Made verbal offer of 9.2 Crore. Follow up on Tuesday."
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-sans transition-all"
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md"
-              >
-                Complete Showing & Save Notes
-              </button>
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setSelectedVisitForOutcome(null)}
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all text-center"
+                >
+                  Complete Showing & Save
+                </button>
+              </div>
             </form>
           </div>
         </div>

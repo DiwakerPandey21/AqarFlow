@@ -115,7 +115,7 @@ export function ScheduleVisitModal({ property, isOpen, onClose }: ScheduleVisitM
             <button
               type="button"
               onClick={onClose}
-              className="py-2.5 px-6 rounded-xl bg-blue-600 text-white font-bold text-sm shadow-md hover:bg-blue-700 transition-colors"
+              className="py-2.5 px-6 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-sm shadow-md transition-colors"
             >
               Done
             </button>
@@ -123,10 +123,10 @@ export function ScheduleVisitModal({ property, isOpen, onClose }: ScheduleVisitM
         ) : (
           <form onSubmit={(e) => handleSubmit(e, false)} className="space-y-4">
             <div>
-              <span className="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700">
+              <span className="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-amber-50 text-amber-900 border border-amber-200/80">
                 In-Person Showing
               </span>
-              <h3 className="text-xl font-bold text-slate-900 mt-2">
+              <h3 className="text-xl font-serif font-bold text-slate-900 mt-2">
                 Schedule a Private Property Visit
               </h3>
               <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">
@@ -257,9 +257,9 @@ export function ScheduleVisitModal({ property, isOpen, onClose }: ScheduleVisitM
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              className="w-full py-3 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
             >
-              <Calendar className="w-4 h-4" />
+              <Calendar className="w-4 h-4 text-amber-400" />
               <span>{loading ? "Scheduling..." : "Confirm Visit Request"}</span>
             </button>
           </form>

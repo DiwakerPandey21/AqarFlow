@@ -600,24 +600,24 @@ export default function WorkspaceRentalsPage() {
 
       {/* Lease Details & Rent Schedule Drawer */}
       {selectedLease && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white w-full max-w-2xl h-full shadow-2xl flex flex-col border-l border-slate-200 animate-in slide-in-from-right duration-300">
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/60 dark:bg-black/75 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] w-full max-w-2xl h-full shadow-2xl flex flex-col border-l border-slate-200 dark:border-slate-800 animate-in slide-in-from-right duration-300 text-slate-900 dark:text-white">
             {/* Drawer Header */}
-            <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/60">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30">
                     {selectedLease.property_code}
                   </span>
-                  <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                  <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-500/30 px-2 py-0.5 rounded-full">
                     {selectedLease.status}
                   </span>
                 </div>
-                <h2 className="text-lg font-bold text-slate-900 mt-1">
+                <h2 className="text-lg font-serif font-bold text-slate-950 dark:text-white mt-1">
                   {selectedLease.property_title}
                 </h2>
-                <p className="text-xs text-slate-500">
-                  Tenant: <strong className="text-slate-800">{selectedLease.tenant_name}</strong> • Phone: {selectedLease.tenant_phone}
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Tenant: <strong className="text-slate-800 dark:text-slate-200">{selectedLease.tenant_name}</strong> • Phone: {selectedLease.tenant_phone}
                 </p>
               </div>
 
@@ -625,7 +625,7 @@ export default function WorkspaceRentalsPage() {
                 <button
                   type="button"
                   onClick={() => setIsStatementModalOpen(true)}
-                  className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                  className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
                   title="Generate Official Rent Statement"
                 >
                   <Printer className="w-4 h-4" />
@@ -634,7 +634,7 @@ export default function WorkspaceRentalsPage() {
                 <button
                   type="button"
                   onClick={() => setSelectedLease(null)}
-                  className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                  className="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -644,66 +644,66 @@ export default function WorkspaceRentalsPage() {
             {/* Drawer Body - Scrollable */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {/* Financial Particulars */}
-              <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
+              <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 text-xs">
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Monthly Rent</span>
-                  <span className="text-base font-extrabold text-slate-900">
+                  <span className="text-slate-400 dark:text-slate-500 block text-[10px] uppercase font-bold">Monthly Rent</span>
+                  <span className="text-base font-extrabold text-slate-900 dark:text-white font-mono">
                     {formatPKR(selectedLease.rent_amount_pkr)}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Security Deposit</span>
-                  <span className="text-base font-extrabold text-slate-900">
+                  <span className="text-slate-400 dark:text-slate-500 block text-[10px] uppercase font-bold">Security Deposit</span>
+                  <span className="text-base font-extrabold text-slate-900 dark:text-white font-mono">
                     {formatPKR(selectedLease.security_deposit_pkr)}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Payment Cycle</span>
-                  <span className="text-sm font-bold text-slate-800">{selectedLease.payment_frequency}</span>
+                  <span className="text-slate-400 dark:text-slate-500 block text-[10px] uppercase font-bold">Payment Cycle</span>
+                  <span className="text-sm font-bold text-slate-800 dark:text-slate-200">{selectedLease.payment_frequency}</span>
                 </div>
               </div>
 
               {/* Tenant & Landlord Details */}
               <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="p-3.5 rounded-2xl border border-slate-100 bg-white space-y-1">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                <div className="p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 space-y-1">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
                     Tenant Particulars
                   </span>
-                  <p className="font-bold text-slate-900">{selectedLease.tenant_name}</p>
-                  <p className="text-slate-500">{selectedLease.tenant_phone}</p>
-                  <p className="text-slate-500">{selectedLease.tenant_email || "No email"}</p>
+                  <p className="font-bold text-slate-900 dark:text-white">{selectedLease.tenant_name}</p>
+                  <p className="text-slate-500 dark:text-slate-400">{selectedLease.tenant_phone}</p>
+                  <p className="text-slate-500 dark:text-slate-400">{selectedLease.tenant_email || "No email"}</p>
                   {selectedLease.tenant_cnic && (
-                    <p className="text-[11px] font-mono text-slate-600">CNIC: {selectedLease.tenant_cnic}</p>
+                    <p className="text-[11px] font-mono text-slate-600 dark:text-slate-400">CNIC: {selectedLease.tenant_cnic}</p>
                   )}
                 </div>
 
-                <div className="p-3.5 rounded-2xl border border-slate-100 bg-white space-y-1">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                <div className="p-3.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 space-y-1">
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
                     Landlord / Representative
                   </span>
-                  <p className="font-bold text-slate-900">{selectedLease.landlord_name}</p>
-                  <p className="text-slate-500">{selectedLease.landlord_phone}</p>
-                  <p className="text-[11px] text-slate-400">Escrow Account: Meezan Bank AqarFlow Escrow</p>
+                  <p className="font-bold text-slate-900 dark:text-white">{selectedLease.landlord_name}</p>
+                  <p className="text-slate-500 dark:text-slate-400">{selectedLease.landlord_phone}</p>
+                  <p className="text-[11px] text-slate-400 dark:text-slate-500">Escrow Account: Meezan Bank AqarFlow Escrow</p>
                 </div>
               </div>
 
               {/* Rent Payment Schedule Ledger */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                    <Receipt className="w-4 h-4 text-blue-600" />
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <Receipt className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                     <span>Rent Installment Schedule</span>
                   </h3>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-slate-400 dark:text-slate-500">
                     {selectedLease.rent_schedule.filter((s) => s.status === "Paid").length} /{" "}
                     {selectedLease.rent_schedule.length} Collected
                   </span>
                 </div>
 
-                <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+                <div className="border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
                   <table className="w-full text-left border-collapse text-xs">
                     <thead>
-                      <tr className="bg-slate-50 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase">
+                      <tr className="bg-slate-100 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">
                         <th className="py-2.5 px-3">#</th>
                         <th className="py-2.5 px-3">Due Date</th>
                         <th className="py-2.5 px-3">Amount</th>
@@ -712,41 +712,41 @@ export default function WorkspaceRentalsPage() {
                         <th className="py-2.5 px-3 text-right">Action</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                       {selectedLease.rent_schedule.map((item, idx) => (
-                        <tr key={item.id} className="hover:bg-slate-50/60 transition-colors">
-                          <td className="py-2.5 px-3 font-mono text-slate-400">{idx + 1}</td>
-                          <td className="py-2.5 px-3 font-semibold text-slate-800">
+                        <tr key={item.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-900/40 transition-colors">
+                          <td className="py-2.5 px-3 font-mono text-slate-400 dark:text-slate-500">{idx + 1}</td>
+                          <td className="py-2.5 px-3 font-semibold text-slate-800 dark:text-slate-200">
                             {formatDate(item.due_date)}
                           </td>
-                          <td className="py-2.5 px-3 font-bold text-slate-900">
+                          <td className="py-2.5 px-3 font-bold text-slate-900 dark:text-white font-mono">
                             {formatPKR(item.amount_pkr)}
                           </td>
                           <td className="py-2.5 px-3">
                             <span
-                              className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase ${
+                              className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase border ${
                                 item.status === "Paid"
-                                  ? "bg-emerald-100 text-emerald-800"
+                                  ? "bg-emerald-50 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30"
                                   : item.status === "Overdue"
-                                  ? "bg-rose-100 text-rose-800"
-                                  : "bg-amber-100 text-amber-800"
+                                  ? "bg-rose-50 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border-rose-200 dark:border-rose-500/30"
+                                  : "bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30"
                               }`}
                             >
                               {item.status}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 text-[11px] text-slate-500">
+                          <td className="py-2.5 px-3 text-[11px] text-slate-500 dark:text-slate-400">
                             {item.status === "Paid" ? (
                               <div>
-                                <span className="font-semibold text-slate-700">{item.payment_method || "Paid"}</span>
+                                <span className="font-semibold text-slate-700 dark:text-slate-300">{item.payment_method || "Paid"}</span>
                                 {item.receipt_number && (
-                                  <span className="block text-[10px] font-mono text-slate-400">
+                                  <span className="block text-[10px] font-mono text-slate-400 dark:text-slate-500">
                                     {item.receipt_number}
                                   </span>
                                 )}
                               </div>
                             ) : (
-                              <span className="text-slate-400 italic">Pending receipt</span>
+                              <span className="text-slate-400 dark:text-slate-500 italic">Pending receipt</span>
                             )}
                           </td>
                           <td className="py-2.5 px-3 text-right">
@@ -754,12 +754,12 @@ export default function WorkspaceRentalsPage() {
                               <button
                                 type="button"
                                 onClick={() => openPaymentModal(item)}
-                                className="px-2 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] shadow-xs"
+                                className="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-[10px] shadow-xs transition-all"
                               >
                                 Record
                               </button>
                             ) : (
-                              <span className="text-emerald-600 text-[11px] font-bold flex items-center justify-end gap-1">
+                              <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-bold flex items-center justify-end gap-1">
                                 <Check className="w-3 h-3" />
                                 <span>Paid</span>
                               </span>
@@ -774,9 +774,9 @@ export default function WorkspaceRentalsPage() {
 
               {/* Lease Terms & Legal Clauses */}
               {selectedLease.terms_notes && (
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-xs space-y-1">
-                  <span className="font-bold text-slate-700 block">Terms & Special Conditions</span>
-                  <p className="text-slate-500 leading-relaxed">{selectedLease.terms_notes}</p>
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 text-xs space-y-1">
+                  <span className="font-bold text-slate-700 dark:text-slate-300 block">Terms & Special Conditions</span>
+                  <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{selectedLease.terms_notes}</p>
                 </div>
               )}
             </div>
@@ -786,19 +786,22 @@ export default function WorkspaceRentalsPage() {
 
       {/* Record Payment Modal */}
       {isPaymentModalOpen && activePaymentInstallment && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 animate-in zoom-in-95 space-y-5">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 dark:bg-black/75 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 animate-in zoom-in-95 space-y-5 text-slate-900 dark:text-white">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div>
-                <h3 className="font-bold text-slate-900 text-base">Record Rent Payment</h3>
-                <p className="text-xs text-slate-500">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
+                  Escrow Collections
+                </span>
+                <h3 className="font-serif font-bold text-slate-950 dark:text-white text-base">Record Rent Payment</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-light">
                   Due: {formatDate(activePaymentInstallment.due_date)} • {formatPKR(activePaymentInstallment.amount_pkr)}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsPaymentModalOpen(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -806,22 +809,22 @@ export default function WorkspaceRentalsPage() {
 
             <form onSubmit={handleRecordPayment} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Received Amount (PKR)</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Received Amount (PKR)</label>
                 <input
                   type="number"
                   required
                   value={paymentData.amount_pkr}
                   onChange={(e) => setPaymentData({ ...paymentData, amount_pkr: Number(e.target.value) })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-bold text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono font-bold text-sm transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Payment Method</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Payment Method</label>
                 <select
                   value={paymentData.payment_method}
                   onChange={(e) => setPaymentData({ ...paymentData, payment_method: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 bg-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                 >
                   <option value="Bank Transfer (Raast / IBAN)">Bank Transfer (Raast / IBAN)</option>
                   <option value="Meezan Bank Direct Deposit">Meezan Bank Direct Deposit</option>
@@ -833,39 +836,39 @@ export default function WorkspaceRentalsPage() {
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Receipt / Transaction Reference</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Receipt / Transaction Reference</label>
                 <input
                   type="text"
                   required
                   value={paymentData.receipt_number}
                   onChange={(e) => setPaymentData({ ...paymentData, receipt_number: e.target.value })}
                   placeholder="e.g. RAAST-982143 / REC-00912"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-mono"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Payment Notes (Optional)</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Payment Notes (Optional)</label>
                 <textarea
                   rows={2}
                   value={paymentData.notes}
                   onChange={(e) => setPaymentData({ ...paymentData, notes: e.target.value })}
                   placeholder="Additional audit remarks..."
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 font-sans transition-all"
                 />
               </div>
 
-              <div className="pt-2 flex items-center justify-end gap-2">
+              <div className="pt-2 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsPaymentModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"
+                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-md shadow-blue-600/20"
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all text-center"
                 >
                   Confirm & Stamp Paid
                 </button>
@@ -877,67 +880,67 @@ export default function WorkspaceRentalsPage() {
 
       {/* Official Print Statement Modal */}
       {isStatementModalOpen && selectedLease && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl border border-slate-200 my-8 space-y-6 animate-in zoom-in-95">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 dark:bg-black/75 backdrop-blur-sm p-4 animate-in fade-in overflow-y-auto">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-2xl w-full p-8 shadow-2xl border border-slate-200 dark:border-slate-800 my-8 space-y-6 animate-in zoom-in-95 text-slate-900 dark:text-white">
             {/* Statement Header */}
-            <div className="flex items-start justify-between border-b border-slate-200 pb-5">
+            <div className="flex items-start justify-between border-b border-slate-200 dark:border-slate-800 pb-5">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xl font-extrabold tracking-tight text-slate-900 font-heading">
-                    Aqar<span className="text-blue-600">Flow</span>
+                  <span className="text-xl font-extrabold tracking-tight text-slate-950 dark:text-white font-serif">
+                    Aqar<span className="text-amber-600 dark:text-amber-400">Flow</span>
                   </span>
-                  <span className="text-[10px] uppercase font-bold tracking-widest bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-bold tracking-widest bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded">
                     Official Tenancy Ledger
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 mt-1">A VIRELEO Real Estate Operations Project • vireleo.me</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">A VIRELEO Real Estate Operations Project • vireleo.me</p>
               </div>
 
               <div className="text-right text-xs">
-                <p className="font-bold text-slate-800">Statement Date: 10 Nov 2026</p>
-                <p className="text-slate-400 font-mono text-[10px]">Doc: AF-LEADGER-{selectedLease.id}</p>
+                <p className="font-bold text-slate-800 dark:text-slate-200">Statement Date: 10 Nov 2026</p>
+                <p className="text-slate-400 dark:text-slate-500 font-mono text-[10px]">Doc: AF-LEADGER-{selectedLease.id}</p>
               </div>
             </div>
 
             {/* Particulars Grid */}
-            <div className="grid grid-cols-2 gap-4 text-xs p-4 rounded-2xl bg-slate-50 border border-slate-100">
+            <div className="grid grid-cols-2 gap-4 text-xs p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800">
               <div>
-                <p className="text-[10px] text-slate-400 uppercase font-bold">Property Details</p>
-                <p className="font-bold text-slate-900 text-sm mt-0.5">{selectedLease.property_title}</p>
-                <p className="text-slate-600 font-mono text-[11px]">{selectedLease.property_code}</p>
-                <p className="text-slate-500 mt-1">Lease Period: {formatDate(selectedLease.start_date)} - {formatDate(selectedLease.end_date)}</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold">Property Details</p>
+                <p className="font-bold text-slate-900 dark:text-white text-sm mt-0.5">{selectedLease.property_title}</p>
+                <p className="text-slate-600 dark:text-slate-400 font-mono text-[11px]">{selectedLease.property_code}</p>
+                <p className="text-slate-500 dark:text-slate-400 mt-1">Lease Period: {formatDate(selectedLease.start_date)} - {formatDate(selectedLease.end_date)}</p>
               </div>
               <div>
-                <p className="text-[10px] text-slate-400 uppercase font-bold">Tenant Particulars</p>
-                <p className="font-bold text-slate-900 text-sm mt-0.5">{selectedLease.tenant_name}</p>
-                <p className="text-slate-600 font-mono text-[11px]">CNIC: {selectedLease.tenant_cnic || "Unrecorded"}</p>
-                <p className="text-slate-500 mt-1">Contact: {selectedLease.tenant_phone}</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold">Tenant Particulars</p>
+                <p className="font-bold text-slate-900 dark:text-white text-sm mt-0.5">{selectedLease.tenant_name}</p>
+                <p className="text-slate-600 dark:text-slate-400 font-mono text-[11px]">CNIC: {selectedLease.tenant_cnic || "Unrecorded"}</p>
+                <p className="text-slate-500 dark:text-slate-400 mt-1">Contact: {selectedLease.tenant_phone}</p>
               </div>
             </div>
 
             {/* Installments Table */}
             <div>
-              <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
+              <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider mb-2">
                 12-Month Installment Schedule
               </h4>
-              <table className="w-full text-left border-collapse text-xs border border-slate-200">
+              <table className="w-full text-left border-collapse text-xs border border-slate-200 dark:border-slate-800">
                 <thead>
-                  <tr className="bg-slate-100 text-[10px] font-bold text-slate-600 uppercase">
-                    <th className="p-2 border border-slate-200">#</th>
-                    <th className="p-2 border border-slate-200">Due Date</th>
-                    <th className="p-2 border border-slate-200">Amount</th>
-                    <th className="p-2 border border-slate-200">Status</th>
-                    <th className="p-2 border border-slate-200">Paid Date & Ref</th>
+                  <tr className="bg-slate-100 dark:bg-slate-900 text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase">
+                    <th className="p-2 border border-slate-200 dark:border-slate-800">#</th>
+                    <th className="p-2 border border-slate-200 dark:border-slate-800">Due Date</th>
+                    <th className="p-2 border border-slate-200 dark:border-slate-800">Amount</th>
+                    <th className="p-2 border border-slate-200 dark:border-slate-800">Status</th>
+                    <th className="p-2 border border-slate-200 dark:border-slate-800">Paid Date & Ref</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                   {selectedLease.rent_schedule.map((item, idx) => (
-                    <tr key={item.id} className="border-t border-slate-200">
-                      <td className="p-2 border border-slate-200 font-mono">{idx + 1}</td>
-                      <td className="p-2 border border-slate-200">{formatDate(item.due_date)}</td>
-                      <td className="p-2 border border-slate-200 font-bold">{formatPKR(item.amount_pkr)}</td>
-                      <td className="p-2 border border-slate-200 font-semibold">{item.status}</td>
-                      <td className="p-2 border border-slate-200 text-slate-500 text-[11px]">
+                    <tr key={item.id} className="border-t border-slate-200 dark:border-slate-800">
+                      <td className="p-2 border border-slate-200 dark:border-slate-800 font-mono text-slate-500">{idx + 1}</td>
+                      <td className="p-2 border border-slate-200 dark:border-slate-800">{formatDate(item.due_date)}</td>
+                      <td className="p-2 border border-slate-200 dark:border-slate-800 font-bold font-mono">{formatPKR(item.amount_pkr)}</td>
+                      <td className="p-2 border border-slate-200 dark:border-slate-800 font-semibold">{item.status}</td>
+                      <td className="p-2 border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 text-[11px]">
                         {item.status === "Paid" ? `${formatDate(item.paid_date || "")} (${item.receipt_number || "Verified"})` : "-"}
                       </td>
                     </tr>
@@ -947,11 +950,11 @@ export default function WorkspaceRentalsPage() {
             </div>
 
             {/* Signature Rows */}
-            <div className="pt-8 grid grid-cols-2 gap-12 text-xs border-t border-slate-200">
-              <div className="border-t border-slate-300 pt-2 text-center text-slate-500">
+            <div className="pt-8 grid grid-cols-2 gap-12 text-xs border-t border-slate-200 dark:border-slate-800">
+              <div className="border-t border-slate-300 dark:border-slate-700 pt-2 text-center text-slate-500 dark:text-slate-400">
                 Authorized Signatory (AqarFlow Agency)
               </div>
-              <div className="border-t border-slate-300 pt-2 text-center text-slate-500">
+              <div className="border-t border-slate-300 dark:border-slate-700 pt-2 text-center text-slate-500 dark:text-slate-400">
                 Tenant Signature ({selectedLease.tenant_name})
               </div>
             </div>
@@ -961,14 +964,14 @@ export default function WorkspaceRentalsPage() {
               <button
                 type="button"
                 onClick={() => setIsStatementModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs"
+                className="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold text-xs transition-colors"
               >
                 Close
               </button>
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="px-5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"
+                className="px-5 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white dark:bg-gradient-to-r dark:from-amber-500 dark:to-amber-600 dark:hover:from-amber-400 dark:hover:to-amber-500 dark:text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all"
               >
                 <Printer className="w-4 h-4" />
                 <span>Print Statement</span>
@@ -980,19 +983,22 @@ export default function WorkspaceRentalsPage() {
 
       {/* Add New Lease Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 animate-in fade-in overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 my-8 space-y-6 animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 dark:bg-black/75 backdrop-blur-sm p-4 animate-in fade-in overflow-y-auto">
+          <div className="bg-white dark:bg-[#0D121F] rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 my-8 space-y-6 animate-in zoom-in-95 text-slate-900 dark:text-white">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
               <div>
-                <h3 className="font-bold text-slate-900 text-lg">Create New Tenancy Lease</h3>
-                <p className="text-xs text-slate-500">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400 block mb-1">
+                  Tenancy Protocol
+                </span>
+                <h3 className="font-serif font-bold text-slate-950 dark:text-white text-lg">Create New Tenancy Lease</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-light">
                   Registers official agreement and generates 12-month payment roll.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(false)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-2 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1001,12 +1007,12 @@ export default function WorkspaceRentalsPage() {
             <form onSubmit={handleCreateLease} className="space-y-4 text-xs">
               {/* Select Property */}
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Rental Property</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Rental Property</label>
                 <select
                   required
                   value={formData.property_id}
                   onChange={(e) => setFormData({ ...formData, property_id: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 bg-white font-semibold text-slate-800"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 font-semibold text-slate-800 dark:text-white font-sans transition-all"
                 >
                   <option value="">Select available property...</option>
                   {properties.map((p) => (
@@ -1020,48 +1026,48 @@ export default function WorkspaceRentalsPage() {
               {/* Tenant Details */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Tenant Full Name</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Tenant Full Name</label>
                   <input
                     type="text"
                     required
                     value={formData.tenant_name}
                     onChange={(e) => setFormData({ ...formData, tenant_name: e.target.value })}
                     placeholder="e.g. Asad Mehmood"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Tenant CNIC (13-digit)</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Tenant CNIC (13-digit)</label>
                   <input
                     type="text"
                     required
                     value={formData.tenant_cnic}
                     onChange={(e) => setFormData({ ...formData, tenant_cnic: e.target.value })}
                     placeholder="e.g. 61101-1234567-1"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono transition-all"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Tenant Mobile (WhatsApp)</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Tenant Mobile (WhatsApp)</label>
                   <input
                     type="text"
                     required
                     value={formData.tenant_phone}
                     onChange={(e) => setFormData({ ...formData, tenant_phone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-mono"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Tenant Email</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Tenant Email</label>
                   <input
                     type="email"
                     value={formData.tenant_email}
                     onChange={(e) => setFormData({ ...formData, tenant_email: e.target.value })}
                     placeholder="tenant@domain.com"
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
               </div>
@@ -1069,23 +1075,23 @@ export default function WorkspaceRentalsPage() {
               {/* Financial Terms */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Monthly Rent Amount (PKR)</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Monthly Rent Amount (PKR)</label>
                   <input
                     type="number"
                     required
                     value={formData.rent_amount_pkr}
                     onChange={(e) => setFormData({ ...formData, rent_amount_pkr: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-bold"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono font-bold transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Security Deposit (PKR)</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Security Deposit (PKR)</label>
                   <input
                     type="number"
                     required
                     value={formData.security_deposit_pkr}
                     onChange={(e) => setFormData({ ...formData, security_deposit_pkr: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-bold"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-mono font-bold transition-all"
                   />
                 </div>
               </div>
@@ -1093,48 +1099,48 @@ export default function WorkspaceRentalsPage() {
               {/* Lease Dates */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Lease Start Date</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Lease Start Date</label>
                   <input
                     type="date"
                     required
                     value={formData.start_date}
                     onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-bold mb-1">Lease End Date</label>
+                  <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Lease End Date</label>
                   <input
                     type="date"
                     required
                     value={formData.end_date}
                     onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-700 font-bold mb-1">Special Terms & Notes</label>
+                <label className="block text-slate-700 dark:text-slate-300 font-semibold mb-1">Special Terms & Notes</label>
                 <textarea
                   rows={2}
                   value={formData.terms_notes}
                   onChange={(e) => setFormData({ ...formData, terms_notes: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 bg-slate-50 dark:bg-slate-900/80 text-slate-900 dark:text-white font-sans transition-all"
                 />
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold"
+                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-md shadow-blue-600/20"
+                  className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all text-center"
                 >
                   Generate Lease & Rent Roll
                 </button>
