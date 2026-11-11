@@ -11,7 +11,6 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
-  Play,
   Check,
   Building2,
   Lock
@@ -564,16 +563,23 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="relative aspect-[4/3] rounded-sm overflow-hidden group shadow-md">
-              <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
-                alt="Villa in Islamabad"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full bg-white/90 text-[#1F1E19] flex items-center justify-center shadow-md">
-                  <Play className="w-4 h-4 fill-current ml-0.5" />
-                </div>
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden group shadow-md bg-[#1F1E19]">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              >
+                <source src="/videos/testimonial-villa-1.mp4" type="video/mp4" />
+                <source src="https://cdn.coverr.co/videos/coverr-villa-with-a-swimming-pool-6618/720p.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+              <div className="absolute top-3 left-3 px-2 py-0.5 rounded-sm bg-black/60 backdrop-blur-md text-[9px] text-white/90 uppercase tracking-widest font-mono flex items-center gap-1.5 pointer-events-none">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Villa Tour • Live</span>
               </div>
             </div>
           </div>
@@ -610,16 +616,23 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="relative aspect-[4/3] rounded-sm overflow-hidden group shadow-md">
-              <img
-                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80"
-                alt="Villa in DHA Raya"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full bg-white/90 text-[#1F1E19] flex items-center justify-center shadow-md">
-                  <Play className="w-4 h-4 fill-current ml-0.5" />
-                </div>
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden group shadow-md bg-[#1F1E19]">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                poster="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              >
+                <source src="/videos/testimonial-villa-2.mp4" type="video/mp4" />
+                <source src="https://cdn.coverr.co/videos/coverr-house-on-a-hill-in-alentejo-portugal-1216/720p.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+              <div className="absolute top-3 left-3 px-2 py-0.5 rounded-sm bg-black/60 backdrop-blur-md text-[9px] text-white/90 uppercase tracking-widest font-mono flex items-center gap-1.5 pointer-events-none">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Villa Tour • Live</span>
               </div>
             </div>
           </div>
@@ -656,16 +669,23 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="relative aspect-[4/3] rounded-sm overflow-hidden group shadow-md">
-              <img
-                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80"
-                alt="Penthouse in Karachi"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full bg-white/90 text-[#1F1E19] flex items-center justify-center shadow-md">
-                  <Play className="w-4 h-4 fill-current ml-0.5" />
-                </div>
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden group shadow-md bg-[#1F1E19]">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                poster="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              >
+                <source src="/videos/testimonial-villa-3.mp4" type="video/mp4" />
+                <source src="https://cdn.coverr.co/videos/coverr-villas-by-the-sea-shore-5579/720p.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+              <div className="absolute top-3 left-3 px-2 py-0.5 rounded-sm bg-black/60 backdrop-blur-md text-[9px] text-white/90 uppercase tracking-widest font-mono flex items-center gap-1.5 pointer-events-none">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Villa Tour • Live</span>
               </div>
             </div>
           </div>

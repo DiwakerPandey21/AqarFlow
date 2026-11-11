@@ -38,6 +38,7 @@ coverage/
 Thumbs.db
 *.pem
 *.tsbuildinfo
+scratch/
 .idea/
 .vscode/
 
