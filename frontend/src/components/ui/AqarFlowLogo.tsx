@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 
 interface AqarFlowLogoProps {
-  variant?: "default" | "light" | "gold" | "mark-only";
+  variant?: "default" | "light" | "gold" | "mark-only" | "vellaro" | "vellaro-light";
   size?: "sm" | "md" | "lg" | "xl";
   showTagline?: boolean;
   className?: string;
@@ -12,7 +12,7 @@ interface AqarFlowLogoProps {
 }
 
 export function AqarFlowLogo({
-  variant = "default",
+  variant = "vellaro",
   size = "md",
   showTagline = true,
   className = "",
@@ -33,8 +33,33 @@ export function AqarFlowLogo({
     xl: "text-3xl"
   };
 
-  const isLight = variant === "light";
+  const isLight = variant === "light" || variant === "vellaro-light";
   const isGold = variant === "gold";
+  const isVellaro = variant === "vellaro" || variant === "vellaro-light";
+
+  if (isVellaro) {
+    const vellaroContent = (
+      <div className={`inline-flex items-center gap-2 group select-none ${className}`}>
+        <span
+          className={`font-serif italic font-normal tracking-tight transition-colors ${
+            variant === "vellaro-light"
+              ? "text-white"
+              : "text-[#1F1E19] dark:text-white"
+          } ${size === "sm" ? "text-xl" : size === "lg" ? "text-3xl" : size === "xl" ? "text-4xl" : "text-2xl"}`}
+        >
+          AqarFlow
+        </span>
+      </div>
+    );
+
+    return href ? (
+      <Link href={href} className="inline-block focus:outline-none">
+        {vellaroContent}
+      </Link>
+    ) : (
+      vellaroContent
+    );
+  }
 
   const mark = (
     <div

@@ -5,25 +5,37 @@
 @tailwind utilities;
 
 :root {
-  --background: #faf8f5;
-  --foreground: #090a0c;
+  --background: #F8F3ED;
+  --foreground: #1F1E19;
+  --vellaro-olive: #5D5839;
+  --vellaro-cream: #F8F3ED;
+  --vellaro-border: #E2DBD1;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Plus Jakarta Sans', var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: 'Plus Jakarta Sans', var(--font-geist-sans), 'Helvetica', system-ui, -apple-system, sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   overflow-x: hidden;
 }
 
-/* Luxury Editorial & Architectural Typography */
+/* Vellaro Luxury Editorial Typography */
+.font-vellaro-serif {
+  font-family: 'Playfair Display', Georgia, Cambria, serif;
+}
+
+.font-vellaro-italic {
+  font-family: 'Playfair Display', Georgia, Cambria, serif;
+  font-style: italic;
+}
+
 .font-serif-luxury {
   font-family: 'Playfair Display', Georgia, Cambria, serif;
 }
 
 .font-brand {
-  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+  font-family: 'Playfair Display', Georgia, serif;
 }
 
 /* Glassmorphism & Surface Systems */

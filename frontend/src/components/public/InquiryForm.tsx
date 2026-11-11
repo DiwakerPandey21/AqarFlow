@@ -59,17 +59,17 @@ export function InquiryForm({ propertyId, propertyTitle, assignedAgent }: Inquir
 
   if (submitted) {
     return (
-      <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center">
-        <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3">
+      <div className="bg-[#FAF6F0] border border-[#E2DBD1] rounded-sm p-6 text-center">
+        <div className="w-12 h-12 bg-[#5D5839]/10 text-[#5D5839] rounded-full flex items-center justify-center mx-auto mb-3">
           <CheckCircle2 className="w-7 h-7" />
         </div>
-        <h4 className="text-lg font-bold text-slate-900 mb-1">Inquiry Received!</h4>
-        <p className="text-sm text-slate-600 leading-relaxed mb-4">
-          Thank you, <span className="font-semibold text-slate-800">{formData.client_name}</span>.
-          Your inquiry has been directly logged into our CRM.{" "}
+        <h4 className="text-base font-bold text-[#1F1E19] mb-1">Inquiry Received</h4>
+        <p className="text-xs text-[#767262] leading-relaxed mb-4">
+          Thank you, <span className="font-semibold text-[#1F1E19]">{formData.client_name}</span>.
+          Your inquiry has been logged with our senior advisors.{" "}
           {assignedAgent
-            ? `Assigned agent ${assignedAgent.full_name} will contact you shortly.`
-            : "Our agent will reach out to you within 30 minutes."}
+            ? `Assigned broker ${assignedAgent.full_name} will contact you shortly.`
+            : "Our specialist will reach out within 15 minutes."}
         </p>
         <button
           type="button"
@@ -82,7 +82,7 @@ export function InquiryForm({ propertyId, propertyTitle, assignedAgent }: Inquir
               email: ""
             });
           }}
-          className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 underline"
+          className="text-xs font-semibold text-[#5D5839] hover:underline"
         >
           Submit another inquiry
         </button>
@@ -91,62 +91,61 @@ export function InquiryForm({ propertyId, propertyTitle, assignedAgent }: Inquir
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-      <div>
-        <h3 className="text-lg font-bold text-slate-900">Inquire About This Property</h3>
-        <p className="text-xs text-slate-500 mt-0.5">
-          Connect directly with the verified listing agent.
-        </p>
-      </div>
-
+    <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600 font-medium">
+        <div className="p-3 bg-red-50 border border-red-200 rounded-sm text-xs text-red-600 font-medium">
           {error}
         </div>
       )}
 
       {/* Name */}
       <div>
-        <label className="block text-xs font-semibold text-slate-700 mb-1">Your Full Name *</label>
+        <label className="block text-[11px] font-sans font-semibold uppercase tracking-wider text-[#1F1E19] mb-1">
+          Your Full Name *
+        </label>
         <input
           type="text"
           required
           value={formData.client_name}
           onChange={(e) => setFormData({ ...formData, client_name: e.target.value })}
-          placeholder="e.g. Asad Mehmood"
-          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+          placeholder="e.g. Tariq Mehmood"
+          className="w-full px-3.5 py-2.5 rounded-sm border border-[#E2DBD1] bg-[#F8F3ED] text-xs text-[#1F1E19] focus:outline-none focus:border-[#5D5839]"
         />
       </div>
 
       {/* Phone */}
       <div>
-        <label className="block text-xs font-semibold text-slate-700 mb-1">WhatsApp / Phone *</label>
+        <label className="block text-[11px] font-sans font-semibold uppercase tracking-wider text-[#1F1E19] mb-1">
+          WhatsApp / Phone *
+        </label>
         <input
           type="tel"
           required
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           placeholder="e.g. +92 300 1234567"
-          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+          className="w-full px-3.5 py-2.5 rounded-sm border border-[#E2DBD1] bg-[#F8F3ED] text-xs text-[#1F1E19] focus:outline-none focus:border-[#5D5839]"
         />
       </div>
 
       {/* Email */}
       <div>
-        <label className="block text-xs font-semibold text-slate-700 mb-1">Email (Optional)</label>
+        <label className="block text-[11px] font-sans font-semibold uppercase tracking-wider text-[#1F1E19] mb-1">
+          Email (Optional)
+        </label>
         <input
           type="email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          placeholder="e.g. asad@domain.pk"
-          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+          placeholder="e.g. name@domain.com"
+          className="w-full px-3.5 py-2.5 rounded-sm border border-[#E2DBD1] bg-[#F8F3ED] text-xs text-[#1F1E19] focus:outline-none focus:border-[#5D5839]"
         />
       </div>
 
       {/* Preferred Contact Method */}
       <div>
-        <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-          Preferred Contact Method
+        <label className="block text-[11px] font-sans font-semibold uppercase tracking-wider text-[#1F1E19] mb-1.5">
+          Contact Preference
         </label>
         <div className="grid grid-cols-3 gap-2">
           {[
@@ -161,10 +160,10 @@ export function InquiryForm({ propertyId, propertyTitle, assignedAgent }: Inquir
                 type="button"
                 key={method.id}
                 onClick={() => setFormData({ ...formData, preferred_contact_method: method.id })}
-                className={`py-2 px-2.5 rounded-xl border text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                className={`py-2 px-2 rounded-sm border text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   isSelected
-                    ? "bg-blue-50 border-blue-500 text-blue-700 shadow-xs"
-                    : "border-slate-200 text-slate-600 hover:bg-slate-50"
+                    ? "bg-[#5D5839] border-[#5D5839] text-white shadow-xs"
+                    : "border-[#E2DBD1] bg-[#F8F3ED] text-[#767262] hover:text-[#1F1E19]"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -177,12 +176,14 @@ export function InquiryForm({ propertyId, propertyTitle, assignedAgent }: Inquir
 
       {/* Message */}
       <div>
-        <label className="block text-xs font-semibold text-slate-700 mb-1">Message</label>
+        <label className="block text-[11px] font-sans font-semibold uppercase tracking-wider text-[#1F1E19] mb-1">
+          Requirements / Inquiries
+        </label>
         <textarea
           rows={3}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+          className="w-full px-3.5 py-2 rounded-sm border border-[#E2DBD1] bg-[#F8F3ED] text-xs text-[#1F1E19] focus:outline-none focus:border-[#5D5839]"
         />
       </div>
 
@@ -190,14 +191,14 @@ export function InquiryForm({ propertyId, propertyTitle, assignedAgent }: Inquir
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 hover:from-blue-800 hover:to-indigo-800 text-white font-bold text-sm shadow-md shadow-blue-700/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+        className="w-full py-3 px-4 rounded-sm bg-[#5D5839] hover:bg-[#4B472D] text-white font-sans font-semibold text-xs uppercase tracking-[0.14em] shadow-xs flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
       >
-        <Send className="w-4 h-4" />
-        <span>{loading ? "Sending..." : "Submit Inquiry"}</span>
+        <Send className="w-3.5 h-3.5" />
+        <span>{loading ? "TRANSMITTING..." : "SEND REQUEST"}</span>
       </button>
 
-      <p className="text-[11px] text-center text-slate-400">
-        Your information is confidential and will never be shared with third parties.
+      <p className="text-[10px] text-center text-[#767262]">
+        Discretion assured. Strictly audited under real estate escrow protocols.
       </p>
     </form>
   );

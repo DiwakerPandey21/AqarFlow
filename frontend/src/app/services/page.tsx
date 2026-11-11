@@ -9,10 +9,7 @@ import {
   TrendingUp,
   ArrowRight,
   ShieldCheck,
-  Sparkles,
-  Scale,
-  Compass,
-  CheckCircle2
+  Scale
 } from "lucide-react";
 import { PublicNavbar } from "@/components/public/Navbar";
 import { PublicFooter } from "@/components/public/Footer";
@@ -51,96 +48,72 @@ export default function ServicesPage() {
     },
     {
       icon: TrendingUp,
-      title: "Agency ERP & Operations Platform",
-      badge: "SaaS Command",
-      desc: "For premier brokerages, builders, and asset managers: end-to-end digital command covering property inventory, client CRM pipelines, showing schedules, and commission splits."
+      title: "NRP Diaspora Investment Gateway",
+      badge: "Overseas Desk",
+      desc: "Complete remote concierge for expatriate Pakistanis: Roshan Digital Account (RDA) transaction routing, attested Power of Attorney representation, and video inspections."
     }
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-slate-900 font-sans selection:bg-amber-600 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#F8F3ED] text-[#1F1E19] font-sans selection:bg-[#5D5839] selection:text-white">
       <PublicNavbar />
 
-      {/* Hero Header */}
-      <section className="bg-[#0B0F17] text-white py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="max-w-4xl mx-auto space-y-4 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-bold uppercase tracking-wider border border-white/15">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            Institutional Rigor • Verified Assurance
-          </div>
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-white leading-tight">
-            Comprehensive Real Estate & Asset Services
+      {/* Header Banner */}
+      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full border-b border-[#E2DBD1]">
+        <div className="max-w-3xl">
+          <h1 className="text-3xl sm:text-5xl font-sans font-medium uppercase tracking-tight text-[#1F1E19]">
+            FULL SERVICE
           </h1>
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed font-light">
-            Delivering statutory compliance, uncompromising title authentication, and transparent deal execution to homeowners, private family offices, and enterprise brokerages.
+          <span className="font-serif italic text-3xl sm:text-4xl text-[#5D5839] block mt-1">
+            support & advisory
+          </span>
+          <p className="text-xs sm:text-sm text-[#767262] mt-3 font-light leading-relaxed">
+            Institutional property management, conveyance diligence, and investment advisory tailored for private clients, corporate entities, and overseas investors.
           </p>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full flex-1">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((srv, idx) => {
-            const Icon = srv.icon;
+          {services.map((item, idx) => {
+            const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className="bg-white rounded-3xl p-8 border border-[#E8E4DC] hover:border-amber-500/40 shadow-2xs hover:shadow-lg transition-all group flex flex-col justify-between"
+                className="bg-white rounded-sm p-8 border border-[#E2DBD1] shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-800 flex items-center justify-center border border-amber-500/20 group-hover:bg-slate-950 group-hover:text-amber-300 transition-colors">
+                    <div className="w-12 h-12 rounded-full bg-[#F8F3ED] border border-[#E2DBD1] flex items-center justify-center text-[#5D5839]">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-                      {srv.badge}
+                    <span className="px-2.5 py-1 rounded-sm text-[10px] font-sans font-semibold uppercase tracking-wider bg-[#F8F3ED] text-[#5D5839] border border-[#E2DBD1]">
+                      {item.badge}
                     </span>
                   </div>
 
-                  <h3 className="font-serif font-bold text-slate-950 text-xl group-hover:text-amber-900 transition-colors">
-                    {srv.title}
+                  <h3 className="text-base font-bold uppercase tracking-tight text-[#1F1E19] mb-3">
+                    {item.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-light">
-                    {srv.desc}
+
+                  <p className="text-xs text-[#767262] leading-relaxed font-light">
+                    {item.desc}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between">
+                <div className="pt-6 mt-6 border-t border-[#E2DBD1]">
                   <Link
                     href="/contact"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-900 hover:text-amber-950 group-hover:translate-x-1 transition-all"
+                    className="inline-flex items-center gap-2 text-xs font-sans font-semibold uppercase tracking-wider text-[#5D5839] hover:underline"
                   >
-                    <span>Engage Advisory Desk</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-amber-700" />
+                    <span>Request Service Briefing</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
             );
           })}
-        </div>
-      </section>
-
-      {/* Due Diligence Guarantee */}
-      <section className="bg-white py-16 px-4 sm:px-6 lg:px-8 border-t border-[#E8E4DC]">
-        <div className="max-w-5xl mx-auto rounded-3xl p-8 sm:p-10 bg-[#FAF8F5] border border-[#E8E4DC] flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-800 block">
-              The AqarFlow Protocol
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-slate-950">
-              Need Deed Clearance on a Specific Parcel?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 font-light max-w-xl leading-relaxed">
-              Our legal verification desk provides an independent 72-hour audit of land records, registry mutations, and municipal approvals before you commit token money.
-            </p>
-          </div>
-          <Link
-            href="/contact"
-            className="px-6 py-3.5 rounded-2xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs uppercase tracking-wider shrink-0 shadow-md transition-all"
-          >
-            Request Title Audit &rarr;
-          </Link>
         </div>
       </section>
 

@@ -14,21 +14,14 @@ import {
   Phone,
   MessageCircle,
   Share2,
-  ArrowLeft,
-  Sparkles,
-  Info,
-  Clock,
-  Compass,
-  FileCheck2,
-  Calculator,
-  ArrowUpRight
+  Compass
 } from "lucide-react";
 import { PublicNavbar } from "@/components/public/Navbar";
 import { PublicFooter } from "@/components/public/Footer";
 import { InquiryForm } from "@/components/public/InquiryForm";
 import { ScheduleVisitModal } from "@/components/public/ScheduleVisitModal";
 import { db } from "@/lib/db";
-import { formatPKR, formatArea, formatDate, formatNumberFixed, formatUSD } from "@/lib/formatters";
+import { formatPKR, formatArea, formatNumberFixed, formatUSD } from "@/lib/formatters";
 
 function PropertyDetailContent({
   params
@@ -69,22 +62,22 @@ function PropertyDetailContent({
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-slate-900 font-sans selection:bg-amber-600 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#F8F3ED] text-[#1F1E19] font-sans selection:bg-[#5D5839] selection:text-white">
       <PublicNavbar />
 
       {/* Breadcrumb Navigation */}
-      <div className="bg-white border-b border-[#E8E4DC] py-3.5 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex items-center justify-between text-xs text-slate-500">
+      <div className="bg-[#FAF6F0] border-b border-[#E2DBD1] pt-24 pb-3.5 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-xs text-[#767262]">
           <div className="flex items-center gap-2">
-            <Link href="/" className="hover:text-slate-900 transition-colors">
+            <Link href="/" className="hover:text-[#1F1E19] transition-colors">
               Home
             </Link>
-            <span className="text-slate-300">/</span>
-            <Link href="/properties" className="hover:text-slate-900 transition-colors">
+            <span className="text-[#E2DBD1]">/</span>
+            <Link href="/properties" className="hover:text-[#1F1E19] transition-colors">
               Curated Portfolio
             </Link>
-            <span className="text-slate-300">/</span>
-            <span className="text-slate-900 font-semibold truncate max-w-[200px] sm:max-w-md">
+            <span className="text-[#E2DBD1]">/</span>
+            <span className="text-[#1F1E19] font-medium truncate max-w-[200px] sm:max-w-md">
               {property.title}
             </span>
           </div>
@@ -92,10 +85,10 @@ function PropertyDetailContent({
           <button
             type="button"
             onClick={handleShare}
-            className="flex items-center gap-1.5 text-slate-700 hover:text-slate-950 font-bold transition-colors"
+            className="flex items-center gap-1.5 text-[#5D5839] hover:underline font-semibold transition-colors cursor-pointer"
           >
-            <Share2 className="w-3.5 h-3.5 text-amber-700" />
-            <span>{copied ? "Deed Link Copied!" : "Share Dossier"}</span>
+            <Share2 className="w-3.5 h-3.5" />
+            <span>{copied ? "Link Copied!" : "Share Listing"}</span>
           </button>
         </div>
       </div>
@@ -106,27 +99,27 @@ function PropertyDetailContent({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-950 text-amber-300 shadow-2xs">
+              <span className="px-2.5 py-1 rounded-sm text-xs font-mono font-bold bg-[#1F1E19] text-white">
                 {property.reference_code}
               </span>
-              <span className="px-2.5 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300/80">
+              <span className="px-2.5 py-1 rounded-sm text-xs font-semibold uppercase tracking-wider bg-[#5D5839] text-white">
                 {property.purpose === "rent" ? "For Tenancy" : "For Acquisition"}
               </span>
-              <span className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-800">
+              <span className="px-2.5 py-1 rounded-sm text-xs font-semibold bg-white border border-[#E2DBD1] text-[#1F1E19]">
                 {property.property_type}
               </span>
-              <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300/80 flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="px-2.5 py-1 rounded-sm text-xs font-semibold bg-[#FAF6F0] text-[#5D5839] border border-[#E2DBD1] flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#5D5839]" />
                 <span>CDA / LDA Title Verified</span>
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-bold text-slate-950 tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-sans font-light uppercase tracking-tight text-[#1F1E19] leading-tight">
               {property.title}
             </h1>
 
-            <p className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 font-light">
-              <MapPin className="w-4 h-4 text-amber-700 shrink-0" />
+            <p className="flex items-center gap-2 text-xs sm:text-sm text-[#767262] font-light">
+              <MapPin className="w-4 h-4 text-[#5D5839] shrink-0" />
               <span>
                 {property.address ? `${property.address}, ` : ""}
                 {property.locality}, {property.city}
@@ -135,17 +128,17 @@ function PropertyDetailContent({
           </div>
 
           {/* Luxury Price Box */}
-          <div className="bg-white p-6 rounded-3xl border border-[#E8E4DC] shadow-sm md:text-right shrink-0">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-800 block mb-1">
-              Escrow Valued Price
+          <div className="bg-white p-6 rounded-sm border border-[#E2DBD1] shadow-xs md:text-right shrink-0">
+            <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.14em] text-[#767262] block mb-1">
+              Valued Price
             </span>
-            <div className="text-3xl sm:text-4xl font-serif font-extrabold text-slate-950 tracking-tight">
+            <div className="text-3xl sm:text-4xl font-serif italic text-[#1F1E19] tracking-tight">
               {formatPKR(property.price)}
               {property.purpose === "rent" && (
-                <span className="text-sm font-sans text-slate-500 font-normal"> / mo</span>
+                <span className="text-sm font-sans text-[#767262] font-normal not-italic"> / mo</span>
               )}
             </div>
-            <div className="text-xs font-mono text-slate-500 mt-1">
+            <div className="text-xs text-[#767262] mt-1 font-light">
               ≈ ${formatUSD(usdPrice)} USD • {formatPKR(Math.round(property.price / (property.area_value || 1)))} / {property.area_unit}
             </div>
           </div>
@@ -153,14 +146,14 @@ function PropertyDetailContent({
 
         {/* Gallery Section */}
         <div className="mb-12 space-y-4">
-          <div className="relative aspect-[16/9] md:aspect-[21/9] w-full rounded-3xl overflow-hidden bg-slate-900 shadow-xl border border-slate-800">
+          <div className="relative aspect-[16/9] md:aspect-[21/9] w-full rounded-sm overflow-hidden bg-[#1F1E19] shadow-lg border border-[#E2DBD1]">
             <img
               src={allImages[activeImageIndex]}
               alt={property.title}
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             />
-            <div className="absolute bottom-5 right-5 bg-slate-950/80 backdrop-blur-md text-amber-200 border border-white/10 px-4 py-1.5 rounded-xl text-xs font-mono font-semibold">
-              Archival Asset {activeImageIndex + 1} of {allImages.length}
+            <div className="absolute bottom-5 right-5 bg-black/70 backdrop-blur-md text-white border border-white/20 px-3.5 py-1 rounded-sm text-xs font-mono">
+              Photo {activeImageIndex + 1} of {allImages.length}
             </div>
           </div>
 
@@ -171,9 +164,9 @@ function PropertyDetailContent({
                   key={idx}
                   type="button"
                   onClick={() => setActiveImageIndex(idx)}
-                  className={`relative w-28 h-20 rounded-2xl overflow-hidden shrink-0 border-2 transition-all ${
+                  className={`relative w-28 h-20 rounded-sm overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
                     activeImageIndex === idx
-                      ? "border-amber-600 scale-105 shadow-md"
+                      ? "border-[#5D5839] scale-105 shadow-md"
                       : "border-transparent opacity-70 hover:opacity-100"
                   }`}
                 >
@@ -186,206 +179,184 @@ function PropertyDetailContent({
 
         {/* 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Left Column (8 Cols): Overview, Specs, Legal Deed Assurance */}
+          {/* Left Column (8 Cols): Overview, Specs, Description */}
           <div className="lg:col-span-8 space-y-8">
             {/* Overview Spec Grid */}
-            <div className="bg-white rounded-3xl border border-[#E8E4DC] p-6 sm:p-8 shadow-sm">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-800 block mb-4">
+            <div className="bg-white rounded-sm border border-[#E2DBD1] p-6 sm:p-8 shadow-xs">
+              <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.14em] text-[#5D5839] block mb-4">
                 Architectural Specifications
               </span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-slate-200/70">
-                  <Maximize2 className="w-5 h-5 text-amber-800 mx-auto mb-1.5" />
-                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">
+                <div className="p-4 bg-[#F8F3ED] rounded-sm border border-[#E2DBD1]">
+                  <Maximize2 className="w-5 h-5 text-[#5D5839] mx-auto mb-1.5" />
+                  <span className="text-[10px] text-[#767262] font-semibold uppercase tracking-wider block">
                     Dimensions
                   </span>
-                  <span className="text-sm sm:text-base font-serif font-bold text-slate-950">
+                  <span className="text-sm sm:text-base font-serif italic text-[#1F1E19]">
                     {formatArea(property.area_value, property.area_unit)}
                   </span>
                 </div>
 
-                <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-slate-200/70">
-                  <Bed className="w-5 h-5 text-amber-800 mx-auto mb-1.5" />
-                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">
+                <div className="p-4 bg-[#F8F3ED] rounded-sm border border-[#E2DBD1]">
+                  <Bed className="w-5 h-5 text-[#5D5839] mx-auto mb-1.5" />
+                  <span className="text-[10px] text-[#767262] font-semibold uppercase tracking-wider block">
                     Bedrooms
                   </span>
-                  <span className="text-sm sm:text-base font-serif font-bold text-slate-950">
+                  <span className="text-sm sm:text-base font-serif italic text-[#1F1E19]">
                     {property.bedrooms ? `${property.bedrooms} Suites` : "N/A"}
                   </span>
                 </div>
 
-                <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-slate-200/70">
-                  <Bath className="w-5 h-5 text-amber-800 mx-auto mb-1.5" />
-                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">
+                <div className="p-4 bg-[#F8F3ED] rounded-sm border border-[#E2DBD1]">
+                  <Bath className="w-5 h-5 text-[#5D5839] mx-auto mb-1.5" />
+                  <span className="text-[10px] text-[#767262] font-semibold uppercase tracking-wider block">
                     Bathrooms
                   </span>
-                  <span className="text-sm sm:text-base font-serif font-bold text-slate-950">
+                  <span className="text-sm sm:text-base font-serif italic text-[#1F1E19]">
                     {property.bathrooms ? `${property.bathrooms} Baths` : "N/A"}
                   </span>
                 </div>
 
-                <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-slate-200/70">
-                  <Compass className="w-5 h-5 text-amber-800 mx-auto mb-1.5" />
-                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">
+                <div className="p-4 bg-[#F8F3ED] rounded-sm border border-[#E2DBD1]">
+                  <Compass className="w-5 h-5 text-[#5D5839] mx-auto mb-1.5" />
+                  <span className="text-[10px] text-[#767262] font-semibold uppercase tracking-wider block">
                     Possession
                   </span>
-                  <span className="text-sm sm:text-base font-serif font-bold text-slate-950">
+                  <span className="text-sm sm:text-base font-serif italic text-[#1F1E19]">
                     {property.possession_status || "Immediate"}
                   </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-6 pt-6 mt-6 border-t border-slate-100 text-xs">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-6 pt-6 mt-6 border-t border-[#E2DBD1] text-xs">
                 <div>
-                  <span className="text-slate-400 block font-medium">Furnishing Status:</span>
-                  <span className="font-semibold text-slate-900">{property.furnishing}</span>
+                  <span className="text-[#767262] block font-light">Furnishing Status:</span>
+                  <span className="font-semibold text-[#1F1E19]">{property.furnishing}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-medium">Construction Grade:</span>
-                  <span className="font-semibold text-slate-900">{property.construction_status}</span>
+                  <span className="text-[#767262] block font-light">Construction Grade:</span>
+                  <span className="font-semibold text-[#1F1E19]">{property.construction_status}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-medium">Classification:</span>
-                  <span className="font-semibold text-slate-900 capitalize">{property.category}</span>
+                  <span className="text-[#767262] block font-light">Classification:</span>
+                  <span className="font-semibold text-[#1F1E19] capitalize">{property.category}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-medium">Civic Jurisdiction:</span>
-                  <span className="font-semibold text-slate-900">{property.city} Municipal Desk</span>
+                  <span className="text-[#767262] block font-light">Civic Authority:</span>
+                  <span className="font-semibold text-[#1F1E19]">{property.city} Municipal Desk</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-medium">Registry Code:</span>
-                  <span className="font-mono font-semibold text-slate-900">{property.reference_code}</span>
+                  <span className="text-[#767262] block font-light">Registry Code:</span>
+                  <span className="font-mono font-semibold text-[#1F1E19]">{property.reference_code}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block font-medium">Title Status:</span>
-                  <span className="font-semibold text-emerald-700 flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Title Verified
+                  <span className="text-[#767262] block font-light">Title Status:</span>
+                  <span className="font-semibold text-[#5D5839] flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3 text-[#5D5839]" /> Title Verified
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Description Card */}
-            <div className="bg-white rounded-3xl border border-[#E8E4DC] p-6 sm:p-8 shadow-sm space-y-4">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-800 block">
+            <div className="bg-white rounded-sm border border-[#E2DBD1] p-6 sm:p-8 shadow-xs space-y-4">
+              <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.14em] text-[#5D5839] block">
                 Architectural Monograph
               </span>
-              <h3 className="text-xl sm:text-2xl font-serif font-bold text-slate-950">
+              <h3 className="text-xl sm:text-2xl font-sans font-light uppercase text-[#1F1E19]">
                 Property Narrative & Provenance
               </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line">
+              <p className="text-xs sm:text-sm text-[#1F1E19]/80 leading-relaxed font-light whitespace-pre-line">
                 {property.description}
               </p>
             </div>
 
             {/* Amenities Grid */}
             {property.amenities && property.amenities.length > 0 && (
-              <div className="bg-white rounded-3xl border border-[#E8E4DC] p-6 sm:p-8 shadow-sm space-y-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-800 block">
+              <div className="bg-white rounded-sm border border-[#E2DBD1] p-6 sm:p-8 shadow-xs space-y-4">
+                <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.14em] text-[#5D5839] block">
                   Signature Features
                 </span>
-                <h3 className="text-xl font-serif font-bold text-slate-950">
+                <h3 className="text-xl font-sans font-light uppercase text-[#1F1E19]">
                   Estate Amenities & Inclusions
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
                   {property.amenities.map((item, idx) => (
                     <div
                       key={idx}
-                      className="p-3 rounded-2xl bg-[#FAF8F5] border border-slate-200/80 flex items-center gap-2 text-xs text-slate-800 font-medium"
+                      className="p-3 bg-[#F8F3ED] rounded-sm border border-[#E2DBD1] text-xs text-[#1F1E19] flex items-center gap-2"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#5D5839]" />
                       <span>{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
-
-            {/* Statutory Title Verification Certificate Box */}
-            <div className="bg-amber-50/50 rounded-3xl border border-amber-500/30 p-6 sm:p-8 shadow-sm space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-900 flex items-center justify-center border border-amber-500/30">
-                  <FileCheck2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-900 block">
-                    Assurance Guarantee
-                  </span>
-                  <h4 className="font-serif font-bold text-slate-950 text-lg">
-                    AqarFlow Certified Title Clearance Deed
-                  </h4>
-                </div>
-              </div>
-              <p className="text-xs text-slate-700 leading-relaxed font-light">
-                This asset has passed our statutory 3-tier inspection protocol: (1) Mutation scrutiny (Intiqal) in municipal land registry records, (2) Society allotment transfer clearance with zero outstanding dues, and (3) Physical boundary peg inspection matching layout demarcations.
-              </p>
-            </div>
           </div>
 
-          {/* Right Column (4 Cols): Concierge Card, Schedule Viewing, Inquiry */}
+          {/* Right Column (4 Cols): Broker Card & Inquiry */}
           <div className="lg:col-span-4 space-y-6">
-            {/* Direct Broker Concierge Card */}
-            <div className="bg-white rounded-3xl border border-[#E8E4DC] p-6 shadow-sm space-y-5">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-2xl overflow-hidden bg-slate-200 shrink-0 border border-slate-300">
-                  <img
-                    src={
-                      property.assigned_agent?.avatar_url ||
-                      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
-                    }
-                    alt={property.assigned_agent?.full_name || "Agent"}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            {/* Broker Card */}
+            <div className="bg-white rounded-sm border border-[#E2DBD1] p-6 shadow-xs space-y-4">
+              <div className="flex items-center gap-4">
+                <img
+                  src={
+                    property.assigned_agent?.avatar_url ||
+                    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"
+                  }
+                  alt={property.assigned_agent?.full_name || "Agent"}
+                  className="w-14 h-14 rounded-full object-cover border border-[#E2DBD1]"
+                />
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 block">
+                  <span className="text-[10px] font-sans font-semibold uppercase tracking-wider text-[#5D5839] block">
                     Certified Broker
                   </span>
-                  <h4 className="font-serif font-bold text-slate-950 text-base">
-                    {property.assigned_agent?.full_name || "Ayesha Malik"}
+                  <h4 className="font-sans font-bold text-[#1F1E19] text-base">
+                    {property.assigned_agent?.full_name || "Ayesha Khan"}
                   </h4>
-                  <p className="text-[11px] text-slate-500">
-                    License: AQ-PK-{property.assigned_agent?.id?.replace("usr-", "") || "092"}
+                  <p className="text-[11px] text-[#767262] font-mono">
+                    Licensed Realtor • AqarFlow
                   </p>
                 </div>
               </div>
 
-              <div className="space-y-2.5 pt-1">
+              <div className="space-y-2.5 pt-2">
                 <a
                   href={`https://wa.me/${cleanPhone}?text=${whatsappMsg}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all"
+                  className="w-full py-3 rounded-sm bg-[#5D5839] hover:bg-[#4B472D] text-white font-sans font-semibold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>Instant WhatsApp Chat</span>
+                  <span>WhatsApp Concierge</span>
                 </a>
 
                 <button
                   type="button"
                   onClick={() => setIsVisitModalOpen(true)}
-                  className="w-full py-3 rounded-2xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-all"
+                  className="w-full py-3 rounded-sm bg-[#1F1E19] hover:bg-black text-white font-sans font-semibold text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer"
                 >
-                  <Calendar className="w-4 h-4 text-amber-400" />
+                  <Calendar className="w-4 h-4 text-[#C4B487]" />
                   <span>Schedule Private Showing</span>
                 </button>
 
                 <a
                   href={`tel:${agentPhone}`}
-                  className="w-full py-2.5 rounded-2xl bg-[#FAF8F5] hover:bg-slate-100 text-slate-800 font-semibold text-xs flex items-center justify-center gap-2 border border-slate-200 transition-colors"
+                  className="w-full py-2.5 rounded-sm bg-[#F8F3ED] hover:bg-[#ECE5DC] text-[#1F1E19] font-medium text-xs flex items-center justify-center gap-2 border border-[#E2DBD1] transition-colors"
                 >
-                  <Phone className="w-3.5 h-3.5 text-slate-600" />
+                  <Phone className="w-3.5 h-3.5 text-[#5D5839]" />
                   <span>Direct Call: {agentPhone}</span>
                 </a>
               </div>
             </div>
 
             {/* Direct Inquiry Form */}
-            <div className="bg-white rounded-3xl border border-[#E8E4DC] p-6 shadow-sm">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-800 block mb-2">
+            <div className="bg-white rounded-sm border border-[#E2DBD1] p-6 shadow-xs">
+              <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.14em] text-[#5D5839] block mb-2">
                 Priority Dispatch
               </span>
-              <h4 className="font-serif font-bold text-slate-950 text-lg mb-4">
+              <h4 className="font-sans font-light uppercase text-[#1F1E19] text-base mb-4">
                 Express Interest in Listing
               </h4>
               <InquiryForm propertyId={property.id} propertyTitle={property.title} />
@@ -414,7 +385,7 @@ export default function PropertyDetailPage({
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center text-slate-600 font-serif">
+        <div className="min-h-screen bg-[#F8F3ED] flex items-center justify-center text-[#767262] font-serif">
           Retrieving Architectural Dossier...
         </div>
       }

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  Building2,
   LayoutDashboard,
   Home,
   Users2,
@@ -17,17 +16,13 @@ import {
   LogOut,
   Menu,
   X,
-  Bell,
-  Search,
   ShieldCheck,
-  User,
   KeyRound,
   Wrench,
   Sun,
   Moon
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import { AqarFlowLogo } from "@/components/ui/AqarFlowLogo";
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -138,24 +133,24 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#FAF8F5] flex flex-col items-center justify-center p-6 text-center font-sans">
-        <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-3">
-          <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#F8F3ED] flex flex-col items-center justify-center p-6 text-center font-sans">
+        <div className="w-10 h-10 rounded-sm bg-[#5D5839]/10 border border-[#5D5839]/20 flex items-center justify-center mb-3">
+          <div className="w-5 h-5 border-2 border-[#5D5839] border-t-transparent rounded-full animate-spin" />
         </div>
-        <p className="text-xs text-slate-500 font-sans tracking-wide">Verifying clearance credentials...</p>
+        <p className="text-xs text-[#767262] font-sans tracking-wide">Verifying clearance credentials...</p>
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#FAF8F5] flex flex-col items-center justify-center p-6 text-center font-sans">
-        <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-4">
-          <ShieldCheck className="w-6 h-6 text-amber-600 animate-pulse" />
+      <div className="min-h-screen bg-[#F8F3ED] flex flex-col items-center justify-center p-6 text-center font-sans">
+        <div className="w-12 h-12 rounded-sm bg-[#5D5839]/10 border border-[#5D5839]/20 flex items-center justify-center mb-4">
+          <ShieldCheck className="w-6 h-6 text-[#5D5839] animate-pulse" />
         </div>
-        <h2 className="text-xl font-serif font-bold text-slate-950 mb-1">Session Concluded</h2>
-        <p className="text-xs text-slate-500 mb-4">Redirecting to operations login portal...</p>
-        <Link href="/login" className="text-xs font-semibold text-amber-700 underline">
+        <h2 className="text-xl font-serif text-[#1F1E19] mb-1">Session Concluded</h2>
+        <p className="text-xs text-[#767262] mb-4">Redirecting to operations login portal...</p>
+        <Link href="/login" className="text-xs font-semibold text-[#5D5839] underline">
           Click here if not redirected automatically &rarr;
         </Link>
       </div>
@@ -166,32 +161,40 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
     <div
       className={`min-h-screen flex flex-col md:flex-row font-sans transition-colors duration-200 ${
         isDark
-          ? "dark bg-[#070A12] text-slate-100 selection:bg-amber-500/30 selection:text-amber-200"
-          : "bg-[#F8FAFC] text-slate-900 selection:bg-amber-100 selection:text-amber-900"
+          ? "dark bg-[#141310] text-[#F8F3ED] selection:bg-[#5D5839] selection:text-white"
+          : "bg-[#F8F3ED] text-[#1F1E19] selection:bg-[#5D5839] selection:text-white"
       }`}
     >
-      {/* Desktop Sidebar - Estately Light (Default) / Estatelab Obsidian (Option) */}
+      {/* Desktop Sidebar — Vellaro Warm Sand */}
       <aside
         className={`hidden md:flex flex-col w-64 shrink-0 transition-colors duration-200 ${
           isDark
-            ? "bg-[#0A0E17] text-white border-r border-slate-800/80"
-            : "bg-white text-slate-800 border-r border-slate-200/90 shadow-2xs"
+            ? "bg-[#1A1D15] text-white border-r border-[#2E3025]"
+            : "bg-[#FAF6F0] text-[#1F1E19] border-r border-[#E2DBD1] shadow-2xs"
         }`}
       >
         {/* Brand Header */}
-        <div className={`p-5 border-b ${isDark ? "border-slate-800/80" : "border-slate-100"}`}>
-          <AqarFlowLogo variant={isDark ? "gold" : "default"} size="md" showTagline={true} href="/workspace" />
+        <div className={`p-5 border-b ${isDark ? "border-[#2E3025]" : "border-[#E2DBD1]"}`}>
+          <Link href="/workspace" className="inline-block">
+            <span
+              className={`font-serif italic text-2xl tracking-tight transition-colors ${
+                isDark ? "text-white" : "text-[#1F1E19]"
+              }`}
+            >
+              AqarFlow
+            </span>
+          </Link>
 
           <Link
             href="/"
-            className={`mt-3.5 flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium border transition-all shadow-2xs ${
+            className={`mt-3.5 flex items-center justify-between px-3 py-1.5 rounded-sm text-xs font-medium border transition-all ${
               isDark
-                ? "bg-slate-900/90 hover:bg-slate-800/80 text-amber-200/90 hover:text-amber-300 border-amber-500/20"
-                : "bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 border-slate-200"
+                ? "bg-[#141310] hover:bg-[#25281E] text-white border-[#2E3025]"
+                : "bg-white hover:bg-[#F8F3ED] text-[#1F1E19] border-[#E2DBD1]"
             }`}
           >
             <span>&larr; Public Portal</span>
-            <ArrowUpRight className={`w-3.5 h-3.5 ${isDark ? "text-amber-400" : "text-slate-500"}`} />
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#5D5839]" />
           </Link>
         </div>
 
@@ -203,43 +206,37 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
             const isRestricted = item.adminOnly && !isAdmin;
 
             if (isRestricted) {
-              return null; // hide admin only if agent
+              return null;
             }
 
             return (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
+                className={`flex items-center justify-between px-3.5 py-2.5 rounded-sm text-xs font-medium transition-all ${
                   isActive
-                    ? isDark
-                      ? "bg-gradient-to-r from-amber-500/20 to-amber-500/5 text-amber-300 font-semibold border-l-2 border-amber-400 shadow-[inset_0_0_12px_rgba(245,158,11,0.06)]"
-                      : "bg-amber-50/80 text-amber-900 font-bold border-l-2 border-amber-600 shadow-2xs"
+                    ? "bg-[#5D5839] text-white font-semibold shadow-xs"
                     : isDark
-                    ? "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
-                    : "text-slate-600 hover:text-slate-950 hover:bg-slate-50"
+                    ? "text-[#767262] hover:text-white hover:bg-[#25281E]"
+                    : "text-[#767262] hover:text-[#1F1E19] hover:bg-[#F8F3ED]"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <Icon
                     className={`w-4 h-4 shrink-0 ${
-                      isActive
-                        ? isDark
-                          ? "text-amber-400"
-                          : "text-amber-700"
-                        : isDark
-                        ? "text-slate-400"
-                        : "text-slate-500"
+                      isActive ? "text-white" : "text-[#5D5839]"
                     }`}
                   />
                   <span>{item.name}</span>
                 </div>
                 {item.adminOnly && (
                   <span
-                    className={`text-[9px] uppercase px-1.5 py-0.5 rounded border ${
-                      isDark
-                        ? "bg-amber-950/60 text-amber-400 border-amber-500/20"
-                        : "bg-amber-50 text-amber-800 border-amber-200 font-semibold"
+                    className={`text-[9px] uppercase px-1.5 py-0.5 rounded-sm border ${
+                      isActive
+                        ? "bg-white/20 text-white border-white/30"
+                        : isDark
+                        ? "bg-[#25281E] text-[#C4B487] border-[#2E3025]"
+                        : "bg-[#F8F3ED] text-[#5D5839] border-[#E2DBD1] font-semibold"
                     }`}
                   >
                     Admin
@@ -253,36 +250,32 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
         {/* User Card & Role Switcher */}
         <div
           className={`p-3 border-t space-y-3 ${
-            isDark ? "border-slate-800/80 bg-[#070A11]" : "border-slate-100 bg-slate-50/70"
+            isDark ? "border-[#2E3025] bg-[#141310]" : "border-[#E2DBD1] bg-[#F8F3ED]"
           }`}
         >
           {/* Theme Quick Switcher in Sidebar */}
           <div className="flex items-center justify-between px-1">
-            <span
-              className={`text-[10px] font-bold uppercase tracking-wider ${
-                isDark ? "text-slate-400" : "text-slate-500"
-              }`}
-            >
+            <span className="text-[10px] font-sans font-semibold uppercase tracking-wider text-[#767262]">
               Appearance:
             </span>
             <button
               type="button"
               onClick={toggleTheme}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-semibold border transition-all cursor-pointer ${
                 isDark
-                  ? "bg-slate-900 text-amber-300 border-amber-500/30 hover:bg-slate-800"
-                  : "bg-white text-slate-800 border-slate-200 hover:bg-slate-100 shadow-2xs"
+                  ? "bg-[#1A1D15] text-[#C4B487] border-[#2E3025] hover:bg-[#25281E]"
+                  : "bg-white text-[#1F1E19] border-[#E2DBD1] hover:bg-[#FAF6F0] shadow-2xs"
               }`}
-              title={isDark ? "Switch to Light Mode (Default)" : "Switch to Dark Mode"}
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {isDark ? (
                 <>
-                  <Sun className="w-3 h-3 text-amber-400" />
+                  <Sun className="w-3 h-3 text-[#C4B487]" />
                   <span className="text-[11px]">Light Mode</span>
                 </>
               ) : (
                 <>
-                  <Moon className="w-3 h-3 text-slate-600" />
+                  <Moon className="w-3 h-3 text-[#5D5839]" />
                   <span className="text-[11px]">Dark Mode</span>
                 </>
               )}
@@ -294,7 +287,7 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
             <div className="flex items-center gap-2.5 truncate">
               <div
                 className={`w-8 h-8 rounded-full overflow-hidden shrink-0 ring-1 ${
-                  isDark ? "bg-slate-800 ring-amber-400/40" : "bg-slate-200 ring-slate-300"
+                  isDark ? "bg-[#25281E] ring-[#5D5839]" : "bg-white ring-[#E2DBD1]"
                 }`}
               >
                 <img
@@ -309,16 +302,12 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
               <div className="truncate">
                 <p
                   className={`text-xs font-bold truncate ${
-                    isDark ? "text-white" : "text-slate-900"
+                    isDark ? "text-white" : "text-[#1F1E19]"
                   }`}
                 >
                   {user?.full_name}
                 </p>
-                <p
-                  className={`text-[10px] capitalize ${
-                    isDark ? "text-amber-400" : "text-amber-800 font-semibold"
-                  }`}
-                >
+                <p className="text-[10px] capitalize text-[#5D5839] font-semibold">
                   {user?.role?.replace("_", " ")}
                 </p>
               </div>
@@ -327,10 +316,10 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
             <button
               type="button"
               onClick={logout}
-              className={`p-1.5 rounded-lg transition-colors ${
+              className={`p-1.5 rounded-sm transition-colors cursor-pointer ${
                 isDark
-                  ? "text-slate-400 hover:text-amber-300 hover:bg-slate-800/80"
-                  : "text-slate-500 hover:text-slate-900 hover:bg-slate-200/80"
+                  ? "text-[#767262] hover:text-white hover:bg-[#25281E]"
+                  : "text-[#767262] hover:text-[#1F1E19] hover:bg-white"
               }`}
               title="Sign Out"
             >
@@ -342,12 +331,12 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Header Bar - Estately Crisp White / Obsidian Frosted */}
+        {/* Top Header Bar */}
         <header
           className={`h-16 px-4 sm:px-6 flex items-center justify-between shrink-0 sticky top-0 z-40 transition-colors duration-200 backdrop-blur-md ${
             isDark
-              ? "bg-[#0A0E17]/90 border-b border-slate-800/80 text-white"
-              : "bg-white/95 border-b border-slate-200/90 text-slate-900 shadow-2xs"
+              ? "bg-[#1A1D15]/90 border-b border-[#2E3025] text-white"
+              : "bg-[#FAF6F0]/95 border-b border-[#E2DBD1] text-[#1F1E19] shadow-2xs"
           }`}
         >
           <div className="flex items-center gap-3">
@@ -355,8 +344,8 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
             <button
               type="button"
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
-              className={`md:hidden p-2 rounded-lg ${
-                isDark ? "text-slate-300 hover:bg-slate-800" : "text-slate-700 hover:bg-slate-100"
+              className={`md:hidden p-2 rounded-sm ${
+                isDark ? "text-white hover:bg-[#25281E]" : "text-[#1F1E19] hover:bg-[#F8F3ED]"
               }`}
             >
               {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -364,20 +353,16 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
             {/* Mode & Desk Badges */}
             <div
-              className={`hidden sm:flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${
+              className={`hidden sm:flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-medium border ${
                 isDark
-                  ? "bg-slate-900 border-slate-800 text-slate-300"
-                  : "bg-slate-50 border-slate-200 text-slate-700"
+                  ? "bg-[#141310] border-[#2E3025] text-white"
+                  : "bg-white border-[#E2DBD1] text-[#1F1E19]"
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#5D5839] animate-pulse" />
               <span>{isAdmin ? "Agency Administrator Mode" : isManager ? "Operations Manager Mode" : "Agent Operational Mode"}</span>
-              <span className={isDark ? "text-slate-600" : "text-slate-300"}>•</span>
-              <span
-                className={`font-mono text-[11px] ${
-                  isDark ? "text-amber-400" : "text-amber-800 font-semibold"
-                }`}
-              >
+              <span className="text-[#767262]">•</span>
+              <span className="font-mono text-[11px] text-[#5D5839] font-semibold">
                 {isManager ? "Tenancy & Maintenance Desk" : "National Operations Desk"}
               </span>
             </div>
@@ -385,25 +370,25 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
           {/* Right Header items */}
           <div className="flex items-center gap-2.5 sm:gap-3">
-            {/* Theme Toggle Button (Light Default + Dark Mode Option) */}
+            {/* Theme Toggle Button */}
             <button
               type="button"
               onClick={toggleTheme}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-sm border text-xs font-semibold transition-all cursor-pointer ${
                 isDark
-                  ? "bg-slate-900 text-amber-300 border-amber-500/30 hover:bg-slate-800 shadow-xs"
-                  : "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200 hover:text-slate-900 shadow-2xs"
+                  ? "bg-[#141310] text-[#C4B487] border-[#2E3025] hover:bg-[#25281E]"
+                  : "bg-white text-[#1F1E19] border-[#E2DBD1] hover:bg-[#F8F3ED] shadow-2xs"
               }`}
-              title={isDark ? "Switch to Light Mode (Default)" : "Switch to Dark Mode"}
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {isDark ? (
                 <>
-                  <Sun className="w-3.5 h-3.5 text-amber-400" />
+                  <Sun className="w-3.5 h-3.5 text-[#C4B487]" />
                   <span className="hidden sm:inline">Light Mode</span>
                 </>
               ) : (
                 <>
-                  <Moon className="w-3.5 h-3.5 text-slate-600" />
+                  <Moon className="w-3.5 h-3.5 text-[#5D5839]" />
                   <span className="hidden sm:inline">Dark Mode</span>
                 </>
               )}
@@ -413,38 +398,30 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
             <Link
               href="/"
               target="_blank"
-              className={`hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border transition-colors ${
+              className={`hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-sm border transition-colors ${
                 isDark
-                  ? "text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/30"
-                  : "text-slate-800 bg-slate-100 hover:bg-slate-200/80 border-slate-200 shadow-2xs"
+                  ? "text-[#C4B487] bg-[#141310] hover:bg-[#25281E] border-[#2E3025]"
+                  : "text-[#1F1E19] bg-white hover:bg-[#F8F3ED] border-[#E2DBD1] shadow-2xs"
               }`}
             >
               <span>Public Discovery Portal</span>
-              <ArrowUpRight className={`w-3.5 h-3.5 ${isDark ? "text-amber-400" : "text-slate-600"}`} />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#5D5839]" />
             </Link>
 
             {/* Authenticated user pill & logout */}
             <div className="flex items-center gap-2 pl-1 sm:pl-2">
               <span
                 className={`text-xs font-bold hidden sm:inline ${
-                  isDark ? "text-slate-200" : "text-slate-800"
+                  isDark ? "text-white" : "text-[#1F1E19]"
                 }`}
               >
                 {user?.full_name}
               </span>
               <span
-                className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border ${
+                className={`text-[10px] font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider border ${
                   isAdmin
-                    ? isDark
-                      ? "bg-amber-950/80 text-amber-300 border-amber-500/30"
-                      : "bg-amber-100 text-amber-900 border-amber-300/80"
-                    : isManager
-                    ? isDark
-                      ? "bg-blue-950/80 text-blue-300 border-blue-500/30"
-                      : "bg-blue-100 text-blue-900 border-blue-300/80"
-                    : isDark
-                    ? "bg-emerald-950/80 text-emerald-300 border-emerald-500/30"
-                    : "bg-emerald-100 text-emerald-900 border-emerald-300/80"
+                    ? "bg-[#5D5839] text-white border-[#5D5839]"
+                    : "bg-[#FAF6F0] text-[#5D5839] border-[#E2DBD1]"
                 }`}
               >
                 {isAdmin ? "Admin" : isManager ? "Operations" : "Agent"}
@@ -452,7 +429,7 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
               <button
                 type="button"
                 onClick={logout}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="p-1.5 rounded-sm text-[#767262] hover:text-rose-600 transition-colors cursor-pointer"
                 title="Sign Out"
               >
                 <LogOut className="w-3.5 h-3.5" />
@@ -465,13 +442,13 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
         {mobileNavOpen && (
           <div
             className={`md:hidden p-4 border-b space-y-2 ${
-              isDark ? "bg-[#0A0E17] text-white border-slate-800" : "bg-white text-slate-900 border-slate-200"
+              isDark ? "bg-[#1A1D15] text-white border-[#2E3025]" : "bg-[#FAF6F0] text-[#1F1E19] border-[#E2DBD1]"
             }`}
           >
-            <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+            <div className="flex items-center justify-between pb-2 border-b border-[#E2DBD1]">
               <Link
                 href="/"
-                className="text-xs font-semibold text-amber-600 dark:text-amber-400 py-1"
+                className="text-xs font-semibold text-[#5D5839] py-1"
                 onClick={() => setMobileNavOpen(false)}
               >
                 &larr; View Public Discovery Portal
@@ -479,7 +456,7 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="text-xs font-semibold px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700"
+                className="text-xs font-semibold px-2 py-1 rounded-sm bg-white border border-[#E2DBD1]"
               >
                 {isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}
               </button>
@@ -494,14 +471,10 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
                     key={item.name}
                     href={item.href}
                     onClick={() => setMobileNavOpen(false)}
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium ${
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-sm text-xs font-medium ${
                       isActive
-                        ? isDark
-                          ? "bg-amber-500/20 text-amber-300 border-l-2 border-amber-400"
-                          : "bg-amber-50 text-amber-900 font-bold border-l-2 border-amber-600"
-                        : isDark
-                        ? "text-slate-300 hover:bg-slate-800"
-                        : "text-slate-700 hover:bg-slate-100"
+                        ? "bg-[#5D5839] text-white"
+                        : "text-[#767262] hover:text-[#1F1E19]"
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -511,12 +484,12 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
               })}
             </nav>
 
-            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+            <div className="pt-3 border-t border-[#E2DBD1] flex items-center justify-between text-xs">
               <span className="truncate mr-2 font-medium">{user?.full_name} ({user?.role?.replace("_", " ")})</span>
               <button
                 type="button"
                 onClick={logout}
-                className="text-xs text-rose-600 font-semibold hover:underline flex items-center gap-1"
+                className="text-xs text-rose-600 font-semibold hover:underline flex items-center gap-1 cursor-pointer"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span>Sign Out</span>
@@ -533,27 +506,27 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
 
             if (isRestricted) {
               return (
-                <div className="p-8 sm:p-12 max-w-xl mx-auto my-12 bg-white dark:bg-[#0D121F] rounded-3xl border border-rose-200 dark:border-rose-900/40 p-8 shadow-xl text-center space-y-4">
-                  <div className="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 mx-auto flex items-center justify-center border border-rose-200 dark:border-rose-800">
+                <div className="p-8 sm:p-12 max-w-xl mx-auto my-12 bg-white dark:bg-[#1A1D15] rounded-sm border border-rose-200 text-center space-y-4 shadow-sm">
+                  <div className="w-14 h-14 rounded-full bg-rose-50 text-rose-600 mx-auto flex items-center justify-center border border-rose-200">
                     <ShieldCheck className="w-7 h-7" />
                   </div>
-                  <h2 className="text-xl font-serif font-bold text-slate-900 dark:text-white">
+                  <h2 className="text-xl font-serif text-[#1F1E19] dark:text-white">
                     Access Restricted (403 Forbidden)
                   </h2>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <p className="text-xs text-[#767262] dark:text-slate-400 leading-relaxed">
                     Under the VIRELEO Project 01 RBAC specification, <strong>{user?.full_name} ({user?.role?.replace("_", " ")})</strong> is strictly restricted to assigned operational scope.
                   </p>
                   <div className="pt-2 flex justify-center gap-3">
                     <Link
                       href="/workspace"
-                      className="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-all"
+                      className="px-4 py-2 rounded-sm bg-[#5D5839] text-white text-xs font-semibold hover:bg-[#4B472D] transition-all"
                     >
                       Return to Workspace
                     </Link>
                     <button
                       type="button"
                       onClick={logout}
-                      className="px-4 py-2 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold hover:bg-rose-100 transition-all flex items-center gap-1.5"
+                      className="px-4 py-2 rounded-sm bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold hover:bg-rose-100 transition-all flex items-center gap-1.5 cursor-pointer"
                     >
                       <LogOut className="w-3.5 h-3.5" />
                       <span>Sign Out</span>

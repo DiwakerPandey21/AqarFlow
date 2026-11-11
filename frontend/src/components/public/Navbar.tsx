@@ -1,48 +1,81 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Menu,
   X,
-  Search,
-  Lock,
-  ArrowRight
+  Phone,
+  MapPin
 } from "lucide-react";
-import { AqarFlowLogo } from "@/components/ui/AqarFlowLogo";
 
-export function PublicNavbar() {
+interface PublicNavbarProps {
+  transparentOnTop?: boolean;
+}
+
+export function PublicNavbar({ transparentOnTop = false }: PublicNavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
-    { name: "Residences", href: "/properties" },
-    { name: "Prime Enclaves", href: "/#enclaves" },
-    { name: "Services", href: "/services" },
-    { name: "About", href: "/about" },
-    { name: "Private Office", href: "/contact" }
+    { name: "SOLUTIONS", href: "/properties" },
+    { name: "CASES", href: "/#cases" },
+    { name: "PROCESS", href: "/#process" },
+    { name: "FOR INVESTORS", href: "/services" },
+    { name: "ABOUT US", href: "/about" },
+    { name: "FAQ", href: "/#faq" }
   ];
 
+  const isTransparent = isHome && !scrolled && transparentOnTop;
+
   return (
-    <header className="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-xl border-b border-[#E8E4DC]/80 transition-all">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isTransparent
+          ? "bg-black/25 backdrop-blur-md text-white border-b border-white/10"
+          : "bg-[#F8F3ED]/95 backdrop-blur-xl text-[#1F1E19] border-b border-[#E2DBD1] shadow-xs"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* AqarFlow Brandmark */}
-          <AqarFlowLogo variant="default" size="md" showTagline={true} />
+          {/* Logo — Vellaro Italic Serif */}
+          <Link href="/" className="flex items-center gap-2 group">
+            <span
+              className={`font-serif italic text-2xl sm:text-3xl tracking-tight transition-colors ${
+                isTransparent ? "text-white" : "text-[#1F1E19]"
+              }`}
+            >
+              AqarFlow
+            </span>
+          </Link>
 
-          {/* Desktop Navigation Links — Minimalist & Architectural */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
+          {/* Desktop Navigation — Vellaro Upper Sans */}
+          <nav className="hidden lg:flex items-center gap-7">
             {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`px-3.5 py-2 rounded-xl text-xs lg:text-[13px] tracking-tight transition-all duration-200 ${
+                  className={`text-[11px] font-sans font-medium tracking-[0.14em] uppercase transition-colors ${
                     active
-                      ? "text-slate-950 font-bold bg-white shadow-2xs border border-slate-200/90"
-                      : "text-slate-600 hover:text-slate-950 hover:bg-white/60 font-medium"
+                      ? isTransparent
+                        ? "text-white font-bold"
+                        : "text-[#5D5839] font-bold"
+                      : isTransparent
+                      ? "text-white/80 hover:text-white"
+                      : "text-[#767262] hover:text-[#1F1E19]"
                   }`}
                 >
                   {link.name}
@@ -51,54 +84,62 @@ export function PublicNavbar() {
             })}
           </nav>
 
-          {/* Right Action Elements */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* Minimal Command Palette Trigger */}
-            <button
-              type="button"
-              onClick={() => {
-                window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
-              }}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl border border-[#E2DDD3] bg-white/80 hover:bg-white text-xs text-slate-500 font-sans transition-all shadow-2xs hover:border-slate-300"
-              title="Global Search (Cmd+K)"
-            >
-              <Search className="w-3.5 h-3.5 text-slate-400" />
-              <span className="hidden xl:inline text-[11px] font-medium">Search</span>
-              <kbd className="text-[10px] font-mono bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5 text-slate-600 font-bold">
-                ⌘K
-              </kbd>
-            </button>
-
-            {/* Currency Pill */}
-            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-amber-500/20 bg-amber-50/60 text-[11px] font-semibold text-amber-900">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>PKR</span>
+          {/* Right Header Info & Action */}
+          <div className="hidden sm:flex items-center gap-6">
+            {/* Phone & Location */}
+            <div className="flex flex-col text-right">
+              <a
+                href="tel:+92512899001"
+                className={`flex items-center justify-end gap-1.5 text-xs font-medium tracking-tight hover:underline ${
+                  isTransparent ? "text-white" : "text-[#1F1E19]"
+                }`}
+              >
+                <Phone className="w-3 h-3 text-[#5D5839]" />
+                <span>+92 (51) 289-9001</span>
+              </a>
+              <span
+                className={`flex items-center justify-end gap-1 text-[10px] tracking-tight ${
+                  isTransparent ? "text-white/70" : "text-[#767262]"
+                }`}
+              >
+                <MapPin className="w-2.5 h-2.5 text-[#5D5839]" />
+                <span>Based in Islamabad</span>
+              </span>
             </div>
 
-            {/* Dedicated Portal Login CTA — Clean, Professional, Secure */}
+            {/* Action CTA Button — Vellaro Rectangular */}
             <Link
               href="/login"
-              className="px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white text-xs font-semibold tracking-wide flex items-center gap-2 shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98] border border-slate-900"
+              className={`px-5 py-2.5 rounded-sm text-xs font-sans font-semibold uppercase tracking-[0.12em] transition-all hover:scale-[1.02] active:scale-[0.98] ${
+                isTransparent
+                  ? "bg-white text-[#1F1E19] hover:bg-white/90 shadow-md"
+                  : "bg-[#5D5839] text-white hover:bg-[#4B472D] shadow-xs"
+              }`}
             >
-              <Lock className="w-3.5 h-3.5 text-amber-400" />
-              <span>Portal Login</span>
-              <ArrowRight className="w-3 h-3 text-slate-400" />
+              PORTAL LOGIN
             </Link>
           </div>
 
-          {/* Mobile Actions */}
-          <div className="flex sm:hidden items-center gap-2">
+          {/* Mobile Menu Button */}
+          <div className="flex lg:hidden items-center gap-3">
             <Link
               href="/login"
-              className="px-3 py-1.5 rounded-xl bg-slate-950 text-white text-xs font-semibold flex items-center gap-1"
+              className={`px-3 py-1.5 rounded-sm text-[11px] font-sans font-semibold uppercase tracking-wider ${
+                isTransparent
+                  ? "bg-white text-[#1F1E19]"
+                  : "bg-[#5D5839] text-white"
+              }`}
             >
-              <Lock className="w-3 h-3 text-amber-400" />
-              <span>Login</span>
+              LOGIN
             </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-white/80 transition-colors"
+              className={`p-2 rounded-lg transition-colors ${
+                isTransparent
+                  ? "text-white hover:bg-white/10"
+                  : "text-[#1F1E19] hover:bg-black/5"
+              }`}
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -109,44 +150,32 @@ export function PublicNavbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#FAF8F5] border-b border-[#E8E4DC] px-4 pt-3 pb-6 space-y-3 animate-in fade-in duration-200 shadow-xl">
-          <nav className="space-y-1">
+        <div className="lg:hidden bg-[#F8F3ED] text-[#1F1E19] border-b border-[#E2DBD1] px-6 pt-4 pb-8 space-y-4 animate-in fade-in duration-200 shadow-xl">
+          <nav className="space-y-2">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-xl text-sm font-medium text-slate-800 hover:bg-white transition-colors"
+                className="block py-2 text-xs font-sans font-semibold tracking-[0.12em] uppercase text-[#1F1E19] hover:text-[#5D5839] border-b border-[#E2DBD1]/60"
               >
                 {link.name}
               </Link>
             ))}
           </nav>
 
-          <div className="pt-3 border-t border-[#E8E4DC] flex flex-col gap-2.5">
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
-              }}
-              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white border border-[#E2DDD3] text-xs font-medium text-slate-700"
-            >
-              <span className="flex items-center gap-2">
-                <Search className="w-4 h-4 text-slate-400" />
-                <span>Search portfolio & enclaves</span>
-              </span>
-              <kbd className="text-[10px] font-mono bg-slate-100 px-1.5 py-0.5 rounded">⌘K</kbd>
-            </button>
+          <div className="pt-3 flex flex-col gap-3">
+            <div className="flex items-center gap-2 text-xs text-[#767262]">
+              <Phone className="w-3.5 h-3.5 text-[#5D5839]" />
+              <span>+92 (51) 289-9001 (Islamabad HQ)</span>
+            </div>
 
             <Link
               href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-2.5 rounded-xl bg-slate-950 text-white text-xs font-semibold text-center flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-sm bg-[#5D5839] text-white text-xs font-sans font-semibold uppercase tracking-[0.14em] text-center shadow-xs"
             >
-              <Lock className="w-3.5 h-3.5 text-amber-400" />
-              <span>Sign In to Agency Portal</span>
-              <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
+              PORTAL LOGIN &rarr;
             </Link>
           </div>
         </div>
