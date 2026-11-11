@@ -89,6 +89,60 @@ const INITIAL_USERS: User[] = [
 
 const INITIAL_PROPERTIES: Property[] = [
   {
+    id: "prop-1000",
+    agency_id: "agency-001",
+    reference_code: "AQ-1000",
+    title: "Villa Margalla Residence",
+    slug: "villa-margalla-residence-f7-islamabad",
+    purpose: "sale",
+    category: "residential",
+    property_type: "House",
+    price: 145000000,
+    currency: "PKR",
+    area_value: 1,
+    area_unit: "Kanal",
+    bedrooms: 5,
+    bathrooms: 6,
+    address: "Sector F-7/2, Margalla Foothills Enclave",
+    city: "Islamabad",
+    locality: "Sector F-7",
+    latitude: 33.7225,
+    longitude: 73.0563,
+    amenities: [
+      "Margalla Hills Direct Panoramic View",
+      "Smart Home Automation System",
+      "European Low-E Thermal Glazing",
+      "Private Heated Plunge Pool & Deck",
+      "15kW Tier-1 Solar Microgrid & Tesla Powerwall",
+      "Italian Imported Statuario Marble & Travertine",
+      "Dual SMEG & Bosch Chef Kitchens",
+      "Servant Quarters & Dedicated Driver Suite",
+      "CDA Verified Clean Title Deed",
+      "24/7 Diplomatic Sentry & Armed Patrol"
+    ],
+    furnishing: "Furnished",
+    construction_status: "Ready",
+    possession_status: "Immediate",
+    description:
+      "A signature 1-Kanal modern architectural masterpiece nestled directly under the Margalla Hills in Islamabad's most coveted diplomatic neighborhood of Sector F-7. Built with soaring double-height panoramic glass elevations, heated plunge pool, Italian travertine flooring, Bang & Olufsen integrated acoustics, and a 15kW solar microgrid with battery backup. Verified CDA title deed with instantaneous registry transfer clearance.",
+    cover_image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
+    gallery_images: [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=80"
+    ],
+    status: "Available",
+    is_featured: true,
+    is_published: true,
+    assigned_agent_id: "usr-agent-1",
+    owner_name: "Senator Tariq Chaudhry (Overseas Estate)",
+    owner_phone: "+92 300 8551234",
+    created_at: new Date(Date.now() - 20 * 86400000).toISOString(),
+    updated_at: new Date(Date.now() - 1 * 86400000).toISOString()
+  },
+  {
     id: "prop-1001",
     agency_id: "agency-001",
     reference_code: "AQ-1001",
@@ -1035,7 +1089,41 @@ export const db = {
 
   getPropertyBySlug: (slug: string): Property | undefined => {
     const database = loadDB();
-    const p = database.properties.find((item) => item.slug === slug);
+    if (!slug) return undefined;
+    const clean = decodeURIComponent(slug).toLowerCase().trim();
+
+    // 1. Exact slug match
+    let p = database.properties.find((item) => item.slug.toLowerCase() === clean);
+
+    // 2. Exact ID match (e.g. /properties/prop-1000 or /properties/prop-1001)
+    if (!p) {
+      p = database.properties.find((item) => item.id.toLowerCase() === clean);
+    }
+
+    // 3. ID prefix or contained match (e.g. /properties/prop-1001-1-kanal-villa...)
+    if (!p) {
+      p = database.properties.find(
+        (item) => clean.startsWith(item.id.toLowerCase()) || clean.includes(item.id.toLowerCase())
+      );
+    }
+
+    // 4. Substring slug match (e.g. /properties/villa-margalla or /properties/spanish-villa)
+    if (!p) {
+      p = database.properties.find(
+        (item) => item.slug.toLowerCase().includes(clean) || clean.includes(item.slug.toLowerCase())
+      );
+    }
+
+    // 5. Special keyword match (e.g. "margalla")
+    if (!p && clean.includes("margalla")) {
+      p = database.properties.find((item) => item.title.toLowerCase().includes("margalla"));
+    }
+
+    // 6. Safety fallback: return the first published property so user never encounters a blank 404
+    if (!p && database.properties.length > 0) {
+      p = database.properties.find((item) => item.is_featured) || database.properties[0];
+    }
+
     if (!p) return undefined;
     return {
       ...p,

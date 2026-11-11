@@ -33,7 +33,8 @@ import {
   Check,
   Eye,
   Award,
-  Crown
+  Crown,
+  ChevronDown
 } from "lucide-react";
 import { PublicNavbar } from "@/components/public/Navbar";
 import { PublicFooter } from "@/components/public/Footer";
@@ -289,21 +290,9 @@ export default function HomePage() {
                 {/* Subtle Cinematic Vignette */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-black/20 pointer-events-none" />
 
-                {/* Top Location Badge */}
-                <div className="absolute top-5 left-5 z-10 bg-slate-950/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-white flex items-center gap-2 shadow-lg">
-                  <MapPin className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="text-[11px] font-medium tracking-wide">Sector F-7 • Islamabad</span>
-                </div>
-
-                {/* Top Verification Pill */}
-                <div className="absolute top-5 right-5 z-10 bg-emerald-950/70 backdrop-blur-md px-3 py-1 rounded-full border border-emerald-400/30 text-emerald-300 flex items-center gap-1.5 shadow-lg text-[10px] font-mono font-bold">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>CDA Title Verified</span>
-                </div>
-
                 {/* Bottom Floating Minimalist Editorial Showcase (Vero Estate Masterpiece) */}
                 <Link
-                  href="/properties/prop-1001-1-kanal-villa-dha-phase-6-lahore"
+                  href="/properties/villa-margalla-residence-f7-islamabad"
                   className="absolute bottom-6 right-6 left-6 sm:left-auto sm:max-w-sm z-10 bg-[#0B0F17]/85 hover:bg-[#0B0F17]/95 backdrop-blur-xl p-5 sm:p-6 rounded-3xl border border-white/15 text-white shadow-2xl transition-all duration-300 hover:scale-[1.02] group/card block text-left"
                 >
                   <div className="flex items-center justify-between gap-2 mb-2">
@@ -345,135 +334,155 @@ export default function HomePage() {
           </div>
 
           {/* Integrated Luxury Search Capsule with Seamless Breathing Room */}
-          <div className="mt-16 sm:mt-20 max-w-5xl mx-auto bg-white/95 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-amber-500/20">
-            {/* Purpose Tabs */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-slate-100 pb-4">
-              <div className="flex items-center gap-2">
+          <div className="mt-16 sm:mt-20 max-w-5xl mx-auto bg-white rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_-15px_rgba(15,23,42,0.08)] border border-[#E8E4DC] relative overflow-hidden">
+            {/* Subtle architectural ambient accent */}
+            <div className="absolute top-0 right-0 w-80 h-32 bg-gradient-to-l from-amber-500/5 to-transparent pointer-events-none" />
+
+            {/* Purpose Tabs & Regulatory Certification */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-5 border-b border-[#F0ECE1]">
+              <div className="inline-flex p-1.5 rounded-2xl bg-[#F4F1EA] border border-[#E8E4DC]">
                 <button
                   type="button"
                   onClick={() => setPurpose("sale")}
-                  className={`px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all ${
+                  className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer ${
                     purpose === "sale"
-                      ? "bg-slate-950 text-amber-300 shadow-md border border-amber-500/30"
-                      : "text-slate-600 hover:text-slate-950 hover:bg-slate-100"
+                      ? "bg-[#0B0F17] text-amber-300 shadow-sm"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
-                  Acquisition (For Sale)
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Acquisition (For Sale)</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setPurpose("rent")}
-                  className={`px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all ${
+                  className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all flex items-center gap-2 cursor-pointer ${
                     purpose === "rent"
-                      ? "bg-slate-950 text-amber-300 shadow-md border border-amber-500/30"
-                      : "text-slate-600 hover:text-slate-950 hover:bg-slate-100"
+                      ? "bg-[#0B0F17] text-amber-300 shadow-sm"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
-                  Tenancy (For Lease)
+                  <KeyRound className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Tenancy (For Lease)</span>
                 </button>
               </div>
 
-              <div className="flex items-center gap-2 text-[11px] text-slate-500 font-mono">
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/80 border border-emerald-200/80 text-emerald-800 text-[11px] font-mono font-semibold">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>CDA / LDA Validated Inventory Only</span>
               </div>
             </div>
 
-            {/* Form Fields */}
-            <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-              {/* City */}
-              <div>
-                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">
-                  City Hub
+            {/* Form Fields: Luxury Grid */}
+            <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3.5">
+              {/* City Hub */}
+              <div className="lg:col-span-3">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 font-mono">
+                  <MapPin className="w-3 h-3 text-amber-600" />
+                  <span>City Hub</span>
                 </label>
-                <select
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20"
-                >
-                  <option value="">All Metros in Pakistan</option>
-                  <option value="Islamabad">Islamabad Capital</option>
-                  <option value="Lahore">Lahore Heritage</option>
-                  <option value="Karachi">Karachi Waterfront</option>
-                  <option value="Rawalpindi">Rawalpindi</option>
-                </select>
+                <div className="relative">
+                  <select
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="w-full px-4 py-3.5 rounded-2xl border border-[#E8E4DC] text-xs sm:text-sm font-medium bg-[#FAF8F5] hover:bg-white focus:bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all cursor-pointer appearance-none"
+                  >
+                    <option value="">All Metros in Pakistan</option>
+                    <option value="Islamabad">Islamabad Capital</option>
+                    <option value="Lahore">Lahore Heritage</option>
+                    <option value="Karachi">Karachi Waterfront</option>
+                    <option value="Rawalpindi">Rawalpindi Executive</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-400">
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
               </div>
 
-              {/* Property Type */}
-              <div>
-                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">
-                  Asset Classification
+              {/* Asset Classification */}
+              <div className="lg:col-span-3">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 font-mono">
+                  <Building2 className="w-3 h-3 text-amber-600" />
+                  <span>Asset Classification</span>
                 </label>
-                <select
-                  value={propertyType}
-                  onChange={(e) => setPropertyType(e.target.value)}
-                  className="w-full px-3.5 py-3 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20"
-                >
-                  <option value="">All Asset Types</option>
-                  <option value="House">Architectural Villa</option>
-                  <option value="Apartment">Luxury Penthouse & Flat</option>
-                  <option value="Commercial Plot">Commercial Land & Tower</option>
-                  <option value="Residential Plot">Residential Plot</option>
-                  <option value="Office">Corporate Headquarters</option>
-                </select>
+                <div className="relative">
+                  <select
+                    value={propertyType}
+                    onChange={(e) => setPropertyType(e.target.value)}
+                    className="w-full px-4 py-3.5 rounded-2xl border border-[#E8E4DC] text-xs sm:text-sm font-medium bg-[#FAF8F5] hover:bg-white focus:bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all cursor-pointer appearance-none"
+                  >
+                    <option value="">All Asset Types</option>
+                    <option value="House">Architectural Villa</option>
+                    <option value="Apartment">Luxury Penthouse & Suite</option>
+                    <option value="Commercial Plot">Commercial Land & Tower</option>
+                    <option value="Residential Plot">Residential Development Plot</option>
+                    <option value="Office">Corporate Headquarters</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-400">
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
+                </div>
               </div>
 
               {/* Locality */}
-              <div>
-                <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">
-                  Enclave Locality
+              <div className="lg:col-span-3">
+                <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 font-mono">
+                  <Compass className="w-3 h-3 text-amber-600" />
+                  <span>Enclave Locality</span>
                 </label>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="e.g. F-7, DHA Raya, Clifton"
-                  className="w-full px-3.5 py-3 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                  className="w-full px-4 py-3.5 rounded-2xl border border-[#E8E4DC] text-xs sm:text-sm font-medium bg-[#FAF8F5] hover:bg-white focus:bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
                 />
               </div>
 
               {/* Search CTA */}
-              <div className="flex items-end">
+              <div className="lg:col-span-3 flex items-end">
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 hover:from-amber-500 hover:to-amber-700 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-600/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
+                  className="w-full py-3.5 px-5 rounded-2xl bg-[#0B0F17] hover:bg-slate-900 text-amber-300 font-bold text-xs uppercase tracking-wider shadow-lg shadow-slate-950/15 flex items-center justify-center gap-2 border border-amber-500/30 transition-all hover:scale-[1.01] active:scale-[0.99] group cursor-pointer"
                 >
-                  <Search className="w-4 h-4 text-slate-950" />
+                  <Search className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
                   <span>Search Portfolio</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-amber-400 group-hover:translate-x-0.5 transition-transform" />
                 </button>
               </div>
             </form>
 
             {/* Quick Luxury Filter Tags */}
-            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center gap-2 flex-wrap text-[11px] text-slate-500">
-              <span className="font-bold text-slate-400 uppercase tracking-wider text-[10px]">
+            <div className="pt-4 mt-5 border-t border-[#F0ECE1] flex items-center gap-2.5 flex-wrap text-xs text-slate-500">
+              <span className="font-bold text-slate-400 uppercase tracking-wider text-[10px] font-mono flex items-center gap-1">
+                <SlidersHorizontal className="w-3 h-3 text-amber-600" />
                 Quick Enclaves:
               </span>
               <button
                 type="button"
                 onClick={() => handleQuickTag("Islamabad", "House", "F-7")}
-                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-100 hover:text-amber-900 transition-colors font-medium"
+                className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-amber-50 hover:text-amber-900 hover:border-amber-300 border border-[#E8E4DC] transition-all font-medium text-slate-700 cursor-pointer"
               >
                 ✦ Sector F-7 Villas
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickTag("Islamabad", "Apartment", "Centaurus")}
-                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-100 hover:text-amber-900 transition-colors font-medium"
+                className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-amber-50 hover:text-amber-900 hover:border-amber-300 border border-[#E8E4DC] transition-all font-medium text-slate-700 cursor-pointer"
               >
                 ✦ Centaurus Penthouses
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickTag("Lahore", "House", "DHA")}
-                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-100 hover:text-amber-900 transition-colors font-medium"
+                className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-amber-50 hover:text-amber-900 hover:border-amber-300 border border-[#E8E4DC] transition-all font-medium text-slate-700 cursor-pointer"
               >
                 ✦ DHA Raya Golf Living
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickTag("Karachi", "Commercial Plot", "Clifton")}
-                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-amber-100 hover:text-amber-900 transition-colors font-medium"
+                className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-amber-50 hover:text-amber-900 hover:border-amber-300 border border-[#E8E4DC] transition-all font-medium text-slate-700 cursor-pointer"
               >
                 ✦ Clifton Waterfront Land
               </button>

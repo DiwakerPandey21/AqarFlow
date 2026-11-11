@@ -163,43 +163,54 @@ function LoginForm() {
           </div>
 
           {/* Real Estate Featured Asset Card */}
-          <div className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md p-4 relative overflow-hidden group">
+          <Link
+            href="/properties/villa-margalla-residence-f7-islamabad"
+            target="_blank"
+            className="rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 backdrop-blur-md p-4 relative overflow-hidden group block transition-all duration-300"
+          >
             <div className="relative h-44 rounded-xl overflow-hidden mb-3">
               <img
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
                 alt="Villa Margalla Luxury Real Estate Islamabad"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10 text-[9px] font-mono text-amber-300">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+              <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/15 text-[9px] font-mono text-amber-300">
                 <MapPin className="w-2.5 h-2.5" />
                 <span>Sector F-7 • Islamabad</span>
               </div>
+              <div className="absolute top-2.5 right-2.5 flex items-center gap-1 bg-emerald-950/80 backdrop-blur-md px-2 py-0.5 rounded-full border border-emerald-500/30 text-[9px] font-mono text-emerald-300">
+                <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400" />
+                <span>CDA Verified</span>
+              </div>
               <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white">
                 <div>
-                  <span className="text-[9px] uppercase tracking-wider text-slate-300 block">Featured Listing</span>
-                  <h4 className="font-serif font-bold text-sm text-white">Villa Margalla Residence</h4>
+                  <span className="text-[9px] uppercase tracking-wider text-slate-300 block font-mono">Curated Masterpiece</span>
+                  <h4 className="font-serif font-bold text-sm text-white group-hover:text-amber-200 transition-colors">Villa Margalla Residence</h4>
                 </div>
-                <span className="text-xs font-serif font-bold text-amber-300">PKR 14.5 Cr</span>
+                <div className="text-right">
+                  <span className="text-xs font-serif font-bold text-amber-300 block">PKR 14.5 Cr</span>
+                  <span className="text-[9px] text-slate-300 font-mono">≈ $521k USD</span>
+                </div>
               </div>
             </div>
 
             {/* Real Estate Micro Specs */}
-            <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-300 pt-1 border-t border-white/10 font-mono">
+            <div className="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-300 pt-2 border-t border-white/10 font-mono">
               <div>
                 <span className="block font-bold text-white text-xs">1 Kanal</span>
-                <span className="text-[9px] text-slate-400">Smart Villa</span>
+                <span className="text-[9px] text-slate-400">Smart Architecture</span>
               </div>
               <div>
                 <span className="block font-bold text-emerald-400 text-xs">100%</span>
-                <span className="text-[9px] text-slate-400">CDA Verified</span>
+                <span className="text-[9px] text-slate-400">Clean Deed</span>
               </div>
               <div>
                 <span className="block font-bold text-amber-400 text-xs">+18.4%</span>
                 <span className="text-[9px] text-slate-400">YoY Yield</span>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Real Estate Regulatory Marks */}
